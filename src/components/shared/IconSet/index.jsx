@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 
-const IconSet = ({ imageAddress, size = 24, className }) => {
+const IconSet = ({ imageAddress, firstSize = 24, secondSize = 24, className }) => {
   return (
     <span
       style={{
         backgroundImage: `url(${imageAddress})`,
-        width: `${size}px`,
-        height: `${size}px`,
+        width: `${firstSize}px`,
+        height: `${secondSize}px`,
       }}
       className={clsx('bg-cover bg-center bg-no-repeat', className)}
     ></span>
