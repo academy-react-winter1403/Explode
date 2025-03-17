@@ -10,7 +10,7 @@ const MainMenu = ({ menuStatus, setMenuStatus }) => {
             <div className="p-[4px_24px_4px_4px] bg-thirdly rounded-[56px] flex gap-[32px] text-[#fff] items-center max-[800px]:pr-[4px]">
 
                 {/* Main Menu */}
-                <Menu />
+                <Menu menuResponsiveStatus={"hidden"} />
 
                 {/* Login/Register page link */}
                 <Link className="bg-primary rounded-[56px] p-[8px_16px] ">ثبت نام یا ورود</Link>
