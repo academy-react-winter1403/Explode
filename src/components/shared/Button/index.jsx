@@ -15,10 +15,10 @@ const Button = ({
       onClick={onClick}
       disabled={disabled || isLoading}
       className={clsx(
-        'button-primary flex items-center justify-center gap-2 rounded px-4 py-2',
+        'button-primary',
         {
           'cursor-not-allowed bg-gray-300 text-gray-500': disabled || isLoading,
-          'cursor-pointer bg-[#FF5A5A]': !disabled && !isLoading,
+          'bg-primary cursor-pointer': !disabled && !isLoading,
         },
         className,
       )}

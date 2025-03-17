@@ -1,6 +1,17 @@
 @import 'tailwindcss';
-
+@tailwind utilities;
 body {
   margin: 0;
   padding: 0;
+  direction: rtl;
+}
+
+.button-primary {
+  @apply flex items-center justify-center gap-2 rounded-[40px] px-[16px] py-[12px] text-[16px] font-semibold text-[#FCFCFC];
+}
+
+@theme {
+  --color-primary: #3772ff;
+  --color-secondary: #f1f1f1;
+  --color-thirdly: #2f2f2f;
 }
