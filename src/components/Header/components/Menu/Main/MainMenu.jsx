@@ -1,7 +1,7 @@
 import { Link } from "react-router"
 import { Menu } from "./Menu"
 import { Profile } from "./Profile"
-import { CgMenuRight } from "react-icons/cg";
+import menuBars from '../../../../../assets/img/bars.png'
 const MainMenu = ({ menuStatus, setMenuStatus }) => {
     return (
         <nav className="flex items-center gap-[10px]">
@@ -21,8 +21,8 @@ const MainMenu = ({ menuStatus, setMenuStatus }) => {
             </div>
 
             {/* This part is for accessing the responsive menu (Click Icon)*/}
-            <div onClick={() => setMenuStatus(!menuStatus)} className="hidden w-[56px] h-[56px] flex items-center justify-center bg-thirdly text-[#fff] text-[27px] rounded-[50%] cursor-pointer max-[800px]:flex"><CgMenuRight className="rotate-[180deg] " /></div>
-        </nav>
+            <div onClick={() => setMenuStatus(!menuStatus)} className="hidden w-[56px] h-[56px] flex items-center justify-center bg-thirdly text-[#fff] text-[27px] rounded-[50%] cursor-pointer max-[800px]:flex"><span className="bg-center bg-no-repeat w-[100%] h-[100%]" style={{ backgroundImage: `url(${menuBars})` }}></span></div>
+        </nav >
     )
 }
 export { MainMenu }

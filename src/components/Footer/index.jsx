@@ -9,7 +9,7 @@ const Footer = () => {
       {/* Row */}
       <div className="m-[0_auto] max-w-[1360px] flex items-center justify-between max-[800px]:flex-wrap  p-[60px_0] border-[#DCDCDC] border-t-[1px] max-[800px]:border-hidden">
         {/* Logo */}
-        <WebSiteLogo imgStatus={"hidden"} logoTileStatus={"max-[817px]:hidden"} customStyle={"max-[800px]:order-[1]"} />
+        <WebSiteLogo logoTileStatus={"max-[817px]:hidden"} customStyle={"max-[800px]:order-[1]"} />
 
         {/* Menu */}
         <Menu customStyle={"font-bold max-[800px]:flex-wrap max-[800px]:justify-center max-[800px]:mb-[50px] max-[800px]:w-[100%]"} >
@@ -18,7 +18,7 @@ const Footer = () => {
         </Menu>
 
         {/* Social Icons */}
-        <Social customStyle={'text-thirdly flex gap-[10px] max-[800px]:order-[2] text-[25px]'} />
+        <Social customStyle={'flex gap-[10px] max-[800px]:order-[2]'} isFooter={true} />
       </div>
     </div>
   );

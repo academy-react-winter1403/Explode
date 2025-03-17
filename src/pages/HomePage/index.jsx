@@ -1,4 +1,11 @@
 const HomePage = () => {
-  return <h1>this is home page </h1>;
+  return (
+    // Container
+    <div className="flex justify-center">
+      <div className="max-w-[1360px] flex flex-wrap justify-around">
+        
+      </div>
+    </div>
+  )
 };
 export default HomePage;
