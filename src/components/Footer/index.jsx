@@ -7,18 +7,18 @@ const Footer = () => {
     // Footer Container
     <div className="max-[1360px]:p-[0px_10px]">
       {/* Row */}
-      <div className="m-[0_auto] max-w-[1360px] flex items-center justify-between max-[800px]:flex-wrap  p-[60px_0] border-[#DCDCDC] border-t-[1px] max-[800px]:border-hidden">
+      <div className="m-[0_auto] gap-[20px] max-w-[1360px] flex items-center justify-between flex-wrap p-[60px_0] border-[#DCDCDC] border-t-[1px] ">
         {/* Logo */}
         <WebSiteLogo logoTileStatus={"max-[817px]:hidden"} customStyle={"max-[800px]:order-[1]"} />
 
         {/* Menu */}
-        <Menu customStyle={"font-bold max-[800px]:flex-wrap max-[800px]:justify-center max-[800px]:mb-[50px] max-[800px]:w-[100%]"} >
+        <Menu customStyle={"flex gap-[75px] font-bold flex-wrap max-[800px]:justify-center max-[800px]:w-[100%] max-[800px]:mb-[40px]"} >
           <li><NavLink>ارتباط  با ما</NavLink></li>
           <li><NavLink>خدمات ما</NavLink></li>
         </Menu>
 
         {/* Social Icons */}
-        <Social customStyle={'flex gap-[10px] max-[800px]:order-[2]'} isFooter={true} />
+        <Social customStyle={'flex  gap-[10px] max-[800px]:order-[2]'} isFooter={true} />
       </div>
     </div>
   );
