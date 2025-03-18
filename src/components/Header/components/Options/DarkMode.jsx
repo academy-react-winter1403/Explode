@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import darkModeIcon from '../../../../assets/icons/dark.png'
+import darkModeIcon from '/src/assets/icons/dark.png'
 import IconSet from '../../../shared/IconSet'
 
 const DarkMode = () => {

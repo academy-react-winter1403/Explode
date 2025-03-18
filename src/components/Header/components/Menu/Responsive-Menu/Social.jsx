@@ -1,12 +1,12 @@
 import { Link } from "react-router"
-import lightInstaIcon from '../../../../../assets/icons/light_instagram.png'
-import lightTelegramIcon from '../../../../../assets/icons/light_telegram.png'
-import lightYoutubeIcon from '../../../../../assets/icons/light_youtube.png'
-import lightTwitterIcon from '../../../../../assets/icons/light_twitter.png'
-import instaIcon from '../../../../../assets/icons/instagram.png'
-import telegramIcon from '../../../../../assets/icons/telegram.png'
-import youtubeIcon from '../../../../../assets/icons/youtube.png'
-import twitterIcon from '../../../../../assets/icons/twitter.png'
+import lightInstaIcon from '/src/assets/icons/light_instagram.png'
+import lightTelegramIcon from '/src/assets/icons/light_telegram.png'
+import lightYoutubeIcon from '/src/assets/icons/light_youtube.png'
+import lightTwitterIcon from '/src/assets/icons/light_twitter.png'
+import instaIcon from '/src/assets/icons/instagram.png'
+import telegramIcon from '/src/assets/icons/telegram.png'
+import youtubeIcon from '/src/assets/icons/youtube.png'
+import twitterIcon from '/src/assets/icons/twitter.png'
 const Social = ({ customStyle, isFooter = false }) => {
 
     return (

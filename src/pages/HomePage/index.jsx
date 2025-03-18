@@ -1,6 +1,6 @@
-import { LandingInfo } from "./Banner/LandingInfo/LandingInfo";
-import { LandingTitle } from "./Banner/LandingTitle/LandingTitle";
-import { ShowCourses } from "./Banner/ShowCourses/ShowCourses";
+import { LandingInfo } from "./components/Banner/LandingInfo/LandingInfo";
+import { LandingTitle } from "./components/Banner/LandingTitle/LandingTitle";
+import { ShowCourses } from "./components/Banner/ShowCourses/ShowCourses";
 
 const HomePage = () => {
   return (

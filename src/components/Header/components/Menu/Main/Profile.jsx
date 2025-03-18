@@ -1,4 +1,4 @@
-import profileImg from '../../../../../assets/img/profile.png'
+import profileImg from '/src/assets/img/profile.png'
 import { RxChevronDown } from "react-icons/rx";
 const Profile = () => {
     return (

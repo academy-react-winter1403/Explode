@@ -1,5 +1,5 @@
-import academyTitleImg from '../../../../assets/img/title.svg'
-import academyLogoImg from '../../../../assets/img/logo.svg'
+import academyTitleImg from '/src/assets/img/title.svg'
+import academyLogoImg from '/src/assets/img/logo.svg'
 import IconSet from './../../../shared/IconSet/index';
 const WebSiteLogo = ({ logoTileStatus, customStyle }) => {
     return (

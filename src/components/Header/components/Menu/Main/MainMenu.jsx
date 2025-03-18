@@ -1,7 +1,7 @@
 import { Link } from "react-router"
 import { Menu } from "./Menu"
 import { Profile } from "./Profile"
-import menuBars from '../../../../../assets/icons/bars.png'
+import menuBars from '/src/assets/icons/bars.png'
 const MainMenu = ({ menuStatus, setMenuStatus }) => {
     return (
         <nav className="flex items-center gap-[10px]">

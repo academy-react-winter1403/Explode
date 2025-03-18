@@ -1,9 +1,9 @@
-import firstUser from '../..//../../assets/img/user.png'
-import secondUser from '../../../../assets/img/user2.png'
-import thirdUser from '../../../../assets/img/user3.png'
+import firstUser from '/src/assets/img/user.png'
+import secondUser from '/src/assets/img/user2.png'
+import thirdUser from '/src/assets/img/user3.png'
 const TeachersInfo = () => {
     return (
-        <div className="flex items center mt-[8px]">
+        <div className="flex items center mt-[8px] max-[650px]:pr-[80px]">
             {/* teachers image */}
             <div className='flex'>
                 <img className="w-[32px] h-[32px] rounded-[50%] border-[2px] border-[#fff] overflow-hidden" src={firstUser} alt="" />
