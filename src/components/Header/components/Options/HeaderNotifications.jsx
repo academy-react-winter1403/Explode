@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import notificationsIcon from '../../../../assets/img/notification.png'
+import notificationsIcon from '../../../../assets/icons/notification.png'
 import IconSet from '../../../shared/IconSet'
 const HeaderNotifications = () => {
     return (

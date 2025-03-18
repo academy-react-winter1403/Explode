@@ -5,7 +5,7 @@ import { Social } from "../Header/components/Menu/Responsive-Menu/Social";
 const Footer = () => {
   return (
     // Footer Container
-    <div className="max-[1360px]:p-[0px_10px]">
+    <div className="max-[1360px]:p-[0px_10px] mt-[50px]">
       {/* Row */}
       <div className="m-[0_auto] gap-[20px] max-w-[1360px] flex items-center justify-between flex-wrap p-[60px_0] border-[#DCDCDC] border-t-[1px] ">
         {/* Logo */}
