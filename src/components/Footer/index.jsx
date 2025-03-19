@@ -5,9 +5,9 @@ import { Social } from "../Header/components/Menu/Responsive-Menu/Social";
 const Footer = () => {
   return (
     // Footer Container
-    <div className="max-[1360px]:p-[0px_10px] mt-[50px]">
+    <div className="p-[0px_10px] mt-[50px]">
       {/* Row */}
-      <div className="m-[0_auto] gap-[20px] max-w-[1360px] flex items-center justify-between flex-wrap p-[60px_0] border-[#DCDCDC] border-t-[1px] ">
+      <div className="m-[0_auto] gap-[20px]  flex items-center justify-between flex-wrap p-[60px_0] border-[#DCDCDC] border-t-[1px] ">
         {/* Logo */}
         <WebSiteLogo logoTileStatus={"max-[817px]:hidden"} customStyle={"max-[800px]:order-[1]"} />
 
