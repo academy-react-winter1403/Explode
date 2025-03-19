@@ -1,16 +1,12 @@
-import { Banner } from "./components/Banner/Banner";
-import { ProgressBar } from "./components/ProgressBar/ProgressBar";
+import Banner from "./banner";
+import { ProgressBar } from "./ProgressBar";
 
 const HomePage = () => {
   return (
-    // Container
-    <div className="mb-[73px]">
-      {/* Banner */}
+    <section className="mt-[73px]">
       <Banner />
-
-      {/* Progress Bar */}
       <ProgressBar />
-    </div >
+    </section>
   )
 };
 export default HomePage;
