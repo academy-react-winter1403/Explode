@@ -10,7 +10,7 @@ const AcademyGoals = () => {
     ]
 
     return (
-        <section className="m-[80px_0]">
+        <section className="m-[80px_0]" id='academy-goal'>
             <h2 className="font-[700] text-[32px] text-center text-thirdly mb-[40px]">اهداف ما در آکادمی</h2>
             <div className="max-w-[1461px] bg-[url(/src/assets/img/goals-bg.svg)] max-[1460px]:bg-[url('')] m-[0_auto] bg-contain bg-center bg-no-repeat" >
                 <div className=" max-w-[1361px] max-[1360px]:justify-center max-[1460px]:gap-[10px] max-[1460px]:p-[0_16px] max-[700px]:justify-center flex flex-wrap items-center m-[0_auto]  justify-between">

@@ -8,11 +8,11 @@ import IconSet from "../../../components/shared/IconSet";
 const ProgressBar = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const steps = [
-        { image: htmlIcon, position: "21%", progressPercent: 25 },
-        { image: cssIcon, position: "36%", progressPercent: 40 },
-        { image: jsIcon, position: "50%", progressPercent: 54 },
-        { image: reactIcon, position: "64%", progressPercent: 68 },
-        { image: figmaIcon, position: "78%", progressPercent: 100 },
+        { image: htmlIcon, position: "21%", progressPercent: 25, },
+        { image: cssIcon, position: "36%", progressPercent: 40, },
+        { image: jsIcon, position: "50%", progressPercent: 54, },
+        { image: reactIcon, position: "64%", progressPercent: 68, },
+        { image: figmaIcon, position: "78%", progressPercent: 100, },
     ];
 
     useEffect(() => {
@@ -46,7 +46,6 @@ const ProgressBar = () => {
                             className={`w-[24px] h-[24px] flex items-center  rounded-full border-5  transition-all bg-white duration-500 ${index <= currentStep ? "  border-primary" : " border-[#D9D9D9]"
                                 }`}
                         >
-
                         </div>
 
                         <IconSet imageAddress={item.image} firstSize={90} secondSize={90} className={"absolute top-[-100px]"} />
