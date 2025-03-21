@@ -13,11 +13,12 @@ const Cards = ({
     height = '',
     className,
     isCourse = false,
-    isBlog = false
+    isBlog = false,
+    linkAddress
 }) => {
     return (
         <div className={className || null} style={{ width: `${width || null}`, height: `${height || null}` }}>
-            <Link className="relative block w-[100%] h-[293px] mb-[10px]">
+            <Link to={linkAddress} className="relative block w-[100%] h-[293px] mb-[10px]">
                 <img src={image || null} alt={title || null} className={`rounded-[32px] w-[100%] h-[100%]`} />
                 {
                     isCourse && <div className="flex gap-[5px] absolute  top-[10px] right-[15px]">
@@ -26,7 +27,7 @@ const Cards = ({
                     </div> || null
                 }
             </Link>
-            <h2 className="font-[700] text-[24px] mb-[10px]"><Link>{title || null}</Link></h2>
+            <h2 className="font-[700] text-[24px] mb-[10px]"><Link to={linkAddress}>{title || null}</Link></h2>
             <div className="flex justify-between items-center">
                 <span className="text-[#707070] text-[14px] font-[500]">{author || null}</span>
                 {
