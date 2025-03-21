@@ -28,7 +28,7 @@ const ProgressBar = () => {
     };
 
     return (
-        <section className="relative w-full h-[5px] mt-[250px]">
+        <section className="relative w-full h-[5px] mt-[200px]">
             <div className="absolute  w-full h-[5px] bg-[#D9D9D9]" />
             <div
                 className="absolute top-0  left-0 h-[5px] bg-primary rounded-[15px] transition-all duration-500"

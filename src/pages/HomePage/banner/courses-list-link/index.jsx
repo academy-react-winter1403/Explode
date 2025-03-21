@@ -1,7 +1,7 @@
 import { Link } from "react-router"
 const NewCoursesLink = () => {
     return (
-        <div className="w-[295px] flex flex-col items-center max-[647px]:order-2">
+        <div className="w-[295px] flex flex-col items-center max-[662px]:order-2">
             <p className="text-[18px] font-[500] text-thirdly mb-[20px]">
                 همین حالا <br /> شروع کن یاد بگیری
             </p>

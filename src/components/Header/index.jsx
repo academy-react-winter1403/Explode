@@ -6,7 +6,7 @@ import ResponsiveMenu from "./responsive-menu";
 const Header = () => {
   const [menuStatus, setMenuStatus] = useState(false)
   return (
-    <header className="max-w-[1360px] max-[1360px]:p-[0_16px] h-[49px] m-[24px_auto_0_auto] flex items-center justify-between">
+    <header className="max-w-[1360px] max-[1460px]:p-[0_16px] h-[49px] m-[24px_auto_0_auto] flex items-center justify-between">
       <Logo />
       <Menu menuStatus={menuStatus} setMenuStatus={setMenuStatus} />
       <Options />
