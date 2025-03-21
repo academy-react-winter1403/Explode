@@ -16,6 +16,7 @@ const Cards = ({
     isBlog = false,
     linkAddress
 }) => {
+    const editedTitle = title.length > 35 ? title.slice(0, 40) + '...' : title
     return (
         <div className={className || null} style={{ width: `${width || null}`, height: `${height || null}` }}>
             <Link to={linkAddress} className="relative block w-[100%] h-[293px] mb-[10px]">
@@ -27,7 +28,7 @@ const Cards = ({
                     </div> || null
                 }
             </Link>
-            <h2 className="font-[700] text-[24px] mb-[10px]"><Link to={linkAddress}>{title || null}</Link></h2>
+            <h2 className="font-[700] text-[24px] mb-[10px]"><Link to={linkAddress}>{editedTitle || null}</Link></h2>
             <div className="flex justify-between items-center">
                 <span className="text-[#707070] text-[14px] font-[500]">{author || null}</span>
                 {

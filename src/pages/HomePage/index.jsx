@@ -1,5 +1,6 @@
 import AcademyGoals from "./academy-goals";
 import Banner from "./banner";
+import TopBlogs from "./blogs";
 import OurServices from "./our-services";
 import { ProgressBar } from "./progress-bar";
 import TopCourses from "./top-courses";
@@ -12,6 +13,7 @@ const HomePage = () => {
       <AcademyGoals />
       <OurServices />
       <TopCourses />
+      <TopBlogs />
       <TopTeachers />
     </section>
   )

@@ -7,23 +7,47 @@ const CoursesList = () => {
             <Cards title=' دوره ریکت جی اس'
                 isCourse={true}
                 author={'محسن اسفندیاری'}
-                price={'12000'}
+                price={'4,500,000'}
                 width={"322px"}
-                courseLevel={'حرفه ای'}
+                courseLevel={'مقدماتی'}
                 courseCategory={'برنامه نویسی'}
                 image={'/src/assets/img/reactPoster.jpg'}
                 linkAddress={'/'}
+                className={'max-[720px]:flex-shrink-0'}
             />
 
-            <Cards title=' دوره ریکت جی اس'
+            <Cards title='دوره فیگما'
                 isCourse={true}
-                author={'محسن اسفندیاری'}
-                price={'12000'}
+                author={'محمد حسین خلیل پور'}
+                price={'1,000,000'}
                 width={"322px"}
-                courseLevel={'حرفه ای'}
-                courseCategory={'برنامه نویسی'}
-                image={'/src/assets/img/reactPoster.jpg'}
+                courseLevel={'پیشرفته'}
+                courseCategory={'طراحی'}
+                image={'/src/assets/img/figma.jpg'}
                 linkAddress={'/courses'}
+                className={'max-[720px]:flex-shrink-0'}
+            />
+            <Cards title='دوره جاوااسکریپت'
+                isCourse={true}
+                author={'محمدحسین بحرالعلومی'}
+                price={'2,500,000'}
+                width={"322px"}
+                courseLevel={'پیشرفته'}
+                courseCategory={'برنامه نویسی'}
+                image={'/src/assets/img/jsPoster.jpg'}
+                linkAddress={'/courses'}
+                className={'max-[720px]:flex-shrink-0'}
+            />
+            <Cards title='دوره طراحی سایت'
+                isCourse={true}
+                author={'محمدحسین بحرالعلومی'}
+                price={'500,000'}
+                width={"322px"}
+                courseLevel={'پیشرفته'}
+                courseCategory={'برنامه نویسی'}
+                image={'/src/assets/img/htmcss.jpg'}
+                linkAddress={'/courses'}
+                className={'max-[720px]:flex-shrink-0'}
             />
         </Fragment>
 
