@@ -2,6 +2,7 @@ import AcademyGoals from "./academy-goals";
 import Banner from "./banner";
 import OurServices from "./our-services";
 import { ProgressBar } from "./progress-bar";
+import TopCourses from "./top-courses";
 import TopTeachers from "./top-teachers";
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
       <ProgressBar />
       <AcademyGoals />
       <OurServices />
+      <TopCourses />
       <TopTeachers />
     </section>
   )
