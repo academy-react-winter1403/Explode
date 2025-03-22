@@ -1,3 +1,4 @@
+import { ValidURL } from './../../../../utils/ValidUrl';
 const Teachers = ({ loading, teacherCount, teachersList }) => {
     return (
         <div className="flex items-center max-[662px]:pr-[110px]">
@@ -5,7 +6,7 @@ const Teachers = ({ loading, teacherCount, teachersList }) => {
                 {
                     loading ? ',,,,' : teachersList.map((teacher, index) => {
                         console.log(teacher.pictureAddress)
-                        return <img className={`w-[32px] h-[32px] bg-contain bg-center bg-no-repeat relative right-[-${index * 10}px] border-[3px] border-[#FCFCFC] rounded-[50%] `} src={teacher.pictureAddress} alt={teacher.fullName} />
+                        return <img className={`w-[32px] h-[32px] bg-contain bg-center bg-no-repeat relative right-[-${index * 10}px] border-[3px] border-[#FCFCFC] rounded-[50%] `} src={ValidURL(teacher.pictureAddress) ? teacher.pictureAddress : '/src/assets/img/usernotfound.avif'} alt={teacher.fullName} />
                     })
                 }
 

@@ -8,7 +8,7 @@ const TopCourses = () => {
             <h2 className='font-[700] text-[32px] text-center text-thirdly mb-[40px]'>دوره های برتر هفته</h2>
 
             {/* Courses List */}
-            <div className='m-[0_auto] max-w-[1360px] gap-[20px] flex justify-between items-center flex-wrap max-[1400px]:p-[0_16px] max-[1400px]:justify-center max-[720px]:flex-nowrap max-[720px]:overflow-x-auto max-[720px]:[&::-webkit-scrollbar]:hidden max-[720px]:[-ms-overflow-style:none] max-[720px]:[scrollbar-width:none] max- max-[720px]:justify-between'>
+            <div className='m-[0_auto] max-w-[1360px] gap-[20px] flex justify-between items-center flex-wrap max-[1400px]:p-[0_16px] max-[1400px]:justify-center '>
                 <CoursesList />
             </div>
 

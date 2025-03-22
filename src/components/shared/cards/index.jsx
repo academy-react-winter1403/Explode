@@ -1,6 +1,8 @@
 import { Link } from "react-router"
 import IconSet from './../IconSet/index';
 import { formatDate } from "../../../utils/DateFormatter";
+import { ValidURL } from "../../../utils/ValidUrl";
+
 const Cards = ({
     title = '',
     author = '',
@@ -19,18 +21,11 @@ const Cards = ({
 }) => {
     const editedTitle = title.length > 35 ? title.slice(0, 35) + '...' : title
     const dateFormat = formatDate(date)
-    const isValidURL = (string) => {
-        try {
-            new URL(string);
-            return true;
-        } catch (_) {
-            return false;
-        }
-    };
+    const isValidURL = ValidURL(image)
     return (
         <div className={className || null} style={{ width: `${width || null}`, height: `${height || null}` }}>
             <Link to={linkAddress} className="relative block w-[100%] h-[293px] mb-[10px]">
-                <img src={isValidURL(image) ? image : '/src/assets/img/not-set-image.jpg'} alt={title || null} className={`rounded-[32px] w-[100%] h-[100%]`} />
+                <img src={isValidURL ? image : '/src/assets/img/not-set-image.jpg'} alt={title || null} className={`rounded-[32px] w-[100%] h-[100%]`} />
                 {
                     isCourse && <div className="flex gap-[5px] absolute  top-[10px] right-[15px]">
                         {courseLevel && <span className="p-[2px_8px] bg-[#FF37F5] rounded-[32px] text-[14px] font-[500] text-[#FCFCFC]">{courseLevel}</span>}
