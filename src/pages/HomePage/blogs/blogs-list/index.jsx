@@ -38,7 +38,6 @@ const BlogsList = () => {
                             width={"431px"}
                             image={item.currentImageAddressTumb}
                             linkAddress={`/blogs/${item.id}`}
-                            className={'max-[720px]:flex-shrink-0'}
                         />
                     ))
                 )

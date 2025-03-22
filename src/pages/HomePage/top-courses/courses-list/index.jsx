@@ -38,7 +38,6 @@ const CoursesList = () => {
                         courseCategory={course.typeName}
                         image={course.tumbImageAddress}
                         linkAddress={`/course-detail/${course.courseId}`}
-                        className={'max-[720px]:flex-shrink-0'}
                     />
                 ))
             }
