@@ -1,6 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import IconSet from '../../../../components/shared/IconSet'
+import { getLandingReports } from '../../../../core/services/api/landing-reports'
 const Users = () => {
+    const [landingReports, setLandingReports] = useState({})
+    const { teacherCount, studentCount } = landingReports
+    const [loading, setLoading] = useState(true)
+    const getReports = async () => {
+        try {
+            const result = await getLandingReports()
+            setLandingReports(result)
+            setLoading(false)
+        }
+        catch {
+            setLoading(false)
+        }
+    }
+    useEffect(() => {
+        getReports()
+    }, [])
     return (
         <div className="w-[295px] max-[662px]:order-1 max-[662px]:w-[100%] max-[662px]:flex max-[662px]:flex-col max-[662px]:items-center">
             {/* Students */}
@@ -11,7 +28,7 @@ const Users = () => {
                     <IconSet imageAddress={'/src/assets/img/user3.png'} firstSize={32} secondSize={32} className={"rounded-[50%] border-[2px] border-[#FCFCFC] block relative right-[-20px]"} />
                 </div>
                 <div className="flex items-center  gap-[5px] text-[14px] font-[500] relative right-[-20px]">
-                    <span>+100</span> <span>دانشجوی فعال در دوره</span>
+                    <span>+{loading ? 'loading...' : studentCount}</span> <span>دانشجوی فعال در دوره</span>
                 </div>
             </div>
 
@@ -23,7 +40,7 @@ const Users = () => {
                     <IconSet imageAddress={'/src/assets/img/user3.png'} firstSize={32} secondSize={32} className={"rounded-[50%] border-[2px] border-[#FCFCFC] block relative right-[-20px]"} />
                 </div>
                 <div className="flex items-center gap-[5px] text-[14px] font-[500] relative right-[-20px]">
-                    <span>+50</span> <span>اساتید برتر جهان</span>
+                    <span>+{loading ? 'loading...' : teacherCount}</span> <span>اساتید برتر جهان</span>
                 </div>
             </div>
 
