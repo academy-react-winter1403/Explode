@@ -14,7 +14,6 @@ const BlogsList = () => {
         try {
             const { news } = await getBlogsList(params)
             setTopBlogs(news)
-            console.log(news)
             setLoading(false)
         }
         catch {

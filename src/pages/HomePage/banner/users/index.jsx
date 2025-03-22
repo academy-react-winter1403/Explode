@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import IconSet from '../../../../components/shared/IconSet'
+import { useEffect, useState } from 'react'
 import { getLandingReports } from '../../../../core/services/api/landing-reports'
+import { getAllTeachers } from './../../../../core/services/api/teachers/index';
+import Teachers from './Teachers';
+import Students from './Students';
 const Users = () => {
     const [landingReports, setLandingReports] = useState({})
     const { teacherCount, studentCount } = landingReports
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
+    const [teachersList, setTeachersList] = useState([])
+
     const getReports = async () => {
         try {
+            setLoading(true)
             const result = await getLandingReports()
             setLandingReports(result)
             setLoading(false)
@@ -15,36 +20,29 @@ const Users = () => {
             setLoading(false)
         }
     }
+
+    const getTeachers = async () => {
+        try {
+            setLoading(true)
+            const teachers = await getAllTeachers()
+            setTeachersList(teachers.slice(0, 3))
+            setLoading(false)
+        }
+        catch {
+            setLoading(false)
+        }
+    }
+
     useEffect(() => {
         getReports()
+        getTeachers()
     }, [])
+
     return (
         <div className="w-[295px] max-[662px]:order-1 max-[662px]:w-[100%] max-[662px]:flex max-[662px]:flex-col max-[662px]:items-center">
-            {/* Students */}
-            <div className="flex items-center ">
-                <div className="flex items-center">
-                    <IconSet imageAddress={'/src/assets/img/user.png'} firstSize={32} secondSize={32} className={"rounded-[50%] border-[2px] border-[#FCFCFC] block"} />
-                    <IconSet imageAddress={'/src/assets/img/user2.png'} firstSize={32} secondSize={32} className={"rounded-[50%] border-[2px] border-[#FCFCFC] block relative right-[-10px]"} />
-                    <IconSet imageAddress={'/src/assets/img/user3.png'} firstSize={32} secondSize={32} className={"rounded-[50%] border-[2px] border-[#FCFCFC] block relative right-[-20px]"} />
-                </div>
-                <div className="flex items-center  gap-[5px] text-[14px] font-[500] relative right-[-20px]">
-                    <span>+{loading ? 'loading...' : studentCount}</span> <span>دانشجوی فعال در دوره</span>
-                </div>
-            </div>
-
-            {/* Teachers */}
-            <div className="flex items-center max-[662px]:pr-[110px]">
-                <div className="flex items-center">
-                    <IconSet imageAddress={'/src/assets/img/user.png'} firstSize={32} secondSize={32} className={"rounded-[50%] border-[2px] border-[#FCFCFC] "} />
-                    <IconSet imageAddress={'/src/assets/img/user2.png'} firstSize={32} secondSize={32} className={"rounded-[50%] border-[2px] border-[#FCFCFC] block relative right-[-10px]"} />
-                    <IconSet imageAddress={'/src/assets/img/user3.png'} firstSize={32} secondSize={32} className={"rounded-[50%] border-[2px] border-[#FCFCFC] block relative right-[-20px]"} />
-                </div>
-                <div className="flex items-center gap-[5px] text-[14px] font-[500] relative right-[-20px]">
-                    <span>+{loading ? 'loading...' : teacherCount}</span> <span>اساتید برتر جهان</span>
-                </div>
-            </div>
-
-        </div>
+            <Students loading={loading} studentCount={studentCount} />
+            <Teachers loading={loading} teacherCount={teacherCount} teachersList={teachersList} />
+        </div >
     )
 }
 export default Users

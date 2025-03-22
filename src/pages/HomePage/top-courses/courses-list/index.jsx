@@ -12,7 +12,6 @@ const CoursesList = () => {
         try {
             const result = await getCourseList(params)
             setTopCourses(result)
-            console.log(result)
             setLoading(false)
         }
         catch {
