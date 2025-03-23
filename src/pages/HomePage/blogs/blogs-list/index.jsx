@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react"
 import Cards from "../../../../components/shared/cards"
 import { getBlogsList } from "../../../../core/services/api/blogs"
+import CardsSkeleton from "../../../skeleton/cards-skeleton"
 
 const BlogsList = () => {
     const [loading, setLoading] = useState(true)
@@ -28,7 +29,7 @@ const BlogsList = () => {
     return (
         <Fragment>
             {
-                loading ? 'loading ...' : (
+                loading ? Array(3).fill(0).map((_, index) => <CardsSkeleton width={431} height={293}/>) : (
                     topBlogs.map((item, index) => (
                         <Cards key={index} title={item.title}
                             isBlog={true}

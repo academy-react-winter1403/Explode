@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react"
 import Cards from "../../../../components/shared/cards"
 import { getCourseList } from "../../../../core/services/api/courses"
+import CardsSkeleton from "../../../skeleton/cards-skeleton"
 
 const CoursesList = () => {
     const [topCourses, setTopCourses] = useState([])
@@ -27,7 +28,7 @@ const CoursesList = () => {
 
         <Fragment>
             {
-                loading ? 'loading ' : topCourses.map((course, index) => (
+                loading ? Array(4).fill(0).map((_, index) => <CardsSkeleton key={index} width={322} height={293} />) : topCourses.map((course, index) => (
 
                     <Cards key={index} title={course.title}
                         isCourse={true}
