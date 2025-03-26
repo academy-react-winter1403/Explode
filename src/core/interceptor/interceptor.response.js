@@ -1,10 +1,11 @@
 import instance from '../axiosInstance';
 import { toast } from 'react-hot-toast';
 const onSuccessResponse = (response) => {
-  return response;
+  return response.data;
 };
 
 const onErrorResponse = (error) => {
+  console.log(error.response)
   if (error.response) {
     const { status, massage } = error.response;
     switch (status) {
