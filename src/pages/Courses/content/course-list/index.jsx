@@ -10,7 +10,7 @@ const CourseList = ({ loading, courses, setCourses }) => {
                 <span className='font-[700] text-[20px] text-thirdly'>ترتیب</span>
                 <ul className='flex items-center gap-[10px] '>
                     <li className='p-[7px_16px] border-thirdly border-[1px] rounded-[34px] cursor-pointer text-[18px] font-[500]'>جدیدترین</li>
-                    <li onClick={popularCourses} className='p-[7px_16px] border-thirdly border-[1px] rounded-[34px] cursor-pointer text-[18px] font-[500]'>محبوب ترین</li>
+                    <li className='p-[7px_16px] border-thirdly border-[1px] rounded-[34px] cursor-pointer text-[18px] font-[500]'>محبوب ترین</li>
                     <li className='p-[7px_16px] border-thirdly border-[1px] rounded-[34px] cursor-pointer text-[18px] font-[500]'>گران ترین</li>
                     <li className='p-[7px_16px] border-thirdly border-[1px] rounded-[34px] cursor-pointer text-[18px] font-[500]'>ارزان ترین</li>
                 </ul>
