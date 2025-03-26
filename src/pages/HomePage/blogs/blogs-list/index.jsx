@@ -29,7 +29,7 @@ const BlogsList = () => {
     return (
         <Fragment>
             {
-                loading ? Array(3).fill(0).map((_, index) => <CardsSkeleton width={431} height={293}/>) : (
+                loading ? Array(3).fill(0).map((_, index) => <CardsSkeleton key={index} width={431} height={293} />) : (
                     topBlogs.map((item, index) => (
                         <Cards key={index} title={item.title}
                             isBlog={true}
