@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
+import List from './List';
 
 
-const CoursList = () => {
-    const [activeList, setactiveList] = useState();
-    function handleCoursListClick(sort) {
-        setactiveList(sort)
-    }
-    return (
+const CoursesComponent = () => {
+  const [activeList, setactiveList] = useState();
+  function handleCoursListClick(sort) {
+    setactiveList(sort);
+  }
+  return (
+    <div>
       <div className="mr-8 mb-6 flex flex-col items-center">
         <div className="mb-4 hidden justify-start space-x-4 md:flex">
-          <p className="p-2 text-lg font-bold ">
-            ترتیب
-          </p>
+          <p className="p-2 text-lg font-bold">ترتیب</p>
           <button
             onClick={() => handleCoursListClick('جدیدترین')}
             className={`h-10 rounded-full border border-transparent px-4 py-2 ${
               activeList === 'جدیدترین'
-                ? 'text-white'
+                ? 'bg-red-500 text-white'
                 : 'border-gray-600 bg-white text-gray-800 hover:border-red-500 hover:text-red-500'
             }`}
           >
@@ -54,7 +54,10 @@ const CoursList = () => {
           </button>
         </div>
       </div>
-    );
-}
 
-export default CoursList
+      <List/>
+    </div>
+  );
+};
+
+export default CoursesComponent;
