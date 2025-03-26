@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react"
 import Cards from "../../../../components/shared/cards"
-import { getCourseList } from "../../../../core/services/api/courses"
+import { getTopCourses } from "../../../../core/services/api/courses"
 import CardsSkeleton from "../../../skeleton/cards-skeleton"
 
 const CoursesList = () => {
@@ -11,7 +11,7 @@ const CoursesList = () => {
             Count: 4
         }
         try {
-            const result = await getCourseList(params)
+            const result = await getTopCourses(params)
             setTopCourses(result)
             setLoading(false)
         }
