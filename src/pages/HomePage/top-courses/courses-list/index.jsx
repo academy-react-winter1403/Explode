@@ -34,7 +34,7 @@ const CoursesList = () => {
                         isCourse={true}
                         author={course.teacherName}
                         price={course.cost}
-                        width={"322px"}
+                        width={322}
                         courseLevel={course.levelName}
                         courseCategory={course.typeName}
                         image={course.tumbImageAddress}

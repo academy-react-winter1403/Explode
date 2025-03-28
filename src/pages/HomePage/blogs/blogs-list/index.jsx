@@ -36,7 +36,7 @@ const BlogsList = () => {
                             author={item.addUserFullName}
                             date={item.insertDate}
                             view={item.currentView}
-                            width={"431px"}
+                            width={431}
                             image={item.currentImageAddressTumb}
                             linkAddress={`/blogs/${item.id}`}
                         />
