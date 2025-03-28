@@ -10,13 +10,15 @@ const Content = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [sorting, setSorting] = useState("Active");
     const [sortingType, setSortingType] = useState("DESC")
+    const [query, setQuery] = useState(null)
     let perPage = 12
-    const getAllCourses = async (page, perPage, sorting, sortingType) => {
+    const getAllCourses = async (currentPage, sorting, sortingType, query) => {
         const params = {
             RowsOfPage: perPage,
-            PageNumber: page,
+            PageNumber: currentPage,
             SortingCol: sorting,
-            SortType: sortingType
+            SortType: sortingType,
+            Query: query ? query: null
         }
         try {
             setLoading(true)
@@ -31,12 +33,12 @@ const Content = () => {
     }
 
     useEffect(() => {
-        getAllCourses(currentPage, perPage, sorting, sortingType)
-    }, [currentPage, sorting, sortingType])
+        getAllCourses(currentPage, sorting, sortingType, query)
+    }, [currentPage, sorting, sortingType, query])
 
     return (
         <section className='max-w-[1360px] flex justify-between items-start m-[0_auto] mb-[80px] max-[1460px]:p-[0_16px]'>
-            <CourseFilter />
+            <CourseFilter setQuery={setQuery} setCurrentPage={setCurrentPage} />
             <CourseList
                 loading={loading}
                 courses={courses}
@@ -48,6 +50,7 @@ const Content = () => {
                 setSorting={setSorting}
                 setSortingType={setSortingType}
                 sortingType={sortingType}
+
             />
         </section>
     )
