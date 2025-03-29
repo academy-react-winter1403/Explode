@@ -15,7 +15,7 @@ const SortingList = ({ handleSortingChange, sorting, sortingType, responsiveFilt
                 </div>
             </div>
 
-            <div className={`max-[600px]:${responsiveSorting ? 'fixed' : 'hidden'}  max-[600px]:bg-[#fff] max-[600px]:z-1000 max-[600px]:top-0 max-[600px]:right-[0] max-[600px]:w-[100%] `}>
+            <div className={`${responsiveSorting ? 'max-[600px]:fixed' : 'max-[600px]:hidden'}  max-[600px]:bg-[#fff] max-[600px]:z-1000 max-[600px]:top-0 max-[600px]:right-[0] max-[600px]:w-[100%] `}>
                 <div className="hidden max-[600px]:flex mb-[20px] items-center justify-between w-[100%] max-[600px]:p-[20px_30px]">
                     <span className='font-[700] text-[20px] text-thirdly'>ترتیب</span>
                     <div onClick={() => setResponsiveSorting(!responsiveSorting)} className="flex items-center gap-[15px] p-[7px_16px] border-[#FF5353] border-[2px] rounded-[34px] text-[18px] text-[#FF5353] font-[500] cursor-pointer ">
