@@ -11,7 +11,11 @@ const CourseList = ({
     sorting,
     setSorting,
     sortingType,
-    setSortingType
+    setSortingType,
+    responsiveFilter,
+    setResponsiveFilter,
+    responsiveSorting,
+    setResponsiveSorting
 }) => {
     const pageCount = Math.ceil(totalCourses / perPage)
     const handlePageClick = (data) => {
@@ -24,12 +28,28 @@ const CourseList = ({
     }
 
     return (
-        <div className='w-[1031px] '>
-            <SortingList sorting={sorting} sortingType={sortingType} handleSortingChange={handleSortingChange} />
+        <div className='w-[1031px] max-[1050px]:w-[100%]'>
+            <SortingList
+                sorting={sorting}
+                sortingType={sortingType}
+                handleSortingChange={handleSortingChange}
+                responsiveFilter={responsiveFilter}
+                setResponsiveFilter={setResponsiveFilter}
+                responsiveSorting={responsiveSorting}
+                setResponsiveSorting={setResponsiveSorting}
+            />
 
-            <Courses loading={loading} courses={courses} perPage={perPage} />
+            <Courses
+                loading={loading}
+                courses={courses}
+                perPage={perPage}
+            />
 
-            <Pagination pageCount={pageCount} currentPage={currentPage} handlePageClick={handlePageClick} />
+            <Pagination
+                pageCount={pageCount}
+                currentPage={currentPage}
+                handlePageClick={handlePageClick}
+            />
         </div>
     )
 }

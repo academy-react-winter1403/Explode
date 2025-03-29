@@ -16,7 +16,7 @@ const Price = ({ setCostDown, setCostUp, setCurrentPage }) => {
         }, 2500);
     };
     return (
-        <div className="max-w-lg mx-auto mb-[20px]">
+        <div className="w-[100%] mb-[20px]">
             <Title imageSrc={'/src/assets/icons/price.svg'} titleText={'قیمت'} />
             <div className="flex gap-[40px] flex-row-reverse mb-[10px]">
                 <span className='font-[500] text-thirdly text-[16px]'><span className='text-[#787878]'>تا</span> {values[1]}</span>

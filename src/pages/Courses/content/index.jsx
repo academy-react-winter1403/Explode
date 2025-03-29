@@ -22,6 +22,8 @@ const Content = () => {
     const [costUp, setCostUp] = useState(2000000000)
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
+    const [responsiveFilter, setResponsiveFilter] = useState(false)
+    const [responsiveSorting, setResponsiveSorting] = useState(false)
     const categoryCount = 1
     let perPage = 12
     const getAllCourses = async (
@@ -127,7 +129,7 @@ const Content = () => {
     ])
 
     return (
-        <section className='max-w-[1360px] flex justify-between items-start m-[0_auto] mb-[80px] max-[1460px]:p-[0_16px]'>
+        <section className='max-w-[1360px] flex justify-between items-start m-[0_auto] mb-[80px] max-[1460px]:p-[0_16px] max-[1050px]:flex-col max-[1050px]:gap-[40px]'>
             <CourseFilter{
                 ...{
                     setQuery,
@@ -141,7 +143,9 @@ const Content = () => {
                     setCostDown,
                     setCostUp,
                     setStartDate,
-                    setEndDate
+                    setEndDate,
+                    responsiveFilter,
+                    setResponsiveFilter
                 }
             }
             />
@@ -157,7 +161,11 @@ const Content = () => {
                     sorting,
                     setSorting,
                     setSortingType,
-                    sortingType
+                    sortingType,
+                    responsiveFilter,
+                    setResponsiveFilter,
+                    responsiveSorting,
+                    setResponsiveSorting
                 }
             }
             />
