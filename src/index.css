@@ -9,9 +9,15 @@ body {
 .button-primary {
   @apply flex items-center justify-center gap-2 rounded-[40px] px-[16px] py-[12px] text-[16px] font-semibold text-[#FCFCFC];
 }
+.Center {
+  @apply flex items-center justify-center;
+}
 
 @theme {
   --color-primary: #3772ff;
   --color-secondry: #f1f1f1;
   --color-thirdly: #2f2f2f;
+}
+.nav-button {
+  @apply text-primary mx-auto mt-4 flex h-[40px] w-[141px] cursor-pointer flex-row-reverse items-center justify-center gap-1 rounded-[34px] border border-[#DCDCDC] text-center leading-4 font-medium;
 }

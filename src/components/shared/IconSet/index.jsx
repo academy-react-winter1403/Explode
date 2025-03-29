@@ -1,6 +1,11 @@
 import clsx from 'clsx';
 
-const IconSet = ({ imageAddress, firstSize = 24, secondSize = 24, className }) => {
+const IconSet = ({
+  imageAddress,
+  firstSize = 24,
+  secondSize = 24,
+  className,
+}) => {
   return (
     <span
       style={{
@@ -8,7 +13,10 @@ const IconSet = ({ imageAddress, firstSize = 24, secondSize = 24, className }) =
         width: `${firstSize}px`,
         height: `${secondSize}px`,
       }}
-      className={clsx('bg-cover bg-center bg-no-repeat', className)}
+      className={clsx(
+        'flex items-center justify-center bg-cover bg-center bg-no-repeat',
+        className,
+      )}
     ></span>
   );
 };
