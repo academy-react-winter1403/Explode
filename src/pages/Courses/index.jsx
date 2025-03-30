@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
-import PageTitle from './page-title';
+import Page_Title from './page-title';
 import Content from './content';
 
 const Courses = () => {
   return (
     <Fragment>
-      <PageTitle />
+      <Page_Title />
       <Content />
     </Fragment>
 
