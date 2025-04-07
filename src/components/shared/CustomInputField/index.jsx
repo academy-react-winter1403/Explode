@@ -1,7 +1,10 @@
-const CustomInputField = () => {
+const CustomInputField = ({ haveLabel = true }) => {
   return (
     <div className="flex flex-col flex-nowrap gap-[8px]">
-      <label className="font-semibold text-[#2F2F2F]">شماره همراه</label>
+      {haveLabel && (
+        <label className="font-semibold text-[#2F2F2F]">شماره همراه</label>
+      )}
+
       <input
         type="text"
         placeholder="شماره همراه خود را وارد کنید"

@@ -6,7 +6,7 @@ const Button = ({
   onClick,
   disabled,
   className,
-  isLoading,
+  isLoading = false,
   loadingText = 'پردازش ...',
 }) => {
   return (

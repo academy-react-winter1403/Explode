@@ -1,25 +1,30 @@
-import React from 'react'
-import Title from '../filter-sections-title'
+import Title from '../filter-sections-title';
 
-const DropDownList = ({ imageSrc, titleText, handleFunction, children, defaultOptionText }) => {
-    return (
-        <div className='mb-[20px] relative'>
-            <Title imageSrc={imageSrc} titleText={titleText} />
-            <span className='absolute left-[15px] top-[50px] w-[20px] h-[20px] bg-contain bg-center flex' style={{ backgroundImage: `url(/src/assets/icons/arrow-down.svg)` }}></span>
-            <select
-                onChange={(event) => { handleFunction(event.target.value) }}
-                className='w-[100%] appearance-none font-[500] text-[12px] text-[#707070] h-[48px] bg-[#F1F1F1] p-[0_16px] rounded-[16px] outline-hidden cursor-pointer'
-            >
-                <option value="">
-                    {defaultOptionText}
-                </option>
+const DropDownList = ({
+  imageSrc,
+  titleText,
+  handleFunction,
+  children,
+  defaultOptionText,
+}) => {
+  return (
+    <div className="relative mb-[20px]">
+      <Title imageSrc={imageSrc} titleText={titleText} />
+      <span
+        className="absolute top-[50px] left-[15px] flex h-[20px] w-[20px] bg-contain bg-center"
+        style={{ backgroundImage: `url(/src/assets/icons/arrow-down.svg)` }}
+      ></span>
+      <select
+        onChange={(event) => {
+          handleFunction(event.target.value);
+        }}
+        className="h-[48px] w-[100%] cursor-pointer appearance-none rounded-[16px] bg-[#F1F1F1] p-[0_16px] text-[12px] font-[500] text-[#707070] outline-hidden"
+      >
+        <option value="">{defaultOptionText}</option>
 
-                {
-                    children
-                }
-
-            </select>
-        </div>
-    )
-}
-export default DropDownList
+        {children}
+      </select>
+    </div>
+  );
+};
+export default DropDownList;
