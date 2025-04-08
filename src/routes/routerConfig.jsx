@@ -5,6 +5,7 @@ import privateRoutes from './PrivateRoutes';
 import publicRoutes from './PublicRoutes';
 import RegisterPage from '../pages/RegisterPage';
 import ForgetPassPage from '../pages/ForgetPasswordPage';
+
 const routesConfig = [
   {
     path: '/',

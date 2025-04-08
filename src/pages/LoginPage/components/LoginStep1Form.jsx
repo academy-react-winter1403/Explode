@@ -3,9 +3,11 @@ import CustomForm from '../../../components/CustomForm';
 import { UserLogin } from '../../../core/services/auth';
 import toast from 'react-hot-toast';
 import { emailOrPhoneSchema } from '../../../core/validation';
-
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../../../core/redux/authSlice';
 const LoginStep1Form = ({ setCurrentStep, setUserEnterNumber }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const fields = [
     {
       name: 'phoneOrGmail',
@@ -26,6 +28,16 @@ const LoginStep1Form = ({ setCurrentStep, setUserEnterNumber }) => {
       toast.success('شما با موفقیت وارد شدید');
       setIsLoading(false);
       setUserEnterNumber(res.phoneNumber);
+      console.log({
+        userId: res.id,
+        userPhoneNumber: res.phoneNumber,
+        token: res.token,
+      });
+      dispatch(
+        setCredentials({
+          token: res.token,
+        }),
+      );
       setCurrentStep((prevStep) => prevStep + 1);
     } else {
       toast.error(res.message);

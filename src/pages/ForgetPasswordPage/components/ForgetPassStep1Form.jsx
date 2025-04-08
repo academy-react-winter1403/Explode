@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CustomForm from '../../../components/CustomForm';
 import toast from 'react-hot-toast';
 import { UserForgetPassSendLink } from '../../../core/services/auth';
-import { emailOrPhoneSchema } from '../../../core/validation';
+import { emailSchema } from '../../../core/validation';
 
 const ForgetPassStep1Form = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +39,7 @@ const ForgetPassStep1Form = () => {
       goHomeLink={true}
       showLoginLink={false}
       hideLoginOrRegisterLink={true}
-      validationSchema={emailOrPhoneSchema}
+      validationSchema={emailSchema}
       resetVerifyCode={false}
       buttonTitle="ارسال لینک"
     />

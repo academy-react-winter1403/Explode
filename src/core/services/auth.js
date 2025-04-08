@@ -1,5 +1,5 @@
 import instance from '../axiosInstance';
-
+//register
 export const UserRegisterSendVerifyMessage = async (phoneNumber) => {
   try {
     const response = await instance.post(
@@ -30,15 +30,34 @@ export const UserRegisterLogin = async (obj) => {
     console.error('Error:', error);
   }
 };
+
+//login
 export const UserLogin = async (obj) => {
   try {
     const response = await instance.post('/Sign/Login', obj);
-    console.log(response);
     return response;
   } catch (error) {
     console.error('Error:', error);
   }
 };
+export const UserAcceptVerifyCode = async (obj) => {
+  try {
+    const response = await instance.post('/Sign/Login', obj);
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+export const UserReSendVerifyCode = async (obj) => {
+  try {
+    const response = await instance.post('/Sign/Login', obj);
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+//forgot password
 
 export const UserForgetPassSendLink = async (obj) => {
   try {
@@ -53,7 +72,6 @@ export const UserForgetPassSendLink = async (obj) => {
 export const verifyResetToken = async (id) => {
   try {
     const response = await instance.get('/Sign/Reset/' + id);
-    console.log(response);
     return response;
   } catch (error) {
     console.error('Error:', error);

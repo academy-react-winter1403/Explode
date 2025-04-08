@@ -31,6 +31,7 @@ const LoginStep2Form = ({ setCurrentStep, userEnterNumber }) => {
     if (res?.success) {
       toast.success('کد تایید شما با موفقیت ثبت شد');
       setIsLoading(false);
+      console.log(res);
       setCurrentStep((prevStep) => prevStep + 1);
     } else {
       setIsLoading(false);
