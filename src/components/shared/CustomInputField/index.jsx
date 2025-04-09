@@ -1,10 +1,17 @@
 import { Field, ErrorMessage } from 'formik';
-const CustomInputField = ({ label, name, placeholder, type = 'text' }) => {
+const CustomInputField = ({
+  label,
+  name,
+  placeholder,
+  type = 'text',
+  haveLabel = true,
+}) => {
   return (
     <div className="flex flex-col flex-nowrap gap-[8px]">
-      <label htmlFor="name" className="font-semibold text-[#2F2F2F]">
-        {label}
-      </label>
+      {haveLabel && (
+        <label className="font-semibold text-[#2F2F2F]"> {label}</label>
+      )}
+
       <Field
         type={type}
         name={name}

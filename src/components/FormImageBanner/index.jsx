@@ -1,10 +1,10 @@
 import laptopImage from '../../assets/img/3d-hygge-top-view-of-laptop-glasses-cup-of-coffee-headphones-1 1.png';
-import { WebSiteLogo } from '../../components/Header/components/Logo/WebSiteLogo';
-import IconSet from '../../components/shared/iconSet';
+import Logo from '../shared/Logo';
+import IconSet from '../../components/shared/IconSet';
 const FormImageBanner = () => {
   return (
     <div className="bg-secondry h-[100%] w-[748px] rounded-[32px] p-8">
-      <WebSiteLogo />
+      <Logo />
       <h2 className="mt-16 mb-2 text-[32px] font-semibold">
         شروع یک ماجراجویی
       </h2>

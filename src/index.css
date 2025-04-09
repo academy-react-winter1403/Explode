@@ -18,6 +18,7 @@ body {
   --color-secondry: #f1f1f1;
   --color-thirdly: #2f2f2f;
 }
+
 .nav-button {
-  @apply text-primary mx-auto mt-4 flex h-[40px] w-[141px] cursor-pointer flex-row-reverse items-center justify-center gap-1 rounded-[34px] border border-[#DCDCDC] text-center leading-4 font-medium;
+  @apply text-primary mx-auto mt-4 flex h-[40px] w-[141px] cursor-pointer flex-row-reverse items-center justify-center gap-1 rounded-[34px] border border-[#DCDCDC] text-center font-medium leading-4;
 }

@@ -1,17 +1,17 @@
-import { WebSiteLogo } from "./components/Logo/WebSiteLogo";
-import { HeaderOptions } from "./components/Options/HeaderOptions";
-import { HeaderNavigation } from "./components/Menu/Main/HeaderNavigation";
+import Menu from './Menu';
+import Options from './optionButtons';
+import { useState } from 'react';
+import ResponsiveMenu from './ResponsiveMenu';
+import Logo from '../shared/Logo';
 const Header = () => {
+  const [menuStatus, setMenuStatus] = useState(false);
   return (
-    // Header Container
-    <div className="p-[24px_0]">
-      {/* Row */}
-      <div className="m-[0_auto] flex items-center justify-between max-w-[1360px] h-[49px] max-[1360px]:p-[0px_10px]">
-        <WebSiteLogo logoTileStatus={"max-[800px]:hidden"}/>
-        <HeaderNavigation />
-        <HeaderOptions />
-      </div>
-    </div>
+    <header className="m-[24px_auto_0_auto] flex h-[49px] max-w-[1360px] items-center justify-between max-[1460px]:p-[0_16px]">
+      <Logo />
+      <Menu menuStatus={menuStatus} setMenuStatus={setMenuStatus} />
+      <Options />
+      <ResponsiveMenu menuStatus={menuStatus} setMenuStatus={setMenuStatus} />
+    </header>
   );
 };
 export default Header;

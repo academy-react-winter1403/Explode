@@ -1,18 +1,22 @@
-import { LandingInfo } from "./components/Banner/LandingInfo/LandingInfo";
-import { LandingTitle } from "./components/Banner/LandingTitle/LandingTitle";
-import { ShowCourses } from "./components/Banner/ShowCourses/ShowCourses";
+import AcademyGoals from './components/AcademyGoals';
+import Banner from './components/banner';
+import TopBlogs from './components/Blogs';
+import OurServices from './components/ourServices';
+import ProgressBar from './components/ProgressBar';
+import TopCourses from './components/TopCourses';
+import TopTeachers from './components/TopTeachers';
 
 const HomePage = () => {
   return (
-    // Container
-    <div >
-      {/* Row */}
-      <div className="m-[0_auto] max-w-[1360px] flex flex-wrap justify-evenly pt-[73px]  items-center gap-[40px] max-[650px]:flex-col">
-        <LandingInfo />
-        <LandingTitle />
-        <ShowCourses />
-      </div>
-    </div>
-  )
+    <section className="mt-[80px]">
+      <Banner />
+      <ProgressBar />
+      <AcademyGoals />
+      <OurServices />
+      <TopCourses />
+      <TopBlogs />
+      <TopTeachers />
+    </section>
+  );
 };
 export default HomePage;
