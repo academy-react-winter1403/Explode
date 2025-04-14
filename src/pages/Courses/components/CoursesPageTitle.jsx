@@ -1,4 +1,3 @@
-import HomePageTitle from '../../HomePage/components/banner/HomePageTitle';
 import PageTitle from '../../../components/PageTitle';
 const CoursesPageTitle = () => {
   return (

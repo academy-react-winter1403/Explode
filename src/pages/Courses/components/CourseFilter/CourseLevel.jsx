@@ -1,13 +1,16 @@
 import React from 'react';
 import DropDownList from '../../../../components/shared/drop-down-list';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCourses, setCurrentPage, setLevelId } from '../../../../core/redux/courseSlice';
 
 const CourseLevel = () => {
-  const { setLevelId, courseLevels, setCurrentPage } = useCourseStore();
+  const dispatch = useDispatch()
+  const courseLevels = useSelector((state) => state.courses.courseLevels)
   const handleLevels = (data) => {
-    setLevelId(data);
-    setCurrentPage(1);
-  };
+    dispatch(setLevelId(data))
+    dispatch(setCurrentPage(1))
+    dispatch(fetchCourses())
+  }
   return (
     <DropDownList
       imageSrc={'/src/assets/icons/course-level.svg'}

@@ -1,12 +1,16 @@
+import { useDispatch, useSelector } from 'react-redux';
 import DropDownList from '../../../../components/shared/drop-down-list';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import { fetchCourses, setCategory, setCurrentPage } from '../../../../core/redux/courseSlice';
+
 
 const Category = () => {
-  const { categories, setCategory, setCurrentPage } = useCourseStore();
+  const categories = useSelector((state) => state.courses.courseCategories)
+  const dispatch = useDispatch()
   const handleCategory = (data) => {
-    setCategory(data);
-    setCurrentPage(1);
-  };
+    dispatch(setCategory(data))
+    dispatch(setCurrentPage(1))
+    dispatch(fetchCourses())
+  }
   return (
     <DropDownList
       imageSrc={'/src/assets/icons/category.svg'}

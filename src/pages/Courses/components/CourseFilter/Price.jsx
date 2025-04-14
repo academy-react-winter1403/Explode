@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Range } from 'react-range';
 import Title from '../../../../components/shared/filter-sections-title';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import { useDispatch } from 'react-redux';
+import { fetchCourses, setCostDown, setCostUp, setCurrentPage } from '../../../../core/redux/courseSlice';
+
 const Price = () => {
-  const { setCostDown, setCostUp, setCurrentPage } = useCourseStore();
-  const [values, setValues] = useState([0, 20000000]);
-  let filterTimeOut;
+  const dispatch = useDispatch()
+  const [values, setValues] = useState([0, 2000000000]);
+  let filterTimeoutRef = useRef(null);
   const handleChange = (values) => {
     setValues(values);
     // Debounce
-    clearInterval(filterTimeOut);
-    filterTimeOut = setTimeout(() => {
-      setCostDown(values[0]);
-      setCostUp(values[1]);
-      setCurrentPage(1);
+    if (filterTimeoutRef.current) {
+      clearTimeout(filterTimeoutRef.current);
+    }
+
+    filterTimeoutRef.current = setTimeout(() => {
+      dispatch(setCostDown(values[0]))
+      dispatch(setCostUp(values[1]))
+      dispatch(setCurrentPage(1))
+      dispatch(fetchCourses())
     }, 2500);
   };
+
   return (
     <div className="mb-[20px] w-[100%]">
       <Title imageSrc={'/src/assets/icons/price.svg'} titleText={'قیمت'} />
@@ -35,7 +42,7 @@ const Price = () => {
         <Range
           step={100000}
           min={0}
-          max={20000000}
+          max={2000000000}
           values={values}
           onChange={handleChange}
           renderTrack={({ props, children }) => (

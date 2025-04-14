@@ -2,9 +2,10 @@ import { useState } from 'react';
 import FormStepNavigation from './components/formStepNavigation';
 import Button from '../../components/shared/Button';
 import { Link } from 'react-router-dom';
-import IconSet from '../../components/shared/iconSet';
+
 import CustomInputField from '../../components/shared/CustomInputField';
 import homeIcon from '../../assets/icons/home-04.png';
+import IconSet from '../../components/shared/IconSet';
 
 const RegisterPage = () => {
   const steps = [

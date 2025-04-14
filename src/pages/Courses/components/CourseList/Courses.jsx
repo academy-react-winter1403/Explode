@@ -1,31 +1,31 @@
 import React from 'react';
-
 import CardsSkeleton from '../../../skeleton/cards-skeleton';
 import ProductCards from '../../../../components/shared/cards';
-import useCourseStore from '../../../../Hooks/useCourseStore';
-const Courses = ({ perPage }) => {
-  const { courses, loading } = useCourseStore();
+import { useSelector } from 'react-redux';
+const Courses = () => {
+  const courses = useSelector((state) => state.courses.courses)
+  const loading = useSelector((state) => state.courses.loading)
   return (
     <div className="flex flex-wrap justify-between gap-[20px] max-[1050px]:justify-center max-[1050px]:gap-[40px]">
       {loading
-        ? Array(perPage)
-            .fill(0)
-            .map((_, index) => (
-              <CardsSkeleton key={index} width={322} height={293} />
-            ))
+        ? Array(12)
+          .fill(0)
+          .map((_, index) => (
+            <CardsSkeleton key={index} width={322} height={293} />
+          ))
         : courses.map((item, index) => (
-            <ProductCards
-              isCourse={true}
-              key={index}
-              width={322}
-              title={item.title}
-              author={item.teacherName}
-              courseLevel={item.levelName}
-              courseCategory={item.technologyList.split(',')[0]}
-              price={item.cost}
-              image={item.tumbImageAddress}
-            />
-          ))}
+          <ProductCards
+            isCourse={true}
+            key={index}
+            width={322}
+            title={item.title}
+            author={item.teacherName}
+            courseLevel={item.levelName}
+            courseCategory={item.technologyList.split(',')[0]}
+            price={item.cost}
+            image={item.tumbImageAddress}
+          />
+        ))}
     </div>
   );
 };

@@ -1,15 +1,20 @@
+import { useRef } from 'react';
 import Title from '../../../../components/shared/filter-sections-title';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import { useDispatch } from 'react-redux';
+import { fetchCourses, setCurrentPage, setQuery } from '../../../../core/redux/courseSlice';
 
 const SearchInput = () => {
-  const { setQuery, setCurrentPage } = useCourseStore();
-  let filterTimeOut;
+  const dispatch = useDispatch()
+  const filterTimeOutRef = useRef(null)
   const handleQuery = (data) => {
     // Debounce
-    clearInterval(filterTimeOut);
-    filterTimeOut = setTimeout(() => {
-      setQuery(data.trim());
-      setCurrentPage(1);
+    if (filterTimeOutRef.current) {
+      clearInterval(filterTimeOutRef.current);
+    }
+    filterTimeOutRef.current = setTimeout(() => {
+      dispatch(setQuery(data.trim()));
+      dispatch(setCurrentPage(1));
+      dispatch(fetchCourses())
     }, 1000);
   };
 

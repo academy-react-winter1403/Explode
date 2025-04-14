@@ -1,18 +1,21 @@
 import React from 'react';
 import Title from '../../../../components/shared/filter-sections-title';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import { useDispatch } from 'react-redux';
+import { fetchCourses, setCurrentPage, setEndDate, setStartDate } from '../../../../core/redux/courseSlice';
+
 
 const Calender = () => {
-  const { setStartDate, setEndDate, setCurrentPage } = useCourseStore();
+  const dispatch = useDispatch()
   const handleStartDate = (date) => {
-    setStartDate(date);
+    dispatch(setStartDate(date))
   };
   const handleEndtDate = (date) => {
-    setEndDate(date);
-    setCurrentPage(1);
+    dispatch(setEndDate(date))
+    dispatch(setCurrentPage(1))
+    dispatch(fetchCourses())
   };
   return (
-    <div className="mb-[20px]">
+    <div >
       <Title
         imageSrc={'/src/assets/icons/calender.svg'}
         titleText={'تاریخ برگزاری - اتمام'}
