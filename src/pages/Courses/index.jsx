@@ -10,10 +10,8 @@ const Courses = () => {
     <Fragment>
       <Page_Title />
       <Content />
-      <Sorting/>
-    </Fragment>
-    
-
+      <Sorting />
+         </Fragment>
   );
 };
 export default Courses;
