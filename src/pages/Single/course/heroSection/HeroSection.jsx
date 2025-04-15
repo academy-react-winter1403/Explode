@@ -6,7 +6,6 @@ const HeroSection = () => {
         <img src={heroImg} alt="" className="h-full w-full" />
       </div>
       <div className="w-3/5 border-2 border-blue-400">
-        
       </div>
     </div>
   );
