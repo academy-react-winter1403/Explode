@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
-import ProductCards from '../../../../components/shared/cards';
+
 import { getTopCourses } from '../../../../core/services/courses';
 import CardsSkeleton from '../../../skeleton/cards-skeleton';
+import ProductCards from '../../../../components/cards';
 
 const CoursesList = () => {
   const [topCourses, setTopCourses] = useState([]);
@@ -24,24 +25,24 @@ const CoursesList = () => {
     <Fragment>
       {loading
         ? Array(4)
-            .fill(0)
-            .map((_, index) => (
-              <CardsSkeleton key={index} width={322} height={293} />
-            ))
+          .fill(0)
+          .map((_, index) => (
+            <CardsSkeleton key={index} width={322} height={293} />
+          ))
         : topCourses.map((course, index) => (
-            <ProductCards
-              key={index}
-              title={course.title}
-              isCourse={true}
-              author={course.teacherName}
-              price={course.cost}
-              width={322}
-              courseLevel={course.levelName}
-              courseCategory={course.typeName}
-              image={course.tumbImageAddress}
-              linkAddress={`/course-detail/${course.courseId}`}
-            />
-          ))}
+          <ProductCards
+            key={index}
+            title={course.title}
+            isCourse={true}
+            author={course.teacherName}
+            price={course.cost}
+            width={322}
+            courseLevel={course.levelName}
+            courseCategory={course.typeName}
+            image={course.tumbImageAddress}
+            linkAddress={`/courses/single/${course.courseId}`}
+          />
+        ))}
     </Fragment>
   );
 };

@@ -15,7 +15,7 @@ const TopBlogs = () => {
       {/* All Courses Link */}
       <div className="mt-[40px] flex justify-center">
         <Link
-          to={'/'}
+          to={'/blogs'}
           className="bg-thirdly rounded-[40px] p-[8px_16px] text-[16px] font-[500] text-[#FCFCFC]"
         >
           مشاهده بیشتر

@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Title from '../../../../components/shared/filter-sections-title'
+import { useDispatch } from 'react-redux'
+import { fetchBlogs, setCurrentPage, setQuery } from '../../../../core/redux/blogSlice'
 
 const SearchInput = () => {
+    const dispatch = useDispatch()
+    const filterTimeOutRef = useRef(null)
+    
     const handleQuery = (data) => {
-
-    }
+        console.log(filterTimeOutRef.current)
+        // Debounce
+        if (filterTimeOutRef.current) {
+            clearInterval(filterTimeOutRef.current);
+        }
+        filterTimeOutRef.current = setTimeout(() => {
+            dispatch(setQuery(data.trim()));
+            dispatch(setCurrentPage(1));
+            dispatch(fetchBlogs())
+        }, 1000);
+    };
     return (
         <div className="mb-[20px]">
             <Title imageSrc={'/src/assets/icons/search.svg'} titleText={'جستجو'} />

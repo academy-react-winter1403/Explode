@@ -2,7 +2,14 @@ import React, { Fragment, useEffect } from 'react';
 import CourseList from './components/CourseList';
 import CourseFilter from './components/CourseFilter';
 import CoursesPageTitle from './components/CoursesPageTitle';
+import { useDispatch } from 'react-redux';
+import { fetchCategories, fetchCourses, fetchLevels, fetchTeachers } from '../../core/redux/courseSlice';
 const Courses = () => {
+  const dispatch = useDispatch()
+  dispatch(fetchCourses())
+  dispatch(fetchCategories())
+  dispatch(fetchLevels())
+  dispatch(fetchTeachers())
   return (
     <Fragment>
       <CoursesPageTitle />

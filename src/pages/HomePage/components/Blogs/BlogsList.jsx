@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 import { getBlogsList } from '../../../../core/services/blogs';
 import CardsSkeleton from '../../../skeleton/cards-skeleton';
-import ProductCards from '../../../../components/shared/cards';
+import ProductCards from '../../../../components/cards';
+
 
 const BlogsList = () => {
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,6 @@ const BlogsList = () => {
     try {
       const { news } = await getBlogsList(params);
       setTopBlogs(news);
-      console.log(news);
       setLoading(false);
     } catch {
       setLoading(false);
@@ -30,23 +30,23 @@ const BlogsList = () => {
     <Fragment>
       {loading
         ? Array(3)
-            .fill(0)
-            .map((_, index) => (
-              <CardsSkeleton key={index} width={431} height={293} />
-            ))
+          .fill(0)
+          .map((_, index) => (
+            <CardsSkeleton key={index} width={431} height={293} />
+          ))
         : topBlogs.map((item, index) => (
-            <ProductCards
-              key={index}
-              title={item.title}
-              isBlog={true}
-              author={item.addUserFullName}
-              date={item.insertDate}
-              view={item.currentView}
-              width={431}
-              image={item.currentImageAddressTumb}
-              linkAddress={`/blogs/${item.id}`}
-            />
-          ))}
+          <ProductCards
+            key={index}
+            title={item.title}
+            isBlog={true}
+            author={item.addUserFullName}
+            date={item.insertDate}
+            view={item.currentView}
+            width={431}
+            image={item.currentImageAddressTumb}
+            linkAddress={`/blogs/single/${item.id}`}
+          />
+        ))}
     </Fragment>
   );
 };

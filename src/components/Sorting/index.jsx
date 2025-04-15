@@ -3,31 +3,34 @@ import { useDispatch, useSelector } from 'react-redux'
 import CloseButton from '../CloseButton'
 import IconSet from '../shared/IconSet'
 import { fetchCourses, setCurrentPage, setResponsiveFilter, setResponsiveSorting, setSorting, setSortingType } from '../../core/redux/courseSlice'
-import { SortingOptionsButtonData } from './../../pages/Courses/components/CourseList/Sorting/SortingOptionsButtonData';
-import { BlogsSortingOptionsButtonData } from './../../pages/Blogs/Components/BlogList/Sorting/SortingOptionsButtonsData';
+import { SortingOptionsButtonData } from '../../pages/Courses/components/CourseList/SortingOptionsButtonData';
+import { BlogsSortingOptionsButtonData } from './../../pages/Blogs/Components/BlogList/SortingOptionsButtonsData';
+import { fetchBlogs, setCurrentPage as blogSetCurrentPage, setSorting as blogSetSorting, setSortingType as blogSetSortingType } from '../../core/redux/blogSlice'
 
 
 const Sorting = () => {
     const { pathname: location } = useLocation()
     const sortingButtons = location == '/courses' ? SortingOptionsButtonData : BlogsSortingOptionsButtonData
     const dispatch = useDispatch()
-    let sorting = null
-    let sortingType = null
-    if (location == '/courses') {
-        sorting = useSelector((state) => state.courses.sorting)
-        sortingType = useSelector((state) => state.courses.sortingType)
-    }
-    else {
-
-    }
+    let sorting = location == '/courses' ? useSelector((state) => state.courses.sorting) : useSelector((state) => state.blogs.sorting)
+    let sortingType = location == '/courses' ? useSelector((state) => state.courses.sortingType) : useSelector((state) => state.blogs.sortingType)
     const responsiveSorting = useSelector((state) => state.courses.responsiveSorting)
     const responsiveFilter = useSelector((state) => state.courses.responsiveFilter)
     const handleClick = (data) => {
-        dispatch(setSorting(data[0]))
-        dispatch(setSortingType(data[1]))
-        dispatch(setCurrentPage(1))
-        dispatch(fetchCourses())
+        if (location == '/courses') {
+            dispatch(setSorting(data[0]))
+            dispatch(setSortingType(data[1]))
+            dispatch(setCurrentPage(1))
+            dispatch(fetchCourses())
+        }
+        else {
+            dispatch(blogSetSorting(data[0]))
+            dispatch(blogSetSortingType(data[1]))
+            dispatch(blogSetCurrentPage(1))
+            dispatch(fetchBlogs())
+        }
     }
+
     return (
         <div className='flex items-center gap-[20px] mb-[20px] h-[40px] '>
             {/* Mobile Sorting */}

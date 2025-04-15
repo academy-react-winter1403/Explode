@@ -9,3 +9,14 @@ export const getBlogsList = async (urlParams) => {
     throw error;
   }
 };
+
+
+export const getBlogsCategories = async () => {
+  try {
+    const response = await instance.get('/News/GetListNewsCategory');
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};

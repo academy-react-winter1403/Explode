@@ -6,4 +6,5 @@ const Single = () => {
         <SinglePage />
     )
 }
+
 export default Single

@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
-import IconSet from '../IconSet/index';
-import { formatDate } from '../../../utils/DateFormatter';
-import { ValidURL } from '../../../utils/ValidUrl';
+import IconSet from '../shared/IconSet';
+import { formatDate } from './../../utils/DateFormatter';
+import { ValidURL } from './../../utils/ValidUrl';
 
 const ProductCards = ({
   title = '',

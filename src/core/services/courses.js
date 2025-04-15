@@ -43,3 +43,14 @@ export const getLevels = async () => {
     throw error;
   }
 };
+
+
+export const getCourseDetail = async (urlParams) => {
+  try {
+    const response = await instance.get('/Home/GetCourseDetails', { params: urlParams });
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}

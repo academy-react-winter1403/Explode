@@ -1,10 +1,8 @@
-import React from 'react'
 import CloseButton from '../../../../components/CloseButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { setResponsiveFilter } from '../../../../core/redux/courseSlice'
 import SearchInput from './SearchInput'
 import Category from './Category';
-import Calender from './Calender';
 
 
 const BlogFilter = () => {
@@ -20,7 +18,6 @@ const BlogFilter = () => {
             </div>
             <SearchInput />
             <Category />
-            <Calender />
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCategories, getCoursesWithPagination, getLevels } from "../services/courses";
+import { getCategories, getCourseDetail, getCoursesWithPagination, getLevels } from "../services/courses";
 import { getTeacherCountReports } from "../services/userStatisticsReport";
 
 const perPage = 12
@@ -33,13 +33,22 @@ export const fetchCategories = createAsyncThunk(
 )
 
 export const fetchLevels = createAsyncThunk(
-    "course/fetchLevels",
+    "courses/fetchLevels",
     async () => { return await getLevels(); });
 
 export const fetchTeachers = createAsyncThunk(
-    "course/fetchTeachers",
+    "courses/fetchTeachers",
     async () => { return await getTeacherCountReports() }
 );
+
+export const fetchCourseDetail = createAsyncThunk(
+    "course/fetchCourseDetail",
+    async (params) => {
+        return await getCourseDetail({
+            CourseId: params
+        })
+    }
+)
 
 const coursesSlice = createSlice({
     name: 'courses',
@@ -63,7 +72,8 @@ const coursesSlice = createSlice({
         endDate: null,
         responsiveFilter: false,
         responsiveSorting: false,
-        courseCategories: []
+        courseCategories: [],
+        courseDetail: {},
     },
     reducers: {
         setCurrentPage: (state, action) => {
@@ -105,6 +115,7 @@ const coursesSlice = createSlice({
         setResponsiveSorting: (state, action) => {
             state.responsiveSorting = action.payload;
         },
+
     },
     extraReducers: (builder) => {
         builder
@@ -127,7 +138,17 @@ const coursesSlice = createSlice({
             })
             .addCase(fetchTeachers.fulfilled, (state, action) => {
                 state.teachers = action.payload;
-            });
+            })
+            .addCase(fetchCourseDetail.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchCourseDetail.fulfilled, (state, action) => {
+                state.courseDetail = action.payload;
+                state.loading = false;
+            })
+            .addCase(fetchCourseDetail.rejected, (state) => {
+                state.loading = false;
+            })
     },
 
 })
