@@ -10,8 +10,8 @@ const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
     return (
         <div className='flex gap-[20px] justify-between items-center max-[1150px]:flex-col'>
             {/* Single Page Image */}
-            <div className='w-[642px] h-[424px] max-[1150px]:w-[100%] rounded-[32px] flex items-center max-[1150px]:items-start justify-center overflow-hidden max-[1150px]:order-1'>
-                <img className='rounded-[32px] ' src={imageAddress ? imageAddress : '/src/assets/img/not-set-image.jpg'} alt={detail?.title} />
+            <div className='w-[642px] h-[auto] max-[1150px]:w-[100%] rounded-[32px] flex items-center max-[1150px]:items-start justify-center overflow-hidden max-[1150px]:order-1'>
+                <img className={`rounded-[32px] ${imageAddress ? '' : 'h-[100px]'}`} src={imageAddress ? imageAddress : '/src/assets/img/not-set-image.jpg'} alt={detail?.title} />
             </div>
 
             {/* Single Page Info*/}
