@@ -8,6 +8,7 @@ const SinglePage = () => {
     const { pathname: location } = useLocation()
     const blogSingle = location.includes('/blogs/single')
     const courseSingle = location.includes('/courses/single')
+    const loading = useSelector((state) => state.courses.loading)
     const dispatch = useDispatch()
     const { id } = useParams()
     let detail = useRef()

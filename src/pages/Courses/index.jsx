@@ -6,10 +6,12 @@ import { useDispatch } from 'react-redux';
 import { fetchCategories, fetchCourses, fetchLevels, fetchTeachers } from '../../core/redux/courseSlice';
 const Courses = () => {
   const dispatch = useDispatch()
-  dispatch(fetchCourses())
-  dispatch(fetchCategories())
-  dispatch(fetchLevels())
-  dispatch(fetchTeachers())
+  useEffect(() => {
+    dispatch(fetchCourses());
+    dispatch(fetchCategories());
+    dispatch(fetchLevels());
+    dispatch(fetchTeachers());
+  }, []);
   return (
     <Fragment>
       <CoursesPageTitle />

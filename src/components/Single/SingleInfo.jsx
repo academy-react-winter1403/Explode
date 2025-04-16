@@ -1,17 +1,34 @@
 import React from 'react'
 import { ValidURL } from './../../utils/ValidUrl';
+import SingleInfoTable from './SingleInfoTable';
+import SingleInfoOverviewBar from './SingleInfoOverviewBar';
 
 const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
-    const imageAddress = courseSingle && ValidURL(detail.imageAddress) ? detail.imageAddress : blogSingle && ValidURL(detail.currentImageAddressTumb) ? detail.currentImageAddressTumb : false
+    // : blogSingle && ValidURL(detail.currentImageAddressTumb) ? detail.currentImageAddressTumb : false
+    const imageAddress = courseSingle && ValidURL(detail.imageAddress) && detail.imageAddress
     return (
-        <div className='flex gap-[10px] justift-between items-start '>
-            <div className='w-[642px] h-[424px] flex items-center justify-center overflow-hidden '>
-                <img className='rounded-[32px]' src={imageAddress ? imageAddress : '/src/assets/img/not-set-image.jpg'} alt={detail.title} />
+        <div className='flex gap-[10px] justify-between items-center max-[1150px]:flex-col'>
+            {/* Single Page Image */}
+            <div className='w-[642px] h-[424px] max-[1150px]:w-[100%] rounded-[32px] flex items-center max-[1150px]:items-start justify-center overflow-hidden max-[1150px]:order-1'>
+                <img className='rounded-[32px] ' src={imageAddress ? imageAddress : '/src/assets/img/not-set-image.jpg'} alt={detail?.title} />
             </div>
 
-            <div className='w-[642px]'>
-                <h2 className='font-[700] text-[32px]'>{detail.title}</h2>
+            {/* Single Page Info*/}
+            <div className='w-[710px] max-[1150px]:w-[100%]'>
+                <h2 className='font-[700] text-[32px] mb-[15px]'>{detail?.title}</h2>
+                <SingleInfoTable
+                    detail={detail}
+                    courseSingle={courseSingle}
+                    blogSingle={blogSingle}
+                />
+                <SingleInfoOverviewBar
+                    rating={courseSingle ? detail.currentRate : 4}
+                    commentCount={courseSingle ? detail.commentCount : 126}
+                    courseCost={courseSingle ? detail.cost : 1200000}
+                />
             </div>
+
+
         </div>
     )
 }

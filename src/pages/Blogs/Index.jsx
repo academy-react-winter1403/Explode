@@ -1,4 +1,4 @@
-import { Fragment } from "react"
+import { Fragment, useEffect } from "react"
 import BlogsPageTitle from "./Components/BlogsPageTitle"
 import BlogList from "./Components/BlogList"
 import BlogFilter from "./Components/BlogFilter"
@@ -6,8 +6,10 @@ import { useDispatch } from "react-redux"
 import { fetchBlogCategories, fetchBlogs } from "../../core/redux/blogSlice"
 const Blogs = () => {
     const dispatch = useDispatch()
-    dispatch(fetchBlogs())
-    dispatch(fetchBlogCategories())
+    useEffect(() => {
+        dispatch(fetchBlogs())
+        dispatch(fetchBlogCategories())
+    }, [])
     return (
         <Fragment>
             <BlogsPageTitle />
