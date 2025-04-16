@@ -1,6 +1,5 @@
 import toast from "react-hot-toast";
 export const CopyLink = async (linkToCopy, setCopying) => {
-
     try {
         setCopying(true)
         await navigator.clipboard.writeText(linkToCopy);
