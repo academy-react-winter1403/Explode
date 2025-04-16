@@ -30,7 +30,7 @@ const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0, cou
                 </span>
             </div>
             {
-                courseSingle && <span className='text-[16px] font-[500] text-thirdly max-[500px]:hidden'><span className='text-[24px] font-[700]'>{courseCost}</span> تومان</span>
+                courseSingle && <span className=' max-[710px]:hidden text-[16px] font-[500] text-thirdly max-[500px]:hidden'><span className='text-[24px] font-[700]'>{courseCost}</span> تومان</span>
             }
         </div>
     );
