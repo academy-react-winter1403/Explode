@@ -24,7 +24,8 @@ const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
                 <SingleInfoOverviewBar
                     rating={courseSingle ? detail.currentRate : 4}
                     commentCount={courseSingle ? detail.commentCount : 126}
-                    courseCost={courseSingle ? detail.cost : 1200000}
+                    courseCost={courseSingle && detail.cost}
+                    courseSingle={courseSingle}
                 />
             </div>
 

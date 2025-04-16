@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
 
-const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0,courseCost }) => {
+const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0, courseCost=0, courseSingle }) => {
     const stars = [];
     for (let index = 1; index <= maxRange; index++) {
         stars.push(
@@ -29,8 +29,9 @@ const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0,cour
                     </span>
                 </span>
             </div>
-
-            <span className='text-[16px] font-[500] text-thirdly max-[500px]:hidden'><span className='text-[24px] font-[700]'>{courseCost}</span> تومان</span>
+            {
+                courseSingle && <span className='text-[16px] font-[500] text-thirdly max-[500px]:hidden'><span className='text-[24px] font-[700]'>{courseCost}</span> تومان</span>
+            }
         </div>
     );
 };
