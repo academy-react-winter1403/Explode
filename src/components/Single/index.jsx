@@ -5,6 +5,7 @@ import { fetchCourseDetail } from './../../core/redux/courseSlice';
 import SingleInfo from './SingleInfo';
 import SingleDescription from './SingleDescription';
 import SingleComments from './SingleComments';
+import RelatedSection from './RelatedSection';
 
 const SinglePage = () => {
     const { pathname: location } = useLocation()
@@ -28,6 +29,7 @@ const SinglePage = () => {
             <SingleInfo detail={detail.current} courseSingle={courseSingle} blogSingle={blogSingle} />
             <SingleDescription detail={detail.current} courseSingle={courseSingle} blogSingle={blogSingle} />
             <SingleComments />
+            <RelatedSection courseSingle={courseSingle} blogSingle={blogSingle} />
         </section>
     )
 }
