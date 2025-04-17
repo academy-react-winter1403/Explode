@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Field, ErrorMessage } from 'formik';
 const CustomInputField = ({
   label,
@@ -5,9 +6,10 @@ const CustomInputField = ({
   placeholder,
   type = 'text',
   haveLabel = true,
+  className,
 }) => {
   return (
-    <div className="flex flex-col flex-nowrap gap-[8px]">
+    <div className={clsx('flex flex-col flex-nowrap gap-[8px]', className)}>
       {haveLabel && (
         <label className="font-semibold text-[#2F2F2F]"> {label}</label>
       )}

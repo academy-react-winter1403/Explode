@@ -53,3 +53,25 @@ export const NewPasswordSetSchema = Yup.object().shape({
       'رمزهای عبور وارد شده باید یکسان باشند',
     ),
 });
+export const ProfileSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('نام الزامی است')
+    .min(3, ' نام باید حداقل 3 کاراکتر باشد'),
+  lastname: Yup.string()
+    .required('نام خانوادگی الزامی است')
+    .min(3, ' نام خانوادگی باید حداقل 3 کاراکتر باشد'),
+  aboutme: Yup.string()
+    .required('درباره من الزامی است')
+    .min(20, ' درباره من باید حداقل 20 کاراکتر باشد'),
+  phoneNumber: Yup.string()
+    .required('شماره همراه الزامی است')
+    .matches(/^09[0-9]{9}$/, 'شماره همراه معتبر نیست'),
+  nationalcode: Yup.string()
+    .required(' کد ملی الزامی است')
+    .matches(10, 'کد ملی باید حداقل 10 کاراکتر باشد'),
+  birthday: Yup.string().required('تاریخ تولد الزامی است'),
+  email: Yup.string().email('ایمیل معتبر نیست').required('ایمیل الزامی است'),
+  address: Yup.string()
+    .required('آدرس الزامی است')
+    .min(10, 'آدرس باید حداقل 10 کاراکتر باشد'),
+});

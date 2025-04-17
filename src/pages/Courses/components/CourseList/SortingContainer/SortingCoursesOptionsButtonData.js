@@ -1,4 +1,4 @@
-export const SortingOptionsButtonData = [
+export const SortingCoursesOptionsButtonData = [
   { id: 'newest', label: 'جدیدترین', value: 'Active', type: 'DESC' },
   { id: 'popular', label: 'محبوب ترین', value: 'likeCount', type: 'DESC' },
   { id: 'expensive', label: 'گران ترین', value: 'cost', type: 'DESC' },

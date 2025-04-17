@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import IconSet from '../../../../../components/shared/IconSet';
 import MobileToggleButtons from './MobileToggleButton';
-import SortingItem from './SortingItem';
-import SortingList from './SortingList';
 import SortingMobilePanel from './SortingMobilePannel';
 import useCourseStore from '../../../../../Hooks/useCourseStore';
+import { SortingCoursesOptionsButtonData } from './SortingCoursesOptionsButtonData';
+import SortingList from '../../../../../components/SortingList';
 
 const SortingContainer = ({ handleSortingChange, sorting, sortingType }) => {
   const [responsiveSorting, setResponsiveSorting] = useState(false);
@@ -28,6 +28,7 @@ const SortingContainer = ({ handleSortingChange, sorting, sortingType }) => {
           currentSorting={sorting}
           currentSortingType={sortingType}
           onClick={handleSortingChange}
+          SortingOptionsButtonData={SortingCoursesOptionsButtonData}
         />
       </SortingMobilePanel>
     </div>

@@ -1,0 +1,11 @@
+import instance from '../axiosInstance';
+
+export const getUserProfileInfo = async () => {
+  try {
+    const response = await instance.get('/SharePanel/GetProfileInfo');
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};

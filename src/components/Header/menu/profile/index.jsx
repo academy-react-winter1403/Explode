@@ -1,11 +1,18 @@
 import React, { Fragment } from 'react';
 import LoggedOut from './LoggedIn';
 import LoggedIn from './LoggedOut';
-const Profile = () => {
+import { Link } from 'react-router';
+const Profile = ({ checkLoggedIn }) => {
   return (
     <Fragment>
-      <LoggedOut />
-      <LoggedIn />
+      {checkLoggedIn ? (
+        <Link to="/dashboard">
+          {' '}
+          <LoggedIn />
+        </Link>
+      ) : (
+        <LoggedOut />
+      )}
     </Fragment>
   );
 };

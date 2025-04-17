@@ -1,7 +1,7 @@
 import IconSet from '../IconSet';
 import logoSvg from '/src/assets/img/logo.svg';
 import titleSvg from '/src/assets/img/title.svg';
-const Logo = () => {
+const Logo = ({ isDashboard }) => {
   return (
     <div className="flex w-[200px] items-center gap-[10px] max-[870px]:w-[auto]">
       <IconSet imageAddress={logoSvg} firstSize={42} secondSize={40} />

@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getItemGeneric, setItemGeneric } from '../common/storage.services';
+import {
+  getItemGeneric,
+  setItemGeneric,
+} from '../core/common/storage.services';
 
 const initialState = {
   token: getItemGeneric('token'),

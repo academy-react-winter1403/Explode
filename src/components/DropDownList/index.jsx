@@ -1,4 +1,4 @@
-import Title from '../FilterSectionsTitle';
+import Title from '../InputFilterTitle';
 
 const DropDownList = ({
   imageSrc,

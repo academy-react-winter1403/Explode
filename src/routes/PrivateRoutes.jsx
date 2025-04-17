@@ -1,24 +1,26 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import MainLayout from '../components/layout/MainLayout';
 import { useSelector } from 'react-redux';
+import UserPanel from '../pages/UserPanel';
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return <Outlet />;
 };
-
 const privateRoutes = [
   {
-    path: 'dashboard',
-    element: (
-      <PrivateRoute>
-        <MainLayout />
-      </PrivateRoute>
-    ),
+    path: '',
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: '/dashboard',
+        element: <UserPanel />,
+      },
+    ],
   },
 ];
 

@@ -1,11 +1,22 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { removeItem } from '../common/storage.services';
 
 const instance = axios.create({
   baseURL: 'https://classapi.sepehracademy.ir/api',
   headers: { 'Content-Type': 'application/json' },
 });
+// اصلاح شده: اینترسپتور request باید request را return کند
+instance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  console.log('Request interceptor', token);
 
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`; // اضافه کردن توکن به هدر در صورت وجود
+  }
+
+  return config;
+});
 const onSuccess = (response) => {
   return response.data;
 };
@@ -13,8 +24,6 @@ const onSuccess = (response) => {
 const onError = (error) => {
   if (error) {
     const { status, data } = error.response;
-    console.log(error.response);
-    console.log(error.response.data.ErrorMessage[0]);
     switch (status) {
       case 400:
         console.error('Bad Request:', data);
@@ -22,7 +31,8 @@ const onError = (error) => {
         break;
       case 401:
         console.error('Unauthorized:', data);
-        toast.error(data.ErrorMessage);
+        localStorage.clear('token');
+        toast.error('توکن احراز هویت باطل شده لطفا دوباره وارد شوید');
         break;
       case 404:
         console.error('Not Found:', data);

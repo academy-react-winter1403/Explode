@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Range } from 'react-range';
-import Title from '../../../../components/FilterSectionsTitle';
+import Title from '../../../../components/InputFilterTitle';
 import useCourseStore from '../../../../Hooks/useCourseStore';
 const Price = () => {
   const { setCostDown, setCostUp, setCurrentPage } = useCourseStore();
   const [values, setValues] = useState([0, 20000000]);
-  let filterTimeOut;
+  const filterTimeOut = useRef(null);
+  useEffect(() => {
+    return () => {
+      if (filterTimeOut.current) {
+        clearTimeout(filterTimeOut.current);
+      }
+    };
+  }, []);
   const handleChange = (values) => {
     setValues(values);
-    // Debounce
-    clearInterval(filterTimeOut);
-    filterTimeOut = setTimeout(() => {
+
+    if (filterTimeOut.current) {
+      clearTimeout(filterTimeOut.current);
+    }
+
+    filterTimeOut.current = setTimeout(() => {
       setCostDown(values[0]);
       setCostUp(values[1]);
       setCurrentPage(1);
@@ -30,14 +40,14 @@ const Price = () => {
       </div>
 
       <div className="relative h-[8px] w-[100%]">
-        <div className="absolute top-[-3px] h-[100%] w-[100%] w-full rounded-full bg-[#F1F1F1]"></div>
+        <div className="absolute top-[-3px] h-[100%] w-full rounded-full bg-[#F1F1F1]"></div>
 
         <Range
           step={100000}
           min={0}
           max={20000000}
           values={values}
-          onChange={handleChange}
+          onChange={(values) => handleChange(values)}
           renderTrack={({ props, children }) => (
             <div
               {...props}

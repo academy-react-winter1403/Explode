@@ -20,5 +20,8 @@ body {
 }
 
 .nav-button {
-  @apply text-primary mx-auto mt-4 flex h-[40px] w-[141px] cursor-pointer flex-row-reverse items-center justify-center gap-1 rounded-[34px] border border-[#DCDCDC] text-center font-medium leading-4;
+  @apply text-primary mx-auto mt-4 flex h-[40px] w-[141px] cursor-pointer flex-row-reverse items-center justify-center gap-1 rounded-[34px] border border-[#DCDCDC] text-center leading-4 font-medium;
+}
+.th-custom {
+  @apply bg-gray-600 px-4 py-3 text-center text-white;
 }

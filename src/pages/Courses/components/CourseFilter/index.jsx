@@ -1,10 +1,10 @@
 import CloseButton from '../../../../components/CloseButton';
-import SearchInput from './SearchInput';
+import SearchFilterInput from './SearchFilterInput';
 import Category from './Category';
 import CourseLevel from './CourseLevel';
 import Teacher from './Teacher';
 import Price from './Price';
-import Calender from './Calender';
+import FilterCalender from './FilterCalender';
 import useCourseStore from '../../../../Hooks/useCourseStore';
 
 const CourseFilter = () => {
@@ -19,12 +19,12 @@ const CourseFilter = () => {
         <CloseButton onClick={() => setResponsiveFilter(!responsiveFilter)} />
       </div>
 
-      <SearchInput />
+      <SearchFilterInput />
       <Category />
       <CourseLevel />
       <Teacher />
       <Price />
-      <Calender />
+      <FilterCalender />
     </div>
   );
 };
