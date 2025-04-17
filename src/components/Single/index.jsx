@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { useLocation, useParams } from 'react-router'
+import React, { useEffect, useRef } from 'react';
+import { useLocation, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCourseDetail } from './../../core/redux/courseSlice';
 import SingleInfo from './SingleInfo';
