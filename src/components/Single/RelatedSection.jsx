@@ -56,9 +56,7 @@ const RelatedSection = ({ courseSingle }) => {
                         <ProductCards
                             isBlog={true}
                         />
-                        <ProductCards
-                            isBlog={true}
-                        />
+                        
                     </Fragment>
 
                 )}

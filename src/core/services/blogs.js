@@ -20,3 +20,13 @@ export const getBlogsCategories = async () => {
     throw error;
   }
 };
+
+export const getBlogById = async (blogId) => {
+  try {
+    const response = await instance.get(`/News/${blogId}`);
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}

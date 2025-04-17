@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import IconSet from './../shared/IconSet/index';
 import Comment from '../Comment/inedx';
 
-const SingleComments = ({ comments, loading }) => {
+const SingleComments = ({ courseSingle, comments = [], loading }) => {
     const [step, setStep] = useState(3)
     return (
         <div className='mt-[40px]'>
@@ -26,7 +26,7 @@ const SingleComments = ({ comments, loading }) => {
                                     likeCount={item.likeCount}
                                     disslikeCount={item.disslikeCount}
                                     author={item.author}
-                                    date={item.insertDate}
+                                    date={courseSingle ? item.insertDate : item.inserDate}
                                     imageAddress={item.pictureAddress}
                                 />
                             ))

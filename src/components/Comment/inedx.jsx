@@ -5,10 +5,11 @@ import { ValidURL } from '../../utils/ValidUrl';
 
 const Comment = ({ title, describe, imageAddress, author, date, likeCount, disslikeCount }) => {
     const validImageAddress = ValidURL(imageAddress) ? imageAddress : '/src/assets/img/userprofile.png'
+    console.log(date)
     return (
         <div className='w-[324px] max-[700px]:w-[100%]  p-[15px] bg-[#F6F6F6] rounded-[24px]'>
-            <h2 className='mb-[15px] text-thirdly text-[18px] font-[700]'>{title}</h2>
-            <p className='text-[16px] font-[500] text-justify text-thirdly mb-[25px]'>
+            <h2 title={title} className='mb-[15px] text-thirdly truncate text-[18px] font-[700]'>{title}</h2>
+            <p title={describe} className='text-[16px] font-[500] text-justify text-thirdly truncate mb-[25px]'>
                 {describe}
             </p>
             <div className='flex items-center justify-between'>

@@ -22,9 +22,7 @@ const SingleDescription = ({ detail, courseSingle, blogSingle }) => {
             <h2 className='text-[#707070] text-[20px] font-[700] mb-[30px]'>توضیحات دوره</h2>
             <div className='text-thirdly text-[16px] font-[500] text-justify mb-[30px]'>
                 {
-                    courseSingle ? (
-                        detail?.describe ? parseToHtml(detail.describe) : <p>توضیحی برای این دوره ثبت نشده است</p>
-                    ) : 'توضیحات بلاگ'
+                    detail?.describe ? parseToHtml(detail.describe) : <p>توضیحی برای این دوره ثبت نشده است</p>
                 }
             </div>
             <div className='flex items-center gap-[15px] max-[600px]:flex-col max-[600px]:items-start'>

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getBlogsCategories, getBlogsList } from '../services/blogs';
+import { getBlogById, getBlogsCategories, getBlogsList } from '../services/blogs';
 
 const perPage = 8
 export const fetchBlogs = createAsyncThunk(
@@ -25,6 +25,13 @@ export const fetchBlogCategories = createAsyncThunk(
     }
 )
 
+export const fetchBlogDetail = createAsyncThunk(
+    "blog/fetchBlogDetail",
+    async (params) => {
+        const { detailsNewsDto, commentDtos } = await getBlogById(params)
+        return { detailsNewsDto, commentDtos }
+    }
+)
 
 const blogSlice = createSlice({
     name: "blogs",
@@ -37,7 +44,9 @@ const blogSlice = createSlice({
         query: null,
         totalBlogs: 1,
         categories: [],
-        categoryId: null
+        categoryId: null,
+        blogDetail: {},
+        blogComments: []
     },
     reducers: {
         setCurrentPage: (state, action) => {
@@ -71,6 +80,17 @@ const blogSlice = createSlice({
             })
             .addCase(fetchBlogCategories.fulfilled, (state, action) => {
                 state.categories = action.payload;
+            })
+            .addCase(fetchBlogDetail.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchBlogDetail.fulfilled, (state, action) => {
+                state.blogDetail = action.payload.detailsNewsDto;
+                state.blogComments = action.payload.commentDtos;
+                state.loading = false;
+            })
+            .addCase(fetchBlogDetail.rejected, (state) => {
+                state.loading = false;
             })
     }
 

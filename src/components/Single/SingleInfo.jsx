@@ -5,8 +5,7 @@ import SingleInfoOverviewBar from './SingleInfoOverviewBar';
 import SingleInfoFooter from './SingleInfoFooter';
 
 const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
-    // : blogSingle && ValidURL(detail.currentImageAddressTumb) ? detail.currentImageAddressTumb : false
-    const imageAddress = courseSingle && ValidURL(detail.imageAddress) && detail.imageAddress
+    const imageAddress = courseSingle && ValidURL(detail.imageAddress) ? detail.imageAddress : blogSingle && ValidURL(detail.currentImageAddressTumb) ? detail.currentImageAddressTumb : false
     return (
         <div className='flex gap-[20px] justify-between items-center max-[1150px]:flex-col'>
             {/* Single Page Image */}
@@ -16,15 +15,15 @@ const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
 
             {/* Single Page Info*/}
             <div className='w-[710px] max-[1150px]:w-[100%]'>
-                <h2 className='font-[700] text-[32px] mb-[15px]'>{detail?.title}</h2>
+                <h2 title={detail?.title} className='font-[700] text-[32px] mb-[15px]  truncate whitespace-pre-wrap text-wrap'>{detail?.title}</h2>
                 <SingleInfoTable
                     detail={detail}
                     courseSingle={courseSingle}
                     blogSingle={blogSingle}
                 />
                 <SingleInfoOverviewBar
-                    rating={courseSingle ? detail.currentRate : 4}
-                    commentCount={courseSingle ? detail.commentCount : 126}
+                    rating={courseSingle ? detail.currentRate : detail?.currentRate}
+                    commentCount={courseSingle ? detail.commentCount : detail?.commentsCount}
                     courseCost={courseSingle && detail.cost}
                     courseSingle={courseSingle}
                 />
