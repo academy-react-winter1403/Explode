@@ -31,7 +31,6 @@ const SinglePage = () => {
 
     const detail = courseSingle ? courseDetail : blogDetail;
     const comments = courseSingle ? courseComments : blogComments;
-    console.log(detail)
     return (
         <section className='max-w-[1360px] m-[80px_auto] max-[1460px]:p-[0_16px] '>
             <SingleInfo detail={detail} courseSingle={courseSingle} blogSingle={blogSingle} />
