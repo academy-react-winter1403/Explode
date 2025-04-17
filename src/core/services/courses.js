@@ -54,3 +54,14 @@ export const getCourseDetail = async (urlParams) => {
     throw error;
   }
 }
+
+
+export const getCourseComments = async (courseId) => {
+  try {
+    const response = await instance.get(`/Course/GetCourseCommnets/${courseId}`);
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}

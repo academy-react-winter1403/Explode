@@ -6,8 +6,6 @@ const RelatedSection = ({ courseSingle }) => {
         <div className='mt-[30px] '>
             <h2 className='text-[20px]  font-[700] text-[#707070] mb-[20px]'>{courseSingle ? 'دوره های مرتبط' : 'بلاگ های مرتبط'}</h2>
             <div className='flex flex-wrap flex items-center justify-between max-[680px]:justify-center'>
-
-
                 {courseSingle ? (
                     <Fragment>
                         <ProductCards

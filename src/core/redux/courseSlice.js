@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCategories, getCourseDetail, getCoursesWithPagination, getLevels } from "../services/courses";
+import { getCategories, getCourseComments, getCourseDetail, getCoursesWithPagination, getLevels } from "../services/courses";
 import { getTeacherCountReports } from "../services/userStatisticsReport";
 
 const perPage = 12
@@ -50,6 +50,13 @@ export const fetchCourseDetail = createAsyncThunk(
     }
 )
 
+export const fetchCourseComments = createAsyncThunk(
+    "course/fetchCourseComments",
+    async (params) => {
+        return await getCourseComments(params)
+    }
+)
+
 const coursesSlice = createSlice({
     name: 'courses',
     initialState: {
@@ -74,6 +81,8 @@ const coursesSlice = createSlice({
         responsiveSorting: false,
         courseCategories: [],
         courseDetail: {},
+        courseComments: [],
+        commentLoading: false
     },
     reducers: {
         setCurrentPage: (state, action) => {
@@ -148,6 +157,16 @@ const coursesSlice = createSlice({
             })
             .addCase(fetchCourseDetail.rejected, (state) => {
                 state.loading = false;
+            })
+            .addCase(fetchCourseComments.pending, (state) => {
+                state.commentLoading = true;
+            })
+            .addCase(fetchCourseComments.fulfilled, (state, action) => {
+                state.courseComments = action.payload;
+                state.commentLoading = false;
+            })
+            .addCase(fetchCourseComments.rejected, (state) => {
+                state.commentLoading = false;
             })
     },
 
