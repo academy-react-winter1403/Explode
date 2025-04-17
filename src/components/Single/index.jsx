@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCourseDetail } from './../../core/redux/courseSlice';
 import SingleInfo from './SingleInfo';
 import SingleDescription from './SingleDescription';
+import SingleComments from './SingleComments';
 
 const SinglePage = () => {
     const { pathname: location } = useLocation()
@@ -26,7 +27,7 @@ const SinglePage = () => {
         <section className='max-w-[1360px] m-[80px_auto] max-[1460px]:p-[0_16px] '>
             <SingleInfo detail={detail.current} courseSingle={courseSingle} blogSingle={blogSingle} />
             <SingleDescription detail={detail.current} courseSingle={courseSingle} blogSingle={blogSingle} />
-
+            <SingleComments />
         </section>
     )
 }
