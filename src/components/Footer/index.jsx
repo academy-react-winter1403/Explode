@@ -10,6 +10,8 @@ const Footer = () => {
   useEffect(() => {
     if (pathname == '/dashboard') {
       setHidden(true);
+    } else {
+      setHidden(false);
     }
   }, [pathname]);
   return (

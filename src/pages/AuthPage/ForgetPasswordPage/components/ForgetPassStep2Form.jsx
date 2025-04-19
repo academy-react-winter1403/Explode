@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import CustomForm from '../../../components/CustomForm';
-import { verifyResetToken, ResetPassword } from '../../../core/services/auth';
+import CustomForm from '../../../../components/CustomForm';
+import {
+  verifyResetToken,
+  ResetPassword,
+} from '../../../../core/services/auth';
 import { useParams, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { NewPasswordSetSchema } from '../../../core/validation';
+import { NewPasswordSetSchema } from '../../../../core/validation';
 
 const fields = [
   {

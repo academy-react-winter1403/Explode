@@ -1,12 +1,7 @@
-import userIcon from '../../assets/icons/icons8-user-light.png';
 import IconSet from '../shared/IconSet';
 import LoggedOut from './Menu/Profile/LoggedOut';
 
-const LoggedInInfo = ({
-  isDashboard = false,
-  userImage,
-  userName = 'ناشناس',
-}) => {
+const LoggedInInfo = ({ isDashboard = false, userName = 'ناشناس' }) => {
   if (!isDashboard) return null;
 
   return (

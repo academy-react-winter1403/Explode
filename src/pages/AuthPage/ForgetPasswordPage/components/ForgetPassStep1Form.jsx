@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import CustomForm from '../../../components/CustomForm';
+import CustomForm from '../../../../components/CustomForm';
 import toast from 'react-hot-toast';
-import { UserForgetPassSendLink } from '../../../core/services/auth';
-import { emailSchema } from '../../../core/validation';
+import { UserForgetPassSendLink } from '../../../../core/services/auth';
+import { emailSchema } from '../../../../core/validation';
 
 const ForgetPassStep1Form = () => {
   const [isLoading, setIsLoading] = useState(false);

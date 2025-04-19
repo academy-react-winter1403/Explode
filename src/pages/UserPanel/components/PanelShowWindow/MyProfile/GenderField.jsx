@@ -12,7 +12,7 @@ const GenderField = ({ name = 'gender', label = 'جنسیت', className }) => {
             type="radio"
             id="male"
             name={name}
-            value="male"
+            value="true"
             className="text-primary focus:ring-primary h-4 w-4"
           />
           <label htmlFor="male" className="text-sm font-medium text-gray-700">
@@ -22,7 +22,7 @@ const GenderField = ({ name = 'gender', label = 'جنسیت', className }) => {
         <div className="flex w-[41px] items-center gap-2">
           <Field
             type="radio"
-            id="female"
+            id="false"
             name={name}
             value="female"
             className="text-primary focus:ring-primary h-4 w-4"

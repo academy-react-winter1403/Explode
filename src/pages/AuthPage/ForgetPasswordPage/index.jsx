@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import FormImageBanner from '../../components/FormImageBanner';
-import FormStepNavigation from '../../components/formStepNavigation';
+import FormImageBanner from '../../../components/FormImageBanner';
+import FormStepNavigation from '../../../components/formStepNavigation';
 import ForgetPassStep1Form from './components/ForgetPassStep1Form';
 import ForgetPassStep2Form from './components/ForgetPassStep2Form';
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import CustomForm from '../../../components/CustomForm';
-import { UserLogin } from '../../../core/services/auth';
+import CustomForm from '../../../../components/CustomForm';
+import { UserLogin } from '../../../../core/services/auth';
 import toast from 'react-hot-toast';
-import { emailOrPhoneSchema } from '../../../core/validation';
+import { emailOrPhoneSchema } from '../../../../core/validation';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../../../redux/authSlice';
+import { setCredentials } from '../../../../redux/authSlice';
 const LoginStep1Form = ({ setCurrentStep, setUserEnterNumber }) => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();

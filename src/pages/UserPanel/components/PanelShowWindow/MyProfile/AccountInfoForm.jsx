@@ -3,14 +3,38 @@ import CustomInputField from '../../../../../components/shared/CustomInputField'
 import GenderField from './GenderField';
 import Button from '../../../../../components/shared/Button';
 import { Form, Formik } from 'formik';
+import { editUserProfileInfo } from '../../../../../core/services/UserProfileInfo';
+import toast from 'react-hot-toast';
+import { setPanelState } from '../../../../../redux/userPanelSlice';
+import { useDispatch } from 'react-redux';
+
 const AccountInfoForm = () => {
+  const dispatch = useDispatch();
+  const onSubmit = async (values) => {
+    const formData = new FormData();
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key]);
+    });
+    console.log(formData);
+    const res = await editUserProfileInfo(formData);
+    if (res.success) {
+      toast.success('اطلاعات کاربری شما با موفقیت ثبت شد');
+      dispatch(setPanelState('dashboard'));
+    }
+  };
+
   return (
     <Formik
       initialValues={{
-        phoneOrGmail: '',
-        password: '',
-        rememberMe: false,
+        FName: '',
+        LName: '',
+        UserAbout: '',
+        NationalCode: '',
+        BirthDay: '',
+        Gender: '',
+        HomeAdderess: '',
       }}
+      onSubmit={onSubmit}
       validationSchema={ProfileSchema}
     >
       {({ isValid }) => (
@@ -20,14 +44,14 @@ const AccountInfoForm = () => {
               <div className="flex w-full gap-12">
                 {' '}
                 <CustomInputField
-                  name="name"
+                  name="FName"
                   label="نام"
                   type="text"
                   placeholder="نام خود را وارد کنید"
                   className="flex w-[50%]"
                 />
                 <CustomInputField
-                  name="lastname"
+                  name="LName"
                   label="نام خانوادگی"
                   type="text"
                   placeholder="نام خانوادگی خود را وارد کنید"
@@ -36,7 +60,7 @@ const AccountInfoForm = () => {
               </div>
 
               <CustomInputField
-                name="aboutme"
+                name="UserAbout"
                 label="درباره من"
                 type="textarea"
                 placeholder="متن درباره خود را وارد کنید"
@@ -51,7 +75,7 @@ const AccountInfoForm = () => {
                   className="flex w-[50%]"
                 />
                 <CustomInputField
-                  name="nationalcode"
+                  name="NationalCode"
                   label="کد ملی"
                   type="text"
                   placeholder="کد ملی خود را وارد کنید"
@@ -61,7 +85,7 @@ const AccountInfoForm = () => {
               <div className="flex w-full gap-4">
                 {' '}
                 <CustomInputField
-                  name="birthday"
+                  name="BirthDay"
                   label="تاریخ تولد"
                   type="date"
                   placeholder="تاریخ تولد خود را وارد کنید"
@@ -69,7 +93,7 @@ const AccountInfoForm = () => {
                 />
                 <span></span>
                 <GenderField
-                  name="gender"
+                  name="Gender"
                   label="جنسیت"
                   className="my-custom-class"
                 />
@@ -81,7 +105,7 @@ const AccountInfoForm = () => {
                 placeholder="متن درباره خود را وارد کنید"
               />
               <CustomInputField
-                name="address"
+                name="HomeAdderess"
                 label="محل سکونت"
                 type="textarea"
                 placeholder="متن درباره خود را وارد کنید"

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import CustomForm from '../../../components/CustomForm';
+import CustomForm from '../../../../components/CustomForm';
 import {
   UserRegisterAcceptVerifyMessage,
   UserRegisterSendVerifyMessage,
-} from '../../../core/services/auth';
+} from '../../../../core/services/auth';
 import toast from 'react-hot-toast';
-import { step2Schema } from '../../../core/validation';
+import { step2Schema } from '../../../../core/validation';
 
 const LoginStep2Form = ({ setCurrentStep, userEnterNumber }) => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import CustomForm from '../../../components/CustomForm';
+import CustomForm from '../../../../components/CustomForm';
 
-import { UserRegisterLogin } from '../../../core/services/auth';
+import { UserRegisterLogin } from '../../../../core/services/auth';
 import toast from 'react-hot-toast';
-import { step3Schema } from '../../../core/validation';
+import { step3Schema } from '../../../../core/validation';
 
 const RegisterStep3 = ({ setCurrentStep, userEnterNumber }) => {
   const [isLoading, setIsLoading] = useState(false);

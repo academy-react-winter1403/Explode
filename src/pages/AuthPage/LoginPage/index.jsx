@@ -2,8 +2,8 @@ import { useState } from 'react';
 import LoginStep1Form from './components/LoginStep1Form';
 import LoginStep2Form from './components/LoginStep2Form';
 import { useNavigate } from 'react-router';
-import FormImageBanner from '../../components/FormImageBanner';
-import FormStepNavigation from '../../components/formStepNavigation';
+import FormImageBanner from '../../../components/FormImageBanner';
+import FormStepNavigation from '../../../components/formStepNavigation';
 
 const LoginPage = () => {
   const navigate = useNavigate();

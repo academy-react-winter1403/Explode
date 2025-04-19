@@ -6,7 +6,7 @@ import UserPanel from '../pages/UserPanel';
 const PrivateRoute = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/auth/login" replace />;
   }
 
   return <Outlet />;

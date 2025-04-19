@@ -9,3 +9,12 @@ export const getUserProfileInfo = async () => {
     throw error;
   }
 };
+export const editUserProfileInfo = async (Obj) => {
+  try {
+    const response = await instance.put('/SharePanel/UpdateProfileInfo', Obj);
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};

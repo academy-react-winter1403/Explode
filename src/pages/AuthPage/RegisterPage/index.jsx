@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import FormImageBanner from '../../components/FormImageBanner';
+import FormImageBanner from '../../../components/FormImageBanner';
 import { useNavigate } from 'react-router';
 import RegisterStep1 from './components/RegisterStep1Form';
 import RegisterStep2 from './components/RegisterStep2Form';
 import RegisterStep3 from './components/RegisterStep3Form';
-import FormStepNavigation from '../../components/formStepNavigation';
+import FormStepNavigation from '../../../components/formStepNavigation';
 
 const RegisterPage = () => {
   const [userEnterNumber, setUserEnterNumber] = useState('');

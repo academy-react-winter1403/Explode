@@ -1,13 +1,15 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { removeItem } from '../common/storage.services';
 
 const instance = axios.create({
   baseURL: 'https://classapi.sepehracademy.ir/api',
-  headers: { 'Content-Type': 'application/json' },
 });
-// اصلاح شده: اینترسپتور request باید request را return کند
+
 instance.interceptors.request.use((config) => {
+  if (!(config.data instanceof FormData)) {
+    config.headers['Content-Type'] = 'application/json';
+    config.data = JSON.stringify(config.data); // اضافه کردن هوشمند نوع داده به صورت داینامیک
+  }
   const token = localStorage.getItem('token');
   console.log('Request interceptor', token);
 
@@ -30,8 +32,8 @@ const onError = (error) => {
         toast.error(data.ErrorMessage);
         break;
       case 401:
-        console.error('Unauthorized:', data);
         localStorage.clear('token');
+        console.error('Unauthorized:', data);
         toast.error('توکن احراز هویت باطل شده لطفا دوباره وارد شوید');
         break;
       case 404:

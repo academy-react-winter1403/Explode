@@ -6,11 +6,12 @@ import Logo from '../shared/Logo';
 import { useLocation } from 'react-router';
 import clsx from 'clsx';
 import IconSet from '../shared/IconSet';
-import { getUserProfileInfo } from '../../core/services/user';
+import { getUserProfileInfo } from '../../core/services/UserProfileInfo';
 import LoggedInInfo from './LoggedInInfo';
 import { useSelector } from 'react-redux';
 const Header = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { panelState } = useSelector((state) => state.userpanel);
   const [menuStatus, setMenuStatus] = useState(false);
   const { pathname } = useLocation();
   const [isDashboard, setIsDashboard] = useState(pathname == '/dashboard');
@@ -21,8 +22,10 @@ const Header = () => {
     const res = await getUserProfileInfo();
     setUserImage(res.currentPictureAddress);
     setUserName(res.fName);
-    console.log(res);
   };
+  useEffect(() => {
+    getUserInfo();
+  }, [panelState]);
   useEffect(() => {
     if (isAuthenticated) {
       setCheckLoggedIn(true);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import CustomForm from '../../../components/CustomForm';
-import { UserRegisterSendVerifyMessage } from '../../../core/services/auth';
+import CustomForm from '../../../../components/CustomForm';
+import { UserRegisterSendVerifyMessage } from '../../../../core/services/auth';
 import toast from 'react-hot-toast';
-import { step1Schema } from '../../../core/validation';
+import { step1Schema } from '../../../../core/validation';
 
 const RegisterStep1 = ({
   setCurrentStep,
