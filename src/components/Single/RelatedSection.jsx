@@ -44,6 +44,8 @@ const RelatedSection = ({ courseSingle, teacherId, title, categoryId }) => {
                                         courseLevel={item.courseLevelName}
                                         price={item.cost}
                                         linkAddress={`/courses/single/${item.courseId}`}
+                                        image={item.tumbImageAddress}
+                                        width={321}
                                     />
                                 ))
                                 : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'>دوره ی مرتبطی یافت نشد</div>
@@ -62,6 +64,7 @@ const RelatedSection = ({ courseSingle, teacherId, title, categoryId }) => {
                                     title={item.title}
                                     views={item.currentView}
                                     linkAddress={`/blogs/single/${item.id}`}
+                                    image={item.currentImageAddressTumb}
                                 />
                             ))
                                 : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'> مطالب مرتبطی یافت نشد</div>

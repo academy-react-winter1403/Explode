@@ -19,6 +19,7 @@ const SinglePage = () => {
     const blogComments = useSelector((state) => state.blogs.blogComments);
     const blogDetail = useSelector((state) => state.blogs.blogDetail);
     useEffect(() => {
+        window.scroll(0, 0)
         if (courseSingle && id) {
             dispatch(fetchCourseDetail(id));
             dispatch(fetchCourseComments(id));
