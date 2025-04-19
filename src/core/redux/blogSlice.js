@@ -33,6 +33,16 @@ export const fetchBlogDetail = createAsyncThunk(
     }
 )
 
+export const fetchRelatedBlogs = createAsyncThunk(
+    "blogs/fetchRelatedBlogs",
+    async (params) => {
+        const { news } = await getBlogsList({
+            NewsCategoryId: params
+        })
+        return { news }
+    }
+)
+
 const blogSlice = createSlice({
     name: "blogs",
     initialState: {
@@ -46,7 +56,8 @@ const blogSlice = createSlice({
         categories: [],
         categoryId: null,
         blogDetail: {},
-        blogComments: []
+        blogComments: [],
+        relatedBlogs: []
     },
     reducers: {
         setCurrentPage: (state, action) => {
@@ -90,6 +101,17 @@ const blogSlice = createSlice({
                 state.loading = false;
             })
             .addCase(fetchBlogDetail.rejected, (state) => {
+                state.loading = false;
+            })
+            .addCase(fetchRelatedBlogs.pending, (state) => {
+                state.relatedBlogs = []
+                state.loading = true;
+            })
+            .addCase(fetchRelatedBlogs.fulfilled, (state, action) => {
+                state.relatedBlogs = action.payload
+                state.loading = false;
+            })
+            .addCase(fetchRelatedBlogs.rejected, (state) => {
                 state.loading = false;
             })
     }

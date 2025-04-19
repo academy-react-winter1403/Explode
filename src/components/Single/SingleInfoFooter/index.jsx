@@ -1,7 +1,15 @@
-import React from 'react'
+import { useState } from 'react';
 import IconSet from './../../shared/IconSet/index';
+import { useLocation } from 'react-router';
+import { CopyLink } from '../../../utils/CopyLink';
 
 const SingleInfoFooter = ({ courseSingle, courseCost = 0 }) => {
+    const location = useLocation()
+    const [copying, setCopying] = useState(false)
+    const handleCopyLink = async () => {
+        const linkToCopy = window.location.origin + location.pathname
+        CopyLink(linkToCopy, setCopying)
+    }
     return (
         <div className={`flex ${courseSingle ? 'max-[710px]:justify-center' : 'max-[746px]:justify-center'}  max-[710px]:w-[100%] gap-[10px] items-center justify-between mt-[20px]`}>
             {/* Reserve / Copy Page Link*/}
@@ -11,8 +19,8 @@ const SingleInfoFooter = ({ courseSingle, courseCost = 0 }) => {
                         <span className=' max-[710px]:hidden flex p-[13.5px_44px] bg-primary text-[#fff] cursor-pointer font-[700] text-[15px] rounded-[48px] gap-[10px] items-center'>
                             <IconSet imageAddress={'/src/assets/icons/book.svg'} />رزرو دوره
                         </span> :
-                        <span className='max-[746px]:hidden flex p-[13.5px_44px] items-center gap-[10px] text-thirdly cursor-pointer font-[500] text-[15px] rounded-[48px] border-[1px] border-primary'>
-                            <IconSet imageAddress={'/src/assets/icons/copy-link.svg'} /> کپی کردن لینک صفحه
+                        <span onClick={handleCopyLink} className='max-[746px]:hidden flex p-[13.5px_44px] items-center gap-[10px] text-thirdly cursor-pointer font-[500] text-[15px] rounded-[48px] border-[1px] border-primary'>
+                            <IconSet imageAddress={'/src/assets/icons/copy-link.svg'} /> {copying ? 'درحال کپی' : 'کپی کردن لینک صفحه'}
                         </span>
                 }
             </div>

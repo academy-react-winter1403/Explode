@@ -20,7 +20,7 @@ const SingleDescription = ({ detail, courseSingle, blogSingle }) => {
     return (
         <div className='mt-[20px]'>
             <h2 className='text-[#707070] text-[20px] font-[700] mb-[30px]'>توضیحات دوره</h2>
-            <div className='text-thirdly text-[16px] font-[500] text-justify mb-[30px]'>
+            <div className='text-thirdly text-[16px] font-[500] truncate text-justify mb-[30px]'>
                 {
                     detail?.describe ? parseToHtml(detail.describe) : <p>توضیحی برای این دوره ثبت نشده است</p>
                 }

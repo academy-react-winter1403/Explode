@@ -1,62 +1,74 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import ProductCards from '../cards'
+import { useDispatch, useSelector } from 'react-redux'
 
-const RelatedSection = ({ courseSingle }) => {
+import { fetchRelatedCourses } from './../../core/redux/courseSlice';
+import { fetchRelatedBlogs } from '../../core/redux/blogSlice';
+
+const RelatedSection = ({ courseSingle, teacherId, title, categoryId }) => {
+    const dispatch = useDispatch()
+    let relatedCourses = useSelector((state) => state.courses.relatedCourses)
+    let relatedBlogs = useSelector((state) => state.blogs.relatedBlogs)
+    const courseSingleLoading = useSelector((state) => state.courses.loading);
+    const blogSingleLoading = useSelector((state) => state.blogs.loading);
+    relatedCourses = relatedCourses.length > 0 && relatedCourses.filter((course) => course.title !== title)
+    relatedBlogs = relatedBlogs.news?.length > 0 && relatedBlogs.news.filter((blog) => blog.title !== title)
+    useEffect(() => {
+        if (teacherId) {
+            dispatch(fetchRelatedCourses(teacherId))
+        }
+    }, [teacherId])
+
+    useEffect(() => {
+        if (categoryId) {
+            dispatch(fetchRelatedBlogs(categoryId))
+        }
+    }, [categoryId])
+
     return (
         <div className='mt-[30px] '>
             <h2 className='text-[20px]  font-[700] text-[#707070] mb-[20px]'>{courseSingle ? 'دوره های مرتبط' : 'بلاگ های مرتبط'}</h2>
             <div className='flex flex-wrap flex items-center justify-between max-[680px]:justify-center'>
                 {courseSingle ? (
                     <Fragment>
-                        <ProductCards
-                            isCourse={true}
-                            title={'عنوان پست'}
-                            date={'26 Oct 2024'}
-                            author={'محمد حسین حاجیان'}
-                            courseCategory={'دسته بندی'}
-                            courseLevel={'سطح کورس'}
-                            price={'1240000'}
-                        />
-                        <ProductCards
-                            isCourse={true}
-                            title={'عنوان پست'}
-                            date={'26 Oct 2024'}
-                            author={'محمد حسین حاجیان'}
-                            courseCategory={'دسته بندی'}
-                            courseLevel={'سطح کورس'}
-                            price={'1240000'}
-                        />
-                        <ProductCards
-                            isCourse={true}
-                            title={'عنوان پست'}
-                            date={'26 Oct 2024'}
-                            author={'محمد حسین حاجیان'}
-                            courseCategory={'دسته بندی'}
-                            courseLevel={'سطح کورس'}
-                            price={'1240000'}
-                        />
-                        <ProductCards
-                            isCourse={true}
-                            title={'عنوان پست'}
-                            date={'26 Oct 2024'}
-                            author={'محمد حسین حاجیان'}
-                            courseCategory={'دسته بندی'}
-                            courseLevel={'سطح کورس'}
-                            price={'1240000'}
-                        />
+                        {
+                            courseSingleLoading ? 'loading' : relatedCourses?.length > 0 ?
+                                relatedCourses.slice(0, 4).map((item) => (
+                                    <ProductCards
+                                        key={item.courseId}
+                                        isCourse={true}
+                                        title={item.title}
+                                        date={item.date}
+                                        author={item.teacherName}
+                                        courseCategory={Array.isArray(item?.techs) && item.techs.length > 0 ? item.techs[0] : ''}
+                                        courseLevel={item.courseLevelName}
+                                        price={item.cost}
+                                        linkAddress={`/courses/single/${item.courseId}`}
+                                    />
+                                ))
+                                : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'>دوره ی مرتبطی یافت نشد</div>
+                        }
+
+
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <ProductCards
-                            isBlog={true}
-                        />
-                        <ProductCards
-                            isBlog={true}
-                        />
-                        <ProductCards
-                            isBlog={true}
-                        />
-                        
+
+                        {
+                            blogSingleLoading ? 'loading' : relatedBlogs?.length > 0 ? relatedBlogs.slice(0, 4).map((item) => (
+                                <ProductCards
+                                    key={item.id}
+                                    isBlog={true}
+                                    title={item.title}
+                                    views={item.currentView}
+                                    linkAddress={`/blogs/single/${item.id}`}
+                                />
+                            ))
+                                : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'> مطالب مرتبطی یافت نشد</div>
+                        }
+
+
+
                     </Fragment>
 
                 )}

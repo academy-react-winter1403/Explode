@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import IconSet from './../shared/IconSet/index';
 import Comment from '../Comment/inedx';
+import { useSelector } from 'react-redux';
 
-const SingleComments = ({ courseSingle, comments = [], loading }) => {
+const SingleComments = ({ courseSingle, comments = [] }) => {
     const [step, setStep] = useState(3)
+    const loading = useSelector((state) => state.courses.loading);
     return (
         <div className='mt-[40px]'>
             <h2 className='text-[#707070] text-[20px] font-[700] mb-[25px]'>نظرات دانشجویان و اساتید</h2>

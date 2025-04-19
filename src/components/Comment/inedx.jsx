@@ -5,7 +5,6 @@ import { ValidURL } from '../../utils/ValidUrl';
 
 const Comment = ({ title, describe, imageAddress, author, date, likeCount, disslikeCount }) => {
     const validImageAddress = ValidURL(imageAddress) ? imageAddress : '/src/assets/img/userprofile.png'
-    console.log(date)
     return (
         <div className='w-[324px] max-[700px]:w-[100%]  p-[15px] bg-[#F6F6F6] rounded-[24px]'>
             <h2 title={title} className='mb-[15px] text-thirdly truncate text-[18px] font-[700]'>{title}</h2>
@@ -21,8 +20,8 @@ const Comment = ({ title, describe, imageAddress, author, date, likeCount, dissl
                     </div>
                 </div>
                 <div className='flex items-center gap-[10px]'>
-                    <span className='flex items-center gap-[5px]'><IconSet className={'cursor-pointer'} imageAddress={'/src/assets/icons/like.svg'} /> <span>{likeCount}</span> </span>
-                    <span className='flex items-center gap-[5px]'><IconSet className={'cursor-pointer'} imageAddress={'/src/assets/icons/dislike.svg'} /> <span>{disslikeCount}</span> </span>
+                    <span className='flex items-center gap-[5px]'><IconSet className={'cursor-pointer '} imageAddress={'/src/assets/icons/like.svg'} /> <span>{likeCount || 0}</span> </span>
+                    <span className='flex items-center gap-[5px]'><IconSet className={'cursor-pointer '} imageAddress={'/src/assets/icons/dislike.svg'} /> <span>{disslikeCount || 0}</span> </span>
                 </div>
 
             </div>

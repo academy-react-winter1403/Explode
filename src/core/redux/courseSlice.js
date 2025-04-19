@@ -57,6 +57,17 @@ export const fetchCourseComments = createAsyncThunk(
     }
 )
 
+export const fetchRelatedCourses = createAsyncThunk(
+    "course/fetchRelatedCourses",
+    async (params) => {
+        const { courseFilterDtos } = await getCoursesWithPagination({
+            RowsOfPage: 5,
+            TeacherId: params
+        })
+        return { courseFilterDtos }
+    }
+)
+
 const coursesSlice = createSlice({
     name: 'courses',
     initialState: {
@@ -82,7 +93,7 @@ const coursesSlice = createSlice({
         courseCategories: [],
         courseDetail: {},
         courseComments: [],
-        commentLoading: false
+        relatedCourses: [],
     },
     reducers: {
         setCurrentPage: (state, action) => {
@@ -124,7 +135,6 @@ const coursesSlice = createSlice({
         setResponsiveSorting: (state, action) => {
             state.responsiveSorting = action.payload;
         },
-
     },
     extraReducers: (builder) => {
         builder
@@ -149,6 +159,7 @@ const coursesSlice = createSlice({
                 state.teachers = action.payload;
             })
             .addCase(fetchCourseDetail.pending, (state) => {
+                state.courseDetail = {}
                 state.loading = true;
             })
             .addCase(fetchCourseDetail.fulfilled, (state, action) => {
@@ -159,14 +170,25 @@ const coursesSlice = createSlice({
                 state.loading = false;
             })
             .addCase(fetchCourseComments.pending, (state) => {
-                state.commentLoading = true;
+                state.loading = true;
             })
             .addCase(fetchCourseComments.fulfilled, (state, action) => {
                 state.courseComments = action.payload;
-                state.commentLoading = false;
+                state.loading = false;
             })
             .addCase(fetchCourseComments.rejected, (state) => {
-                state.commentLoading = false;
+                state.loading = false;
+            })
+            .addCase(fetchRelatedCourses.pending, (state) => {
+                state.relatedCourses = []
+                state.loading = true;
+            })
+            .addCase(fetchRelatedCourses.fulfilled, (state, action) => {
+                state.relatedCourses = action.payload.courseFilterDtos;
+                state.loading = false;
+            })
+            .addCase(fetchRelatedCourses.rejected, (state) => {
+                state.loading = false;
             })
     },
 
@@ -185,6 +207,7 @@ export const {
     setEndDate,
     setResponsiveFilter,
     setResponsiveSorting,
+
 } = coursesSlice.actions;
 
 export default coursesSlice.reducer
