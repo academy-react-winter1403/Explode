@@ -1,13 +1,20 @@
-import React from 'react';
 import DropDownList from '../../../../components/DropDownList';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchCourses,
+  setCurrentPage,
+  setTeacherId,
+} from '../../../../redux/courseSlice';
 
 const Teacher = () => {
-  const { setCurrentPage, teachers, setTeacherId } = useCourseStore();
+  const teachers = useSelector((state) => state.courses.teachers);
+  const dispatch = useDispatch();
   const handleTeachers = (data) => {
-    setTeacherId(data);
-    setCurrentPage(1);
+    dispatch(setTeacherId(data));
+    dispatch(setCurrentPage(1));
+    dispatch(fetchCourses());
   };
+
   return (
     <DropDownList
       imageSrc={'/src/assets/icons/teachers.svg'}

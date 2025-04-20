@@ -1,37 +1,24 @@
 import Courses from './Courses';
 import Pagination from '../../../../components/Pagination';
-import SortingContainer from './SortingContainer';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCourses, setCurrentPage } from '../../../../redux/courseSlice';
+import Sorting from '../../../../components/Sorting';
+
 const CourseList = () => {
-  const {
-    totalCourses,
-    currentPage,
-    setCurrentPage,
-    sorting,
-    setSorting,
-    sortingType,
-    setSortingType,
-    perPage,
-  } = useCourseStore();
-  const pageCount = Math.ceil(totalCourses / perPage);
+  const totalCourses = useSelector((state) => state.courses.totalCourses);
+  const currentPage = useSelector((state) => state.courses.currentPage);
+  const pageCount = Math.ceil(totalCourses / 12);
+  const dispatch = useDispatch();
   const handlePageClick = (data) => {
-    setCurrentPage(data.selected + 1);
-  };
-  const handleSortingChangeFunc = (sorting, sortingType) => {
-    setSorting(sorting);
-    setSortingType(sortingType);
-    setCurrentPage(1);
+    dispatch(setCurrentPage(data.selected + 1));
+    dispatch(fetchCourses());
   };
 
   return (
     <div className="w-[1031px] max-[1050px]:w-[100%]">
-      <SortingContainer
-        sorting={sorting}
-        sortingType={sortingType}
-        handleSortingChange={handleSortingChangeFunc}
-      />
+      <Sorting />
 
-      <Courses perPage={perPage} />
+      <Courses />
 
       <Pagination
         pageCount={pageCount}

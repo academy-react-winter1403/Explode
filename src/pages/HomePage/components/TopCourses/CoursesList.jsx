@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
-import CourseCards from '../../../../components/CourseCards';
 import { getTopCourses } from '../../../../core/services/courses';
 import CardsSkeleton from '../../../skeleton/cards-skeleton';
+import CourseCards from '../../../../components/CourseCards';
 
 const CoursesList = () => {
   const [topCourses, setTopCourses] = useState([]);
@@ -39,7 +39,7 @@ const CoursesList = () => {
               courseLevel={course.levelName}
               courseCategory={course.typeName}
               image={course.tumbImageAddress}
-              linkAddress={`/course-detail/${course.courseId}`}
+              linkAddress={`/courses/single/${course.courseId}`}
             />
           ))}
     </Fragment>

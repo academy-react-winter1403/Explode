@@ -1,7 +1,7 @@
 import Calender from '../Calender';
 import InputFilterTitle from '../InputFilterTitle';
 import SearchInput from '../SearchInput';
-import SortingList from '../SortingList';
+//import SortingList from '../SortingList';
 
 const UserPanelFilterNav = ({
   SearchHandler,
@@ -44,12 +44,12 @@ const UserPanelFilterNav = ({
           <span className="text-thirdly my-auto text-xl font-bold max-[600px]:hidden">
             ترتیب
           </span>
-          <SortingList
+          {/* <SortingList
             currentSorting={sorting}
             currentSortingType={sortingType}
             onClick={handleSortingChange}
             SortingOptionsButtonData={SortingOptionsButtonData}
-          />
+          /> */}
         </>
       )}
     </div>

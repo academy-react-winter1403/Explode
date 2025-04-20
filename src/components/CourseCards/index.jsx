@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import IconSet from '../shared/IconSet';
-import { formatDate } from '../../utils/DateFormatter';
-import { ValidURL } from '../../utils/ValidUrl';
+import { formatDate } from './../../utils/DateFormatter';
+import { ValidURL } from './../../utils/ValidUrl';
 
 const CourseCards = ({
   title = '',

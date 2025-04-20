@@ -1,35 +1,40 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Range } from 'react-range';
-import Title from '../../../../components/InputFilterTitle';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import InputFilterTitle from '../../../../components/InputFilterTitle';
+import { useDispatch } from 'react-redux';
+import {
+  fetchCourses,
+  setCostDown,
+  setCostUp,
+  setCurrentPage,
+} from '../../../../redux/courseSlice';
+
 const Price = () => {
-  const { setCostDown, setCostUp, setCurrentPage } = useCourseStore();
-  const [values, setValues] = useState([0, 20000000]);
-  const filterTimeOut = useRef(null);
-  useEffect(() => {
-    return () => {
-      if (filterTimeOut.current) {
-        clearTimeout(filterTimeOut.current);
-      }
-    };
-  }, []);
+  const dispatch = useDispatch();
+  const [values, setValues] = useState([0, 2000000000]);
+  let filterTimeoutRef = useRef(null);
   const handleChange = (values) => {
     setValues(values);
-
-    if (filterTimeOut.current) {
-      clearTimeout(filterTimeOut.current);
+    // Debounce
+    if (filterTimeoutRef.current) {
+      clearTimeout(filterTimeoutRef.current);
     }
 
-    filterTimeOut.current = setTimeout(() => {
-      setCostDown(values[0]);
-      setCostUp(values[1]);
-      setCurrentPage(1);
+    filterTimeoutRef.current = setTimeout(() => {
+      dispatch(setCostDown(values[0]));
+      dispatch(setCostUp(values[1]));
+      dispatch(setCurrentPage(1));
+      dispatch(fetchCourses());
     }, 2500);
   };
+
   return (
     <div className="mb-[20px] w-[100%]">
-      <Title imageSrc={'/src/assets/icons/price.svg'} titleText={'قیمت'} />
+      <InputFilterTitle
+        imageSrc={'/src/assets/icons/price.svg'}
+        titleText={'قیمت'}
+      />
       <div className="mb-[10px] flex flex-row-reverse gap-[40px]">
         <span className="text-thirdly text-[16px] font-[500]">
           <span className="text-[#787878]">تا</span> {values[1]}
@@ -45,7 +50,7 @@ const Price = () => {
         <Range
           step={100000}
           min={0}
-          max={20000000}
+          max={2000000000}
           values={values}
           onChange={(values) => handleChange(values)}
           renderTrack={({ props, children }) => (

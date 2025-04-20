@@ -12,9 +12,11 @@ export const UserRegisterSendVerifyMessage = async (phoneNumber) => {
   }
 };
 
-export const UserRegisterAcceptVerifyMessage = async (obj) => {
+export const UserRegisterAcceptVerifyMessage = async (code) => {
   try {
-    const response = await instance.post('/Sign/VerifyMessage', obj);
+    const response = await instance.post(
+      `/Sign/LoginTwoStep?VrifyCode=${code}`,
+    );
     console.log(response);
     return response;
   } catch (error) {

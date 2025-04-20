@@ -1,0 +1,29 @@
+import CloseButton from '../../../../components/CloseButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { setResponsiveFilter } from '../../../../redux/courseSlice';
+import SearchInput from './SearchInput';
+import Category from './Category';
+
+const BlogFilter = () => {
+  const responsiveFilter = useSelector(
+    (state) => state.courses.responsiveFilter,
+  );
+  const dispatch = useDispatch();
+  return (
+    <div
+      className={`mt-[60px] w-[298px] rounded-[32px] border-[2px] border-[#DCDCDC] p-[15px] ${responsiveFilter ? 'max-[600px]:fixed' : 'max-[600px]:hidden'} max-[1050px]:w-[100%] max-[600px]:top-0 max-[600px]:right-0 max-[600px]:z-1000 max-[600px]:mt-0 max-[600px]:w-[100%] max-[600px]:bg-[#fff]`}
+    >
+      <div className="mb-[25px] flex items-center justify-between">
+        <h2 className="text-thirdly text-[24px] font-[700]">فیلتر</h2>
+        <CloseButton
+          onClick={() => dispatch(setResponsiveFilter(!responsiveFilter))}
+          className={'max-[600px]:flex'}
+        />
+      </div>
+      <SearchInput />
+      <Category />
+    </div>
+  );
+};
+
+export default BlogFilter;

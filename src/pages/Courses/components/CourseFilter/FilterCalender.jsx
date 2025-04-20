@@ -1,16 +1,23 @@
 import React from 'react';
 import InputFilterTitle from '../../../../components/InputFilterTitle';
-import useCourseStore from '../../../../Hooks/useCourseStore';
+import { useDispatch } from 'react-redux';
+import {
+  fetchCourses,
+  setCurrentPage,
+  setEndDate,
+  setStartDate,
+} from '../../../../redux/courseSlice';
 import Calender from '../../../../components/Calender';
 
 const FilterCalender = () => {
-  const { setStartDate, setEndDate, setCurrentPage } = useCourseStore();
+  const dispatch = useDispatch();
   const handleStartDate = (date) => {
-    setStartDate(date);
+    dispatch(setStartDate(date));
   };
   const handleEndtDate = (date) => {
-    setEndDate(date);
-    setCurrentPage(1);
+    dispatch(setEndDate(date));
+    dispatch(setCurrentPage(1));
+    dispatch(fetchCourses());
   };
   return (
     <div className="mb-[20px]">

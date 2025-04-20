@@ -2,48 +2,21 @@ import React, { Fragment, useEffect } from 'react';
 import CourseList from './components/CourseList';
 import CourseFilter from './components/CourseFilter';
 import CoursesPageTitle from './components/CoursesPageTitle';
-import useCourseStore from '../../Hooks/useCourseStore';
-
+import { useDispatch } from 'react-redux';
+import {
+  fetchCategories,
+  fetchCourses,
+  fetchLevels,
+  fetchTeachers,
+} from '../../redux/courseSlice';
 const Courses = () => {
-  const {
-    // State
-    currentPage,
-    query,
-    category,
-    levelId,
-    teacherId,
-    costDown,
-    costUp,
-    startDate,
-    endDate,
-    sorting,
-    // Async Actions
-    fetchInitialData,
-    fetchCourses,
-  } = useCourseStore();
-
-  // Fetch initial data on mount
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetchInitialData();
-  }, [fetchInitialData]);
-
-  // Fetch courses when any filter changes
-  useEffect(() => {
-    fetchCourses();
-  }, [
-    currentPage,
-    query,
-    category,
-    levelId,
-    teacherId,
-    costDown,
-    costUp,
-    startDate,
-    endDate,
-    fetchCourses,
-    sorting,
-  ]);
-
+    dispatch(fetchCourses());
+    dispatch(fetchCategories());
+    dispatch(fetchLevels());
+    dispatch(fetchTeachers());
+  }, []);
   return (
     <Fragment>
       <CoursesPageTitle />

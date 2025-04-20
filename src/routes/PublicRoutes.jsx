@@ -1,6 +1,10 @@
 import ForgetPassPage from '../pages/AuthPage/ForgetPasswordPage';
 import LoginPage from '../pages/AuthPage/LoginPage';
 import RegisterPage from '../pages/AuthPage/RegisterPage';
+import Blogs from '../pages/Blogs/Index';
+import Single from '../pages/Single/Course';
+import BlogSingle from '../pages/Single/Blog';
+
 import Courses from '../pages/Courses';
 import HomePage from '../pages/HomePage';
 import { Outlet } from 'react-router-dom';
@@ -35,6 +39,18 @@ const publicRoutes = [
         element: <ForgetPassPage />,
       },
     ],
+  },
+  {
+    path: '/blogs',
+    element: <Blogs />,
+  },
+  {
+    path: '/courses/single/:id',
+    element: <Single />,
+  },
+  {
+    path: '/blogs/single/:id',
+    element: <BlogSingle />,
   },
 ];
 
