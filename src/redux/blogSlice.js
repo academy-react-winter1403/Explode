@@ -97,6 +97,7 @@ const blogSlice = createSlice({
         state.categories = action.payload;
       })
       .addCase(fetchBlogDetail.pending, (state) => {
+        state.blogDetail = {}
         state.loading = true;
       })
       .addCase(fetchBlogDetail.fulfilled, (state, action) => {
