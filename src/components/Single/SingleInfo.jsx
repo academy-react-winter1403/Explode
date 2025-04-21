@@ -31,6 +31,7 @@ const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
                     courseSingle={courseSingle}
                     courseCost={courseSingle && detail.cost}
                 />
+               
             </div>
 
 
