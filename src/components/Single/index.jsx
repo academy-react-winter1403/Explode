@@ -45,7 +45,7 @@ const SinglePage = () => {
         courseSingle={courseSingle}
         blogSingle={blogSingle}
       />
-      <SingleComments comments={comments} courseSingle={courseSingle} />
+      <SingleComments singleId={id} title={detail?.title} comments={comments} courseSingle={courseSingle} />
       <RelatedSection
         teacherId={detail?.teacherId}
         courseSingle={courseSingle}

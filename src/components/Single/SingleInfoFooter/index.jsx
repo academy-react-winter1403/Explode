@@ -43,7 +43,7 @@ const SingleInfoFooter = ({ courseSingle, courseCost = 0 }) => {
                     <span className=' flex p-[13.5px_44px] bg-primary text-[#fff] cursor-pointer font-[700] text-[15px] rounded-[48px] gap-[10px] items-center'>
                         <IconSet imageAddress={'/src/assets/icons/book.svg'} />رزرو دوره
                     </span>
-                    <span className='text-[16px] font-[500] text-thirdly max-[500px]:hidden'><span className='text-[24px] font-[700]'>{courseCost}</span> تومان</span>
+                    <span className='text-[16px] font-[500] text-thirdly hidden max-[710px]:block'><span className='text-[24px] font-[700]'>{courseCost}</span> تومان</span>
                 </div>
             }
         </div>
