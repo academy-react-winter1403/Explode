@@ -60,6 +60,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
                                         addComment={false}
                                         comment={item}
                                         courseSingle={courseSingle}
+                                        commentId={item.id}
                                     />
                                 ))
                             ) : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'>نظری یافت نشد</div>

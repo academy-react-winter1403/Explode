@@ -85,3 +85,23 @@ export const AddCommentCourse = async (loading, obj) => {
     throw error;
   }
 }
+
+export const addCommentReplyCourse = async (loading, obj) => {
+  try {
+    const formData = new FormData();
+    formData.append('CommentId', obj.CommentId)
+    formData.append('CourseId', obj.CourseId)
+    formData.append('Title', obj.Title)
+    formData.append('Describe', obj.Describe)
+    loading(true)
+    const response = await instance.post(`/Course/AddReplyCourseComment`, formData);
+    loading(false)
+    toast.success('پس از تایید ادمین نظر شما نمایش داده میشود')
+    console.log(response)
+    return response;
+  } catch (error) {
+    loading(false)
+    console.error('Error:', error);
+    throw error;
+  }
+}

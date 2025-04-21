@@ -6,6 +6,7 @@ import CreateComment from '../CreateComment';
 import { addBlogReplyComment } from '../../core/services/blogs';
 import { useDispatch } from 'react-redux';
 import { fetchBlogComments } from '../../redux/blogSlice';
+import { addCommentReplyCourse } from '../../core/services/courses';
 const Comment = ({ comment, addComment = true, children, courseSingle, commentId, userId, singleId }) => {
     const validImageAddress = ValidURL(comment?.pictureAddress) ? comment?.pictureAddress : '/src/assets/img/userprofile.png'
     const insertDate = courseSingle ? comment?.insertDate : comment?.inserDate
@@ -14,18 +15,18 @@ const Comment = ({ comment, addComment = true, children, courseSingle, commentId
     const dispatch = useDispatch()
     const handleOnSubmit = async (values) => {
         if (courseSingle) {
-
+            addCommentReplyCourse(setSendLoading, { CommentId: commentId, CourseId: singleId, Title: values.Title, Describe: values.Describe })
         }
         else {
-
             await addBlogReplyComment(setSendLoading, { newsId: singleId, title: values.Title, describe: values.Describe, userId: userId, parentId: commentId })
             dispatch(fetchBlogComments(singleId))
         }
     }
+
     return (
         <div className={`${addComment ? 'w-[100%] border-b-[1px] border-[#DCDCDC]' : 'w-[324px] bg-[#F6F6F6] rounded-[24px]'} flex flex-col gap-[10px] max-[700px]:w-[100%]  p-[15px]  `}>
             {
-                children
+                addComment && children
             }
 
             {/* Main Comments List*/}
