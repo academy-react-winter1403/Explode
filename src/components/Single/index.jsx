@@ -59,14 +59,6 @@ const SinglePage = () => {
         title={detail?.title}
         categoryId={detail?.newsCatregoryId}
       />
-      <SingleComments singleId={id} title={detail?.title} comments={comments} courseSingle={courseSingle} />
-      <RelatedSection
-        teacherId={detail?.teacherId}
-        courseSingle={courseSingle}
-        title={detail?.title}
-        categoryId={detail?.newsCatregoryId}
-      />
-      
     </section>
   );
 };

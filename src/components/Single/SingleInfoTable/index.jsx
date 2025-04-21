@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate } from './../../../utils/DateFormatter';
+import { formatDate } from '../../../utils/DateFormatter';
 
 const SingleInfoTable = ({ detail, blogSingle, courseSingle }) => {
     return (
