@@ -85,3 +85,8 @@ export const LinksShema = Yup.object().shape({
     .required('لینک لینکدین ضروری است')
     .min(3, ' لینک لینکدین باید حداقل 3 کاراکتر باشد'),
 });
+
+export const commentValidation = Yup.object({
+  Title: Yup.string().required('عنوان نظر الزامی است'),
+  Describe: Yup.string().required('متن نظر الزامی است')
+})

@@ -1,19 +1,22 @@
 import React, { Fragment, useState } from 'react'
 import IconSet from './../shared/IconSet/index';
 import Comment from '../Comment/inedx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import CloseButton from './../CloseButton/index';
 import { buildCommentTree } from './commentBuilder/buildCommentTree';
 import { AddCommentCourse } from '../../core/services/courses';
 import CreateComment from '../CreateComment';
+import { AddCommentBlog } from '../../core/services/blogs';
+import { fetchBlogComments, fetchBlogDetail } from '../../redux/blogSlice';
 
-const SingleComments = ({ courseSingle, comments = [], title, singleId }) => {
+const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }) => {
     const [step, setStep] = useState(3)
     const loading = useSelector((state) => state.courses.loading);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
     const [showCommentModal, setShowCommentModal] = useState(false)
     const [sendLoading, setSendLoading] = useState(false)
+    const dispatch = useDispatch()
     const handleOnClick = () => {
         if (isAuthenticated) {
             setShowCommentModal(!showCommentModal)
@@ -22,12 +25,15 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId }) => {
             toast.error('برای نظر دادن باید لاگین کرده باشید')
         }
     }
-
     const treeData = buildCommentTree(comments);
     const [replyStatus, setReplyStatus] = useState(false)
-    const handleOnSubmit = ({ Title, Describe }) => {
+    const handleOnSubmit = async (data) => {
         if (courseSingle) {
-            AddCommentCourse(setSendLoading, { CourseId: singleId, Title, Describe })
+            AddCommentCourse(setSendLoading, { CourseId: singleId, Title: data.Title, Describe: data.Describe })
+        }
+        else {
+            await AddCommentBlog(setSendLoading, { newsId: singleId, title: data.Title, describe: data.Describe, userId: userId })
+            dispatch(fetchBlogComments(singleId))
         }
 
     }
@@ -87,6 +93,9 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId }) => {
                                         key={item.id}
                                         comment={item}
                                         courseSingle={courseSingle}
+                                        commentId={item.id}
+                                        userId={userId}
+                                        singleId={singleId}
                                     />
                                 ))
                             ) : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'>نظری یافت نشد</div>

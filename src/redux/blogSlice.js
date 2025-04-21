@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   getBlogById,
+  getBlogComments,
   getBlogsCategories,
   getBlogsList,
 } from '../core/services/blogs';
@@ -32,10 +33,20 @@ export const fetchBlogCategories = createAsyncThunk(
 export const fetchBlogDetail = createAsyncThunk(
   'blog/fetchBlogDetail',
   async (params) => {
-    const { detailsNewsDto, commentDtos } = await getBlogById(params);
-    return { detailsNewsDto, commentDtos };
+    const { detailsNewsDto } = await getBlogById(params);
+    return { detailsNewsDto };
   },
 );
+
+export const fetchBlogComments = createAsyncThunk(
+  'blog/fetchBlogComments',
+  async (params) => {
+    return await getBlogComments({
+      NewsId: params
+    });
+  },
+);
+
 
 export const fetchRelatedBlogs = createAsyncThunk(
   'blogs/fetchRelatedBlogs',
@@ -102,7 +113,6 @@ const blogSlice = createSlice({
       })
       .addCase(fetchBlogDetail.fulfilled, (state, action) => {
         state.blogDetail = action.payload.detailsNewsDto;
-        state.blogComments = action.payload.commentDtos;
         state.loading = false;
       })
       .addCase(fetchBlogDetail.rejected, (state) => {
@@ -117,6 +127,17 @@ const blogSlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchRelatedBlogs.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(fetchBlogComments.pending, (state) => {
+        state.blogComments = [];
+        state.loading = true;
+      })
+      .addCase(fetchBlogComments.fulfilled, (state, action) => {
+        state.blogComments = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchBlogComments.rejected, (state) => {
         state.loading = false;
       });
   },

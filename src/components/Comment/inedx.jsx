@@ -3,12 +3,24 @@ import IconSet from './../shared/IconSet/index';
 import { formatDate } from './../../utils/DateFormatter';
 import { ValidURL } from '../../utils/ValidUrl';
 import CreateComment from '../CreateComment';
-const Comment = ({ comment, addComment = true, children, courseSingle }) => {
+import { addBlogReplyComment } from '../../core/services/blogs';
+import { useDispatch } from 'react-redux';
+import { fetchBlogComments } from '../../redux/blogSlice';
+const Comment = ({ comment, addComment = true, children, courseSingle, commentId, userId, singleId }) => {
     const validImageAddress = ValidURL(comment?.pictureAddress) ? comment?.pictureAddress : '/src/assets/img/userprofile.png'
     const insertDate = courseSingle ? comment?.insertDate : comment?.inserDate
     const [replyStatus, setReplyStatus] = useState(false)
-    const handleOnSubmit = (values) => {
-        console.log(values)
+    const [sendLoading, setSendLoading] = useState(false)
+    const dispatch = useDispatch()
+    const handleOnSubmit = async (values) => {
+        if (courseSingle) {
+
+        }
+        else {
+
+            await addBlogReplyComment(setSendLoading, { newsId: singleId, title: values.Title, describe: values.Describe, userId: userId, parentId: commentId })
+            dispatch(fetchBlogComments(singleId))
+        }
     }
     return (
         <div className={`${addComment ? 'w-[100%] border-b-[1px] border-[#DCDCDC]' : 'w-[324px] bg-[#F6F6F6] rounded-[24px]'} flex flex-col gap-[10px] max-[700px]:w-[100%]  p-[15px]  `}>
@@ -28,7 +40,7 @@ const Comment = ({ comment, addComment = true, children, courseSingle }) => {
                     <div className={`flex items-center gap-[10px] ${addComment && 'hidden'}`}>
                         <img className='w-[40px] h-[40px] rounded-full' src={validImageAddress} alt={comment?.title} />
                         <div className='flex flex-col gap-[5px]'>
-                            <span className='text-[14px] font-[600]'>{comment?.author?.length > 10 ? comment.author.slice(0, 10) + "..." : comment?.author}</span>
+                            <span className='text-[14px] font-[600]'>{courseSingle ? (comment?.author?.length > 10 ? comment.author.slice(0, 10) + "..." : comment?.autor) : comment?.autor?.length > 10 ? comment.autor.slice(0, 10) + "..." : comment?.autor}</span>
                             <span className='text-[12px] font-[500] text-[#707070]'>{formatDate(insertDate)}</span>
                         </div>
                     </div>
@@ -42,6 +54,7 @@ const Comment = ({ comment, addComment = true, children, courseSingle }) => {
                                     <CreateComment
                                         replyStatus={replyStatus}
                                         handleOnSubmit={handleOnSubmit}
+                                        sendLoading={sendLoading}
                                     />
                                 </Fragment>
                             )
@@ -55,7 +68,7 @@ const Comment = ({ comment, addComment = true, children, courseSingle }) => {
                         <div className={'flex items-center gap-[10px] mb-[20px] order-1'}>
                             <img className='w-[40px] h-[40px] rounded-full' src={validImageAddress} alt={comment?.title} />
                             <div className='flex flex-col gap-[5px]'>
-                                <span className='text-[14px] font-[600]'>{comment?.author}</span>
+                                <span className='text-[14px] font-[600]'>{courseSingle ? comment?.author : comment?.autor}</span>
                                 <span className='text-[12px] font-[500] text-[#707070]'>{formatDate(insertDate)}</span>
                             </div>
 

@@ -2,13 +2,10 @@ import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 import { FaSpinner } from 'react-icons/fa'
 import IconSet from '../shared/IconSet'
-import * as yup from 'yup'
+import { commentValidation } from '../../core/validation'
 
 const CreateComment = ({ replyStatus, handleOnSubmit, sendLoading }) => {
-    const commentValidation = yup.object({
-        Title: yup.string().required('عنوان نظر الزامی است'),
-        Describe: yup.string().required('متن نظر الزامی است')
-    })
+
     return (
         <div className={`${replyStatus ? 'flex' : 'hidden'}  items-center justify-center w-[100%]`}>
             <div className='rounded-[24px] border-[1px] border-primary p-[10px] w-[60%]'>
