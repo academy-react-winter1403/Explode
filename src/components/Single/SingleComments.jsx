@@ -1,20 +1,26 @@
 import React, { Fragment, useState } from 'react'
 import IconSet from './../shared/IconSet/index';
 import Comment from '../Comment/inedx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import CloseButton from './../CloseButton/index';
 import { buildCommentTree } from './commentBuilder/buildCommentTree';
 import { AddCommentCourse } from '../../core/services/courses';
 import CreateComment from '../CreateComment';
+<<<<<<< HEAD
 import AddeComent from './SingleInfoTable/AddeComent';
 
-const SingleComments = ({ courseSingle, comments = [], title, singleId }) => {
+import { AddCommentBlog } from '../../core/services/blogs';
+import { fetchBlogComments, fetchBlogDetail } from '../../redux/blogSlice';
+>>>>>>> 2dd824998aee6a3ae28bd612c720bfc8803674f0
+
+const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }) => {
     const [step, setStep] = useState(3)
     const loading = useSelector((state) => state.courses.loading);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
     const [showCommentModal, setShowCommentModal] = useState(false)
     const [sendLoading, setSendLoading] = useState(false)
+    const dispatch = useDispatch()
     const handleOnClick = () => {
         if (isAuthenticated) {
             setShowCommentModal(!showCommentModal)
@@ -23,12 +29,15 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId }) => {
             toast.error('برای نظر دادن باید لاگین کرده باشید')
         }
     }
-
     const treeData = buildCommentTree(comments);
     const [replyStatus, setReplyStatus] = useState(false)
-    const handleOnSubmit = ({ Title, Describe }) => {
+    const handleOnSubmit = async (data) => {
         if (courseSingle) {
-            AddCommentCourse(setSendLoading, { CourseId: singleId, Title, Describe })
+            AddCommentCourse(setSendLoading, { CourseId: singleId, Title: data.Title, Describe: data.Describe })
+        }
+        else {
+            await AddCommentBlog(setSendLoading, { newsId: singleId, title: data.Title, describe: data.Describe, userId: userId })
+            dispatch(fetchBlogComments(singleId))
         }
 
     }
@@ -56,6 +65,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId }) => {
               </span>
             </div>
 
+<<<<<<< HEAD
             <div className="flex h-[100%] w-[80%] flex-wrap justify-between gap-[10px] max-[1360px]:justify-center max-[700px]:w-[100%] max-[700px]:justify-center">
               {loading ? (
                 'loading'
@@ -68,6 +78,41 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId }) => {
                       addComment={false}
                       comment={item}
                       courseSingle={courseSingle}
+=======
+            {/* Comment Modal */}
+            <div className={`${showCommentModal ? 'fixed' : 'hidden'}  top-0 left-0 w-[100%] h-[100%] flex items-center justify-center z-1000 bg-[rgb(0,0,0)]/50`}>
+                <div className='w-[900px] h-[800px] bg-[#fff] rounded-[30px] overflow-hidden'>
+                    <div className='flex p-[20px] justify-between items-center text-[24px] font-[700]'>
+                        <div className='flex items-center gap-[10px]'><h2>نظرات دانشجویان و اساتید</h2><span className='text-[#707070] text-[18px] font-[700]'>( {title} )</span></div>
+                        <CloseButton onClick={() => setShowCommentModal(!showCommentModal)} display='flex' />
+                    </div>
+                    <div className='flex mb-[10px] p-[0px_20px]'>
+                        <span onClick={() => setReplyStatus(!replyStatus)} className='cursor-pointer text-[#fff] text-[16px] font-[500] flex items-center gap-[5px] p-[8px_12px] bg-primary rounded-[40px]'><IconSet imageAddress={'/src/assets/icons/add-comment.svg'} />نظر شما</span>
+                    </div>
+                    <div className={`h-[80%] overflow-auto p-[20px_20px_60px_20px] ${replyStatus ? 'hidden' : 'flex'} flex-col gap-[20px]`}>
+
+                        {
+                            loading ? 'loading' : treeData?.length > 0 ? (
+                                treeData.map((item) => (
+                                    <Comment
+                                        key={item.id}
+                                        comment={item}
+                                        courseSingle={courseSingle}
+                                        commentId={item.id}
+                                        userId={userId}
+                                        singleId={singleId}
+                                    />
+                                ))
+                            ) : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'>نظری یافت نشد</div>
+                        }
+
+                    </div>
+
+                    <CreateComment
+                        handleOnSubmit={handleOnSubmit}
+                        replyStatus={replyStatus}
+                        sendLoading={sendLoading}
+>>>>>>> 2dd824998aee6a3ae28bd612c720bfc8803674f0
                     />
                   ))
               ) : (

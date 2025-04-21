@@ -70,9 +70,9 @@ export const getCourseComments = async (courseId) => {
 export const AddCommentCourse = async (loading, obj) => {
   try {
     const formData = new FormData();
-    formData.append('CourseId',obj.CourseId)
-    formData.append('Title',obj.Title)
-    formData.append('Describe',obj.Describe)
+    formData.append('CourseId', obj.CourseId)
+    formData.append('Title', obj.Title)
+    formData.append('Describe', obj.Describe)
     loading(true)
     const response = await instance.post(`/Course/AddCommentCourse`, formData);
     loading(false)
@@ -81,7 +81,6 @@ export const AddCommentCourse = async (loading, obj) => {
     return response;
   } catch (error) {
     loading(false)
-    // toast.error('به هنگام ارسال نظر خطایی رخ داد')
     console.error('Error:', error);
     throw error;
   }
