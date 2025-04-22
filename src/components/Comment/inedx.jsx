@@ -1,25 +1,68 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import IconSet from './../shared/IconSet/index';
 import { formatDate } from './../../utils/DateFormatter';
 import { ValidURL } from '../../utils/ValidUrl';
 import CreateComment from '../CreateComment';
-import { addBlogReplyComment } from '../../core/services/blogs';
-import { useDispatch } from 'react-redux';
-import { fetchBlogComments } from '../../redux/blogSlice';
-import { addCommentReplyCourse } from '../../core/services/courses';
-const Comment = ({ comment, addComment = true, children, courseSingle, commentId, userId, singleId }) => {
+import { addBlogReplyComment, addDissLikeForBlogComment } from '../../core/services/blogs';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBlogComments, updateBlogCommentLikeCount } from '../../redux/blogSlice';
+import { addCommentReplyCourse, addDissLikeForCourseComment, addLikeForCourseComment } from '../../core/services/courses';
+import { updateCourseCommentLikeCount } from '../../redux/courseSlice';
+import toast from 'react-hot-toast';
+import { FaSpinner } from 'react-icons/fa';
+const Comment = ({ isAuthenticated, comment, addComment = true, children, courseSingle, commentId, userId, singleId }) => {
     const validImageAddress = ValidURL(comment?.pictureAddress) ? comment?.pictureAddress : '/src/assets/img/userprofile.png'
     const insertDate = courseSingle ? comment?.insertDate : comment?.inserDate
     const [replyStatus, setReplyStatus] = useState(false)
     const [sendLoading, setSendLoading] = useState(false)
     const dispatch = useDispatch()
+    const [likeLoading, setLikeLoading] = useState(false)
+    const [dissLikeLoading, setDissLikeLoading] = useState(false)
     const handleOnSubmit = async (values) => {
         if (courseSingle) {
-            addCommentReplyCourse(setSendLoading, { CommentId: commentId, CourseId: singleId, Title: values.Title, Describe: values.Describe })
+            addCommentReplyCourse(setSendLoading, { CommentId: values.commentId, CourseId: singleId, Title: values.Title, Describe: values.Describe })
+
         }
         else {
-            await addBlogReplyComment(setSendLoading, { newsId: singleId, title: values.Title, describe: values.Describe, userId: userId, parentId: commentId })
+            await addBlogReplyComment(setSendLoading, { newsId: singleId, title: values.Title, describe: values.Describe, userId: userId, parentId: values.commentId })
             dispatch(fetchBlogComments(singleId))
+        }
+    }
+
+    const likeComment = async (comment) => {
+        if (isAuthenticated) {
+            if (courseSingle) {
+
+                await addLikeForCourseComment(comment.id, setLikeLoading)
+                dispatch(updateCourseCommentLikeCount({ commentId: comment.id, type: "like", currentEmotion: comment.currentUserEmotion }));
+
+            }
+            else {
+                if (comment.currentUserIsLike) return;
+                await addDissLikeForBlogComment(comment.id, true, setLikeLoading)
+                dispatch(updateBlogCommentLikeCount({ commentId: comment.id, type: "like", currentUserIsDissLike: comment.currentUserIsDissLike, currentUserIsLike: comment.currentUserIsLike }))
+            }
+        }
+        else {
+            toast.error('برای لایک یا دیسلایک باید لاگین باشید')
+        }
+    }
+
+    const dissLike = async (comment) => {
+        if (isAuthenticated) {
+            if (courseSingle) {
+                await addDissLikeForCourseComment(comment.id, setDissLikeLoading)
+                dispatch(updateCourseCommentLikeCount({ commentId: comment.id, type: "dissLike", currentEmotion: comment.currentUserEmotion }));
+            }
+            else {
+                if (comment.currentUserIsDissLike) return;
+                await addDissLikeForBlogComment(comment.id, false, setDissLikeLoading)
+                dispatch(updateBlogCommentLikeCount({ commentId: comment.id, type: "dissLike", currentUserIsDissLike: comment.currentUserIsDissLike, currentUserIsLike: comment.currentUserIsLike }))
+
+            }
+        }
+        else {
+            toast.error('برای لایک یا دیسلایک باید لاگین باشید')
         }
     }
 
@@ -46,8 +89,8 @@ const Comment = ({ comment, addComment = true, children, courseSingle, commentId
                         </div>
                     </div>
                     <div className={`flex items-start  gap-[10px] ${addComment && 'w-[100%]'}`}>
-                        <span className='flex items-center gap-[5px]'><IconSet className={'cursor-pointer '} imageAddress={'/src/assets/icons/like.svg'} /> <span>{comment?.likeCount || 0}</span> </span>
-                        <span className='flex items-center gap-[5px]'><IconSet className={'cursor-pointer '} imageAddress={'/src/assets/icons/dislike.svg'} /> <span>{comment?.disslikeCount || 0}</span> </span>
+                        <span className='flex items-center gap-[5px]' ><span className={`${comment?.currentUserEmotion == 'LIKED' ? 'bg-primary ' : ''} p-[5px] rounded-full`} onClick={() => likeComment(comment)}>{likeLoading ? <FaSpinner className="animate-spin" /> : <IconSet className={`cursor-pointer`} imageAddress={`${comment?.currentUserEmotion == "LIKED" ? '/src/assets/icons/light-like.svg' : '/src/assets/icons/like.svg'}`} />}</span> <span>{comment?.likeCount || 0}</span> </span>
+                        <span className='flex items-center gap-[5px]'><span className={`${comment?.currentUserEmotion == 'DISSLIKED' ? 'bg-[#FF6C6C] ' : ''} p-[5px] rounded-full`} onClick={() => dissLike(comment)}>{dissLikeLoading ? <FaSpinner className="animate-spin" /> : <IconSet className={'cursor-pointer '} imageAddress={`${comment?.currentUserEmotion == "DISSLIKED" ? '/src/assets/icons/light-disslike.png' : '/src/assets/icons/dislike.svg'}`} />}</span> <span>{courseSingle ? comment?.disslikeCount : comment?.dissLikeCount || 0}</span> </span>
                         {
                             addComment && (
                                 <Fragment>
@@ -56,6 +99,7 @@ const Comment = ({ comment, addComment = true, children, courseSingle, commentId
                                         replyStatus={replyStatus}
                                         handleOnSubmit={handleOnSubmit}
                                         sendLoading={sendLoading}
+                                        commentId={commentId}
                                     />
                                 </Fragment>
                             )

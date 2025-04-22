@@ -105,3 +105,33 @@ export const addCommentReplyCourse = async (loading, obj) => {
     throw error;
   }
 }
+
+export const addLikeForCourseComment = async (commentId, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/Course/AddCourseCommentLike`, null, {
+      params: { CourseCommandId: commentId },
+    })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
+
+export const addDissLikeForCourseComment = async (commentId,setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/Course/AddCourseCommentDissLike`, null, {
+      params: { CourseCommandId: commentId },
+    })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}

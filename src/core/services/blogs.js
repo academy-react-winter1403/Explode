@@ -82,3 +82,19 @@ export const addBlogReplyComment = async (loading, obj) => {
     throw error;
   }
 }
+
+
+export const addDissLikeForBlogComment = async (commentId, likeType, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/News/CommentLike/${commentId}`, null, {
+      params: { LikeType: likeType },
+    })
+
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}

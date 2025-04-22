@@ -18,6 +18,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
     const [sendLoading, setSendLoading] = useState(false)
     const treeData = buildCommentTree(comments);
     const [replyStatus, setReplyStatus] = useState(false)
+    console.log(comments)
     const dispatch = useDispatch()
     const handleOnClick = () => {
         isAuthenticated ? setShowCommentModal(!showCommentModal) : toast.error('برای نظر دادن باید لاگین کرده باشید')
@@ -56,6 +57,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
                                         addComment={false}
                                         comment={item}
                                         courseSingle={courseSingle}
+                                        isAuthenticated={isAuthenticated}
                                     />
                                 ))
                             ) : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'>نظری یافت نشد</div>
@@ -92,6 +94,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
                                         commentId={item.id}
                                         userId={userId}
                                         singleId={singleId}
+                                        isAuthenticated={isAuthenticated}
                                     />
                                 ))
                             ) : <div className='bg-[#FF5353] text-[#fff] font-bold p-[10px] text-center rounded-[10px] w-[100%]'>نظری یافت نشد</div>

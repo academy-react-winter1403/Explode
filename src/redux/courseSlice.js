@@ -145,6 +145,30 @@ const coursesSlice = createSlice({
     setResponsiveSorting: (state, action) => {
       state.responsiveSorting = action.payload;
     },
+    updateCourseCommentLikeCount: (state, action) => {
+      const { commentId, type, currentEmotion } = action.payload;
+      const comment = state.courseComments.find(c => c.id === commentId);
+      if (comment) {
+        if (type === 'like' && currentEmotion == "DISSLIKED") {
+          comment.likeCount += 1;
+          comment.disslikeCount -= 1;
+          comment.currentUserEmotion = 'LIKED'
+        } else if (type === 'dissLike' && currentEmotion == "LIKED") {
+          comment.disslikeCount += 1;
+          comment.likeCount -= 1;
+          comment.currentUserEmotion = 'DISSLIKED'
+        }
+        else if (type === 'like' && currentEmotion == "-") {
+          comment.likeCount += 1;
+          comment.currentUserEmotion = 'LIKED'
+        }
+        else if (type === 'dissLike' && currentEmotion == "-") {
+          comment.disslikeCount += 1;
+          comment.currentUserEmotion = 'DISSLIKED'
+        }
+      }
+    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -216,6 +240,7 @@ export const {
   setEndDate,
   setResponsiveFilter,
   setResponsiveSorting,
+  updateCourseCommentLikeCount
 } = coursesSlice.actions;
 
 export default coursesSlice.reducer;

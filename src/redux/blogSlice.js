@@ -90,6 +90,33 @@ const blogSlice = createSlice({
     setCategory: (state, action) => {
       state.categoryId = action.payload;
     },
+    updateBlogCommentLikeCount: (state, action) => {
+      const { commentId, type, currentUserIsDissLike, currentUserIsLike } = action.payload;
+      const comment = state.blogComments.find(c => c.id === commentId);
+      if (comment) {
+        if (type === 'like' && currentUserIsDissLike && currentUserIsLike == false) {
+          comment.likeCount += 1;
+          comment.dissLikeCount -= 1;
+          comment.currentUserIsLike = true
+          comment.currentUserIsDissLike = false
+        } else if (type === 'dissLike' && currentUserIsLike && currentUserIsDissLike == false) {
+          comment.dissLikeCount += 1;
+          comment.likeCount -= 1;
+          comment.currentUserIsDissLike = true
+          comment.currentUserIsLike = false
+        }
+        else if (type === 'like' && currentUserIsDissLike == false && currentUserIsLike == false) {
+          comment.likeCount += 1;
+          comment.currentUserIsLike = true
+          comment.currentUserIsDissLike = false
+        }
+        else if (type === 'dissLike' && currentUserIsDissLike == false && currentUserIsLike == false) {
+          comment.dissLikeCount += 1;
+          comment.currentUserIsLike = false
+          comment.currentUserIsDissLike = true
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -148,5 +175,6 @@ export const {
   setSortingType,
   setQuery,
   setCategory,
+  updateBlogCommentLikeCount
 } = blogSlice.actions;
 export default blogSlice.reducer;
