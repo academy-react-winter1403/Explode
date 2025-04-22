@@ -1,5 +1,5 @@
 import React from 'react'
-import { ValidURL } from '../../utils/ValidUrl';
+import { ValidURL } from './../../utils/ValidUrl';
 import SingleInfoTable from './SingleInfoTable';
 import SingleInfoOverviewBar from './SingleInfoOverviewBar';
 import SingleInfoFooter from './SingleInfoFooter';

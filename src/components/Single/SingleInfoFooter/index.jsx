@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import IconSet from '../../shared/IconSet/index';
+import IconSet from './../../shared/IconSet/index';
 import { useLocation } from 'react-router';
 import { CopyLink } from '../../../utils/CopyLink';
 

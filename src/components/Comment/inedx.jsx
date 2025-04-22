@@ -26,7 +26,7 @@ const Comment = ({ comment, addComment = true, children, courseSingle, commentId
     return (
         <div className={`${addComment ? 'w-[100%] border-b-[1px] border-[#DCDCDC]' : 'w-[324px] bg-[#F6F6F6] rounded-[24px]'} flex flex-col gap-[10px] max-[700px]:w-[100%]  p-[15px]  `}>
             {
-                addComment && children
+                children
             }
 
             {/* Main Comments List*/}
@@ -79,15 +79,17 @@ const Comment = ({ comment, addComment = true, children, courseSingle, commentId
             </div>
 
             {/* Reply Comments List */}
-            {comment.replies && comment.replies.length > 0 && (
-                comment.replies.map(reply => (
-                    <Comment key={reply.id} comment={reply}>
-                        {addComment && (
-                            <div className='w-[6px] h-[100%] bg-primary ml-[10px] rounded-[8px]'></div>
-                        )}
-                    </Comment>
-                ))
-            )}
+            {
+                addComment && comment.replies && comment.replies.length > 0 && (
+                    comment.replies.map(reply => (
+                        <Comment key={reply.id} comment={reply}>
+                            {addComment && (
+                                <div className='w-[6px] h-[100%] bg-primary ml-[10px] rounded-[8px]'></div>
+                            )}
+                        </Comment>
+                    ))
+                )
+            }
 
 
         </div>

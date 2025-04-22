@@ -8,7 +8,7 @@ import { buildCommentTree } from './commentBuilder/buildCommentTree';
 import { AddCommentCourse } from '../../core/services/courses';
 import CreateComment from '../CreateComment';
 import { AddCommentBlog } from '../../core/services/blogs';
-import { fetchBlogComments, fetchBlogDetail } from '../../redux/blogSlice';
+import { fetchBlogComments } from '../../redux/blogSlice';
 
 const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }) => {
     const [step, setStep] = useState(3)
@@ -16,17 +16,12 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
     const [showCommentModal, setShowCommentModal] = useState(false)
     const [sendLoading, setSendLoading] = useState(false)
-    const dispatch = useDispatch()
-    const handleOnClick = () => {
-        if (isAuthenticated) {
-            setShowCommentModal(!showCommentModal)
-        }
-        else {
-            toast.error('برای نظر دادن باید لاگین کرده باشید')
-        }
-    }
     const treeData = buildCommentTree(comments);
     const [replyStatus, setReplyStatus] = useState(false)
+    const dispatch = useDispatch()
+    const handleOnClick = () => {
+        isAuthenticated ? setShowCommentModal(!showCommentModal) : toast.error('برای نظر دادن باید لاگین کرده باشید')
+    }
     const handleOnSubmit = async (data) => {
         if (courseSingle) {
             AddCommentCourse(setSendLoading, { CourseId: singleId, Title: data.Title, Describe: data.Describe })
@@ -37,6 +32,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
         }
 
     }
+
     return (
         <Fragment>
             <div className='mt-[40px]'>
@@ -76,7 +72,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
 
             {/* Comment Modal */}
             <div className={`${showCommentModal ? 'fixed' : 'hidden'}  top-0 left-0 w-[100%] h-[100%] flex items-center justify-center z-1000 bg-[rgb(0,0,0)]/50`}>
-                <div className='w-[900px] h-[800px] bg-[#fff] rounded-[30px] overflow-hidden'>
+                <div className='w-[900px] h-[90%] bg-[#fff] rounded-[30px] overflow-hidden'>
                     <div className='flex p-[20px] justify-between items-center text-[24px] font-[700]'>
                         <div className='flex items-center gap-[10px]'><h2>نظرات دانشجویان و اساتید</h2><span className='text-[#707070] text-[18px] font-[700]'>( {title} )</span></div>
                         <CloseButton onClick={() => setShowCommentModal(!showCommentModal)} display='flex' />
