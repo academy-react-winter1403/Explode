@@ -121,11 +121,69 @@ export const addLikeForCourseComment = async (commentId, setLoading) => {
   }
 }
 
-export const addDissLikeForCourseComment = async (commentId,setLoading) => {
+export const addDissLikeForCourseComment = async (commentId, setLoading) => {
   try {
     setLoading(true)
     const response = await instance.post(`/Course/AddCourseCommentDissLike`, null, {
       params: { CourseCommandId: commentId },
+    })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
+
+export const addCourseRate = async (courseId, courseRate, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/Course/SetCourseRating`, null, {
+      params: { CourseId: courseId, RateNumber: courseRate },
+    })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
+
+export const addCourseToFavoriteList = async (id, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/Course/AddCourseFavorite`, { courseId: id })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
+
+export const addLikeForCourse = async (id, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/Course/AddCourseLike`, null, {
+      params: { CourseId: id }
+    })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
+
+export const addDisLikeForCourse = async (id, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/Course/AddCourseDissLike`, null, {
+      params: { CourseId: id }
     })
     toast.success(response.message)
     setLoading(false)

@@ -117,6 +117,37 @@ const blogSlice = createSlice({
         }
       }
     },
+    updateBlogRate: (state, action) => {
+      const { rateNumber } = action.payload
+      state.blogDetail.currentUserRateNumber = rateNumber
+    },
+    updateBlogFavorite: (state, action) => {
+      const { favStatus } = action.payload
+      state.blogDetail.isCurrentUserFavorite = favStatus
+    },
+    updateBlogLike: (state, action) => {
+      const { type, currentUserIsLike, currentUserIsDissLike } = action.payload
+      if (type == 'like' && currentUserIsLike == false && currentUserIsDissLike == true) {
+        state.blogDetail.currentUserIsLike = true
+        state.blogDetail.currentUserIsDissLike = false
+        state.blogDetail.currentLikeCount += 1
+        state.blogDetail.currentDissLikeCount -= 1
+      }
+      else if (type == 'dislike' && currentUserIsLike == true && currentUserIsDissLike == false) {
+        state.blogDetail.currentUserIsLike = false
+        state.blogDetail.currentUserIsDissLike = true
+        state.blogDetail.currentLikeCount -= 1
+        state.blogDetail.currentDissLikeCount += 1
+      }
+      else if (type == 'like' && currentUserIsLike == false && currentUserIsDissLike == false) {
+        state.blogDetail.currentUserIsLike = true
+        state.blogDetail.currentLikeCount += 1
+      }
+      else if (type == 'dislike' && currentUserIsLike == false && currentUserIsDissLike == false) {
+        state.blogDetail.currentUserIsDissLike = true
+        state.blogDetail.currentDissLikeCount += 1
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -175,6 +206,9 @@ export const {
   setSortingType,
   setQuery,
   setCategory,
-  updateBlogCommentLikeCount
+  updateBlogCommentLikeCount,
+  updateBlogRate,
+  updateBlogFavorite,
+  updateBlogLike
 } = blogSlice.actions;
 export default blogSlice.reducer;

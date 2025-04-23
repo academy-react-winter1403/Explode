@@ -98,3 +98,60 @@ export const addDissLikeForBlogComment = async (commentId, likeType, setLoading)
     throw error;
   }
 }
+
+export const addBlogRate = async (newsId, blogRate, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/News/NewsRate`, null, {
+      params: { NewsId: newsId, RateNumber: blogRate },
+    })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
+
+
+export const addBlogToFavoriteList = async (id, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/News/AddFavoriteNews`, null, {
+      params: { NewsId: id }
+    })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
+
+export const addLikeForBlog = async (id, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/News/NewsLike/${id}`)
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
+
+export const addDisLikeForBlog = async (id, setLoading) => {
+  try {
+    setLoading(true)
+    const response = await instance.post(`/News/NewsDissLike/${id}`)
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}

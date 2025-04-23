@@ -76,7 +76,7 @@ const Comment = ({ isAuthenticated, comment, addComment = true, children, course
             <div className={'flex flex-col w-[100%]'}>
                 <div className={`${addComment && 'order-2'}`}>
                     <h2 title={comment?.title} className={`mb-[15px] text-thirdly truncate text-[18px] font-[700] `}>{comment?.title}</h2>
-                    <p title={comment?.describe} className={`text-[16px] font-[500] text-justify text-thirdly truncate mb-[25px] `}>
+                    <p title={comment?.describe} className={`text-[16px] font-[500] text-justify text-thirdly break-words mb-[25px] `}>
                         {comment?.describe}
                     </p>
                 </div>
@@ -89,8 +89,8 @@ const Comment = ({ isAuthenticated, comment, addComment = true, children, course
                         </div>
                     </div>
                     <div className={`flex items-start  gap-[10px] ${addComment && 'w-[100%]'}`}>
-                        <span className='flex items-center gap-[5px]' ><span className={`${comment?.currentUserEmotion == 'LIKED' || comment?.currentUserIsLike ? 'bg-primary ' : ''} p-[5px] rounded-full`} onClick={() => likeComment(comment)}>{likeLoading ? <FaSpinner className="animate-spin" /> : <IconSet className={`cursor-pointer`} imageAddress={`${comment?.currentUserEmotion == "LIKED" || comment?.currentUserIsLike ? '/src/assets/icons/light-like.svg' : '/src/assets/icons/like.svg'}`} />}</span> <span>{comment?.likeCount || 0}</span> </span>
-                        <span className='flex items-center gap-[5px]'><span className={`${comment?.currentUserEmotion == 'DISSLIKED' || comment?.currentUserIsDissLike ? 'bg-[#FF6C6C] ' : ''} p-[5px] rounded-full`} onClick={() => dissLike(comment)}>{dissLikeLoading ? <FaSpinner className="animate-spin" /> : <IconSet className={'cursor-pointer '} imageAddress={`${comment?.currentUserEmotion == "DISSLIKED" || comment?.currentUserIsDissLike ? '/src/assets/icons/light-disslike.png' : '/src/assets/icons/dislike.svg'}`} />}</span> <span>{courseSingle ? comment?.disslikeCount : comment?.dissLikeCount || 0}</span> </span>
+                        <span className='flex items-center gap-[5px]' ><span className={`${comment?.currentUserEmotion == 'LIKED' && isAuthenticated || comment?.currentUserIsLike && isAuthenticated ? 'bg-primary ' : ''} p-[5px] rounded-full`} onClick={() => likeComment(comment)}>{likeLoading ? <FaSpinner className="animate-spin" /> : <IconSet className={`cursor-pointer`} imageAddress={`${comment?.currentUserEmotion == "LIKED" && isAuthenticated || comment?.currentUserIsLike && isAuthenticated ? '/src/assets/icons/light-like.svg' : '/src/assets/icons/like.svg'}`} />}</span> <span>{comment?.likeCount || 0}</span> </span>
+                        <span className='flex items-center gap-[5px]'><span className={`${comment?.currentUserEmotion == 'DISSLIKED' && isAuthenticated || comment?.currentUserIsDissLike && isAuthenticated ? 'bg-[#FF6C6C] ' : ''} p-[5px] rounded-full`} onClick={() => dissLike(comment)}>{dissLikeLoading ? <FaSpinner className="animate-spin" /> : <IconSet className={'cursor-pointer '} imageAddress={`${comment?.currentUserEmotion == "DISSLIKED" && isAuthenticated || comment?.currentUserIsDissLike && isAuthenticated ? '/src/assets/icons/light-disslike.png' : '/src/assets/icons/dislike.svg'}`} />}</span> <span>{courseSingle ? comment?.disslikeCount : comment?.dissLikeCount || 0}</span> </span>
                         {
                             addComment && (
                                 <Fragment>

@@ -168,7 +168,37 @@ const coursesSlice = createSlice({
         }
       }
     },
-
+    updateCourseRate: (state, action) => {
+      const { rateNumber } = action.payload
+      state.courseDetail.currentUserRateNumber = rateNumber
+    },
+    updateFavorite: (state, action) => {
+      const { favStatus } = action.payload
+      state.courseDetail.isUserFavorite = favStatus
+    },
+    updateCourseLike: (state, action) => {
+      const { type, currentUserLike, currentUserDissLike } = action.payload
+      if (type == 'like' && currentUserLike == "0" && currentUserDissLike == "1") {
+        state.courseDetail.currentUserLike = "1"
+        state.courseDetail.currentUserDissLike = "0"
+        state.courseDetail.likeCount += 1
+        state.courseDetail.dissLikeCount -= 1
+      }
+      else if (type == 'dislike' && currentUserLike == "1" && currentUserDissLike == "0") {
+        state.courseDetail.currentUserLike = "0"
+        state.courseDetail.currentUserDissLike = "1"
+        state.courseDetail.likeCount -= 1
+        state.courseDetail.dissLikeCount += 1
+      }
+      else if (type == 'like' && currentUserLike == "0" && currentUserDissLike == "0") {
+        state.courseDetail.currentUserLike = "1"
+        state.courseDetail.likeCount += 1
+      }
+      else if (type == 'dislike' && currentUserLike == "0" && currentUserDissLike == "0") {
+        state.courseDetail.currentUserDissLike = "1"
+        state.courseDetail.dissLikeCount += 1
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -240,7 +270,10 @@ export const {
   setEndDate,
   setResponsiveFilter,
   setResponsiveSorting,
-  updateCourseCommentLikeCount
+  updateCourseCommentLikeCount,
+  updateCourseRate,
+  updateFavorite,
+  updateCourseLike
 } = coursesSlice.actions;
 
 export default coursesSlice.reducer;
