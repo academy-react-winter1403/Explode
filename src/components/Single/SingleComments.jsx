@@ -80,7 +80,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
                         <CloseButton onClick={() => setShowCommentModal(!showCommentModal)} display='flex' />
                     </div>
                     <div className='flex mb-[10px] p-[0px_20px]'>
-                        <span onClick={() => setReplyStatus(!replyStatus)} className='cursor-pointer text-[#fff] text-[16px] font-[500] flex items-center gap-[5px] p-[8px_12px] bg-primary rounded-[40px]'><IconSet imageAddress={'/src/assets/icons/add-comment.svg'} />نظر شما</span>
+                        <span onClick={() => setReplyStatus(!replyStatus)} className={` ${replyStatus?'bg-[#FF6C6C]':'bg-primary'}  cursor-pointer text-[#fff] text-[16px] font-[500] flex items-center gap-[5px] p-[8px_12px] rounded-[40px]`}><IconSet imageAddress={'/src/assets/icons/add-comment.svg'} />{replyStatus?'بستن':'نظر شما'}</span>
                     </div>
                     <div className={`h-[80%] overflow-auto p-[20px_20px_60px_20px] ${replyStatus ? 'hidden' : 'flex'} flex-col gap-[20px]`}>
 

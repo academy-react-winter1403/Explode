@@ -90,7 +90,7 @@ export const addDissLikeForBlogComment = async (commentId, likeType, setLoading)
     const response = await instance.post(`/News/CommentLike/${commentId}`, null, {
       params: { LikeType: likeType },
     })
-
+    toast.success(response.success)
     setLoading(false)
     return response;
   } catch (error) {
