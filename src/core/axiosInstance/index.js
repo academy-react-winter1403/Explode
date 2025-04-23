@@ -25,16 +25,19 @@ const onSuccess = (response) => {
 
 const onError = (error) => {
   if (error) {
+    console.log(error);
     const { status, data } = error.response;
+
     switch (status) {
       case 400:
         console.error('Bad Request:', data);
         toast.error(data.ErrorMessage);
         break;
       case 401:
+        toast.error('توکن احراز هویت باطل شده لطفا دوباره وارد شوید');
+        console.log('aaaAAAAAAAAAA');
         localStorage.clear('token');
         console.error('Unauthorized:', data);
-        toast.error('توکن احراز هویت باطل شده لطفا دوباره وارد شوید');
         break;
       case 404:
         console.error('Not Found:', data);

@@ -13,7 +13,7 @@ const LoginPage = () => {
   ];
   const [userEnterNumber, setUserEnterNumber] = useState('');
   const [currentStep, setCurrentStep] = useState(0);
-
+  const [password, setPassword] = useState('');
   const renderForm = () => {
     switch (currentStep) {
       case 0:
@@ -21,6 +21,7 @@ const LoginPage = () => {
           <LoginStep1Form
             setCurrentStep={setCurrentStep}
             setUserEnterNumber={setUserEnterNumber}
+            setPassword={setPassword}
           />
         );
       case 1:
@@ -28,6 +29,7 @@ const LoginPage = () => {
           <LoginStep2Form
             setCurrentStep={setCurrentStep}
             userEnterNumber={userEnterNumber}
+            password={password}
           />
         );
       default:

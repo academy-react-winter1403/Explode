@@ -3,19 +3,59 @@ import CustomInputField from '../../../../../components/shared/CustomInputField'
 import GenderField from './GenderField';
 import Button from '../../../../../components/shared/Button';
 import { Form, Formik } from 'formik';
-import { editUserProfileInfo } from '../../../../../core/services/UserProfileInfo';
+import {
+  editUserProfileInfo,
+  getUserProfileInfo,
+} from '../../../../../core/services/UserProfileInfo';
 import toast from 'react-hot-toast';
 import { setPanelState } from '../../../../../redux/userPanelSlice';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 const AccountInfoForm = () => {
   const dispatch = useDispatch();
+  const [initialFormValues, setInitialFormValues] = useState({
+    FName: '',
+    LName: '',
+    UserAbout: '',
+    NationalCode: '',
+    BirthDay: '',
+    Gender: '',
+    HomeAdderess: '',
+    phoneNumber: '',
+    email: '',
+  });
+
+  const fetchUserData = async () => {
+    try {
+      const res = await getUserProfileInfo();
+      if (res) {
+        setInitialFormValues({
+          FName: res.fName || '',
+          LName: res.lName || '',
+          UserAbout: res.userAbout || '',
+          NationalCode: res.nationalCode || '',
+          BirthDay: res.birthDay || '',
+          Gender: res.gender || '',
+          HomeAdderess: res.homeAdderess || '',
+          phoneNumber: res.phoneNumber || '',
+          email: res.email || '',
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   const onSubmit = async (values) => {
     const formData = new FormData();
     Object.keys(values).forEach((key) => {
       formData.append(key, values[key]);
     });
-    console.log(formData);
     const res = await editUserProfileInfo(formData);
     if (res.success) {
       toast.success('اطلاعات کاربری شما با موفقیت ثبت شد');
@@ -25,24 +65,16 @@ const AccountInfoForm = () => {
 
   return (
     <Formik
-      initialValues={{
-        FName: '',
-        LName: '',
-        UserAbout: '',
-        NationalCode: '',
-        BirthDay: '',
-        Gender: '',
-        HomeAdderess: '',
-      }}
+      initialValues={initialFormValues}
       onSubmit={onSubmit}
       validationSchema={ProfileSchema}
+      enableReinitialize={true} // این پراپرتی اجازه می‌دهد initialValues پس از دریافت داده‌ها آپدیت شود
     >
-      {({ isValid }) => (
+      {({ isValid, isSubmitting, dirty }) => (
         <Form>
           <div className="flex h-[100%] max-w-[600px] flex-col gap-8">
             <div className="flex flex-col gap-[4px]">
               <div className="flex w-full gap-12">
-                {' '}
                 <CustomInputField
                   name="FName"
                   label="نام"
@@ -65,8 +97,8 @@ const AccountInfoForm = () => {
                 type="textarea"
                 placeholder="متن درباره خود را وارد کنید"
               />
+
               <div className="flex w-full gap-12">
-                {' '}
                 <CustomInputField
                   name="phoneNumber"
                   label="شماره همراه"
@@ -82,8 +114,8 @@ const AccountInfoForm = () => {
                   className="flex w-[50%]"
                 />
               </div>
+
               <div className="flex w-full gap-4">
-                {' '}
                 <CustomInputField
                   name="BirthDay"
                   label="تاریخ تولد"
@@ -91,30 +123,32 @@ const AccountInfoForm = () => {
                   placeholder="تاریخ تولد خود را وارد کنید"
                   className="flex w-[50%]"
                 />
-                <span></span>
                 <GenderField
                   name="Gender"
                   label="جنسیت"
                   className="my-custom-class"
                 />
               </div>
+
               <CustomInputField
                 name="email"
                 label="ایمیل"
-                type="textarea"
-                placeholder="متن درباره خود را وارد کنید"
+                type="email"
+                placeholder="ایمیل خود را وارد کنید"
               />
+
               <CustomInputField
                 name="HomeAdderess"
                 label="محل سکونت"
                 type="textarea"
-                placeholder="متن درباره خود را وارد کنید"
+                placeholder="آدرس محل سکونت خود را وارد کنید"
               />
+
               <Button
-                className={'mt-3 w-fit'}
+                className="mt-3 w-fit"
                 type="submit"
-                disabled={!isValid}
-                isLoading={false}
+                disabled={!isValid || isSubmitting || !dirty}
+                isLoading={isSubmitting}
               >
                 اعمال تغییرات
               </Button>
@@ -125,4 +159,5 @@ const AccountInfoForm = () => {
     </Formik>
   );
 };
+
 export default AccountInfoForm;

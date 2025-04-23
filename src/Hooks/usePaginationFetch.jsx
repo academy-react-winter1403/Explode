@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 const usePaginationFetch = (fetchFunction, initialParams = {}) => {
   const [state, setState] = useState({
@@ -16,7 +16,12 @@ const usePaginationFetch = (fetchFunction, initialParams = {}) => {
     },
   });
 
+  const debounceTimer = useRef(null);
+  const isMounted = useRef(true);
+
   const fetchData = useCallback(async () => {
+    if (!isMounted.current) return;
+
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
@@ -28,7 +33,8 @@ const usePaginationFetch = (fetchFunction, initialParams = {}) => {
         EndDate: state.filters.endDate,
       });
 
-      // Handle different response structures
+      if (!isMounted.current) return;
+
       const dataArray =
         result.listOfMyCourses || result.myFavoriteNews || result.data || [];
       const totalPages = result.totalPages || 1;
@@ -42,18 +48,21 @@ const usePaginationFetch = (fetchFunction, initialParams = {}) => {
         },
       }));
     } catch (error) {
+      if (!isMounted.current) return;
       setState((prev) => ({
         ...prev,
         error: error.message || 'Failed to fetch data',
       }));
     } finally {
-      setState((prev) => ({ ...prev, loading: false }));
+      if (isMounted.current) {
+        setState((prev) => ({ ...prev, loading: false }));
+      }
     }
   }, [
     fetchFunction,
     state.pagination.currentPage,
-    state.filters,
     state.query,
+    state.filters,
     initialParams.RowsOfPage,
   ]);
 
@@ -61,15 +70,21 @@ const usePaginationFetch = (fetchFunction, initialParams = {}) => {
     fetchData();
   }, [fetchData]);
 
-  const handleSearch = (query) => {
-    setState((prev) => ({
-      ...prev,
-      query,
-      pagination: { ...prev.pagination, currentPage: 1 },
-    }));
-  };
+  const handleSearch = useCallback((query) => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
 
-  const handleDateChange = (type, value) => {
+    debounceTimer.current = setTimeout(() => {
+      setState((prev) => ({
+        ...prev,
+        query,
+        pagination: { ...prev.pagination, currentPage: 1 },
+      }));
+    }, 500);
+  }, []);
+
+  const handleDateChange = useCallback((type, value) => {
     setState((prev) => ({
       ...prev,
       filters: {
@@ -78,14 +93,23 @@ const usePaginationFetch = (fetchFunction, initialParams = {}) => {
       },
       pagination: { ...prev.pagination, currentPage: 1 },
     }));
-  };
+  }, []);
 
-  const setPage = (page) => {
+  const setPage = useCallback((page) => {
     setState((prev) => ({
       ...prev,
       pagination: { ...prev.pagination, currentPage: page },
     }));
-  };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, []);
 
   return {
     data: state.data,

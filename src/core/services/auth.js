@@ -12,11 +12,9 @@ export const UserRegisterSendVerifyMessage = async (phoneNumber) => {
   }
 };
 
-export const UserRegisterAcceptVerifyMessage = async (code) => {
+export const UserRegisterAcceptVerifyMessage = async (data) => {
   try {
-    const response = await instance.post(
-      `/Sign/LoginTwoStep?VrifyCode=${code}`,
-    );
+    const response = await instance.post('/Sign/VerifyMessage', data);
     console.log(response);
     return response;
   } catch (error) {
@@ -42,12 +40,19 @@ export const UserLogin = async (obj) => {
     console.error('Error:', error);
   }
 };
-export const UserAcceptVerifyCode = async (obj) => {
+export const UserLoginTowStep = async (obj) => {
   try {
-    const response = await instance.post('/Sign/Login', obj);
+    const response = await instance.post(
+      `/Sign/LoginTwoStep?VrifyCode=${obj.VrifyCode}`,
+      {
+        phoneOrGmail: obj.phoneNumber,
+        password: obj.password,
+      },
+    );
     return response;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error.response?.data || error.message);
+    throw error;
   }
 };
 export const UserReSendVerifyCode = async (obj) => {

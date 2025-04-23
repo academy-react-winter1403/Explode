@@ -7,7 +7,11 @@ import usePaginationFetch from '../../../../../Hooks/usePaginationFetch';
 
 const RowsOfPage = 10;
 
-const MyCourse = () => {
+const MyCourse = ({
+  shortList = false,
+  shortShowTitle,
+  shortShowStateValue,
+}) => {
   const {
     data,
     loading,
@@ -21,15 +25,19 @@ const MyCourse = () => {
   } = usePaginationFetch(getMyCoursesWithPagination, {
     name: 'listOfMyCourses',
   });
+
   return (
-    <div>
-      <UserPanelTitle title="دوره من" />
+    <div className="w-full">
+      {!shortList && <UserPanelTitle title="دوره من" />}
+
       <div className="flex h-full flex-col">
-        <UserPanelFilterNav
-          SearchHandler={handleSearch}
-          handleStartDate={handleStartDate}
-          handleEndtDate={handleEndDate}
-        />
+        {!shortList && (
+          <UserPanelFilterNav
+            SearchHandler={handleSearch}
+            handleStartDate={handleStartDate}
+            handleEndtDate={handleEndDate}
+          />
+        )}
 
         {loading ? (
           <div className="flex h-64 items-center justify-center">
@@ -46,6 +54,8 @@ const MyCourse = () => {
           <EmptyState
             icon="book"
             title="دوره‌ای یافت نشد"
+            shortShowStateValue={shortShowStateValue}
+            shortShowTitle={shortShowTitle}
             description={
               query || filters.startDate || filters.endDate
                 ? 'با معیارهای جستجوی شما هیچ دوره‌ای مطابقت ندارد'

@@ -18,6 +18,7 @@ const Header = () => {
   const [userImage, setUserImage] = useState('');
   const [userName, setUserName] = useState('');
   const [checkLoggedIn, setCheckLoggedIn] = useState(false);
+  const [hidden, setHidden] = useState(pathname.includes('/auth'));
   const getUserInfo = async () => {
     const res = await getUserProfileInfo();
     setUserImage(res.currentPictureAddress);
@@ -33,6 +34,11 @@ const Header = () => {
     } else {
       setCheckLoggedIn(false);
     }
+    if (pathname.includes('/auth')) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
     getUserInfo();
     if (pathname == '/dashboard') {
       setIsDashboard(true);
@@ -46,6 +52,8 @@ const Header = () => {
         'm-[24px_auto_0_auto] h-[49px] max-w-[1360px] justify-between max-[1460px]:p-[0_16px]':
           !isDashboard,
         'bg-thirdly h-[80px] w-full justify-center': isDashboard,
+        hidden: hidden,
+        flex: !hidden,
       })}
     >
       <div

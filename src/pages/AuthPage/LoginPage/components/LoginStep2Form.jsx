@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import CustomForm from '../../../../components/CustomForm';
 import {
-  UserRegisterAcceptVerifyMessage,
+  UserLoginTowStep,
   UserRegisterSendVerifyMessage,
 } from '../../../../core/services/auth';
 import toast from 'react-hot-toast';
 import { step2Schema } from '../../../../core/validation';
 
-const LoginStep2Form = ({ setCurrentStep, userEnterNumber }) => {
+const LoginStep2Form = ({ setCurrentStep, userEnterNumber, password }) => {
   const [isLoading, setIsLoading] = useState(false);
   const fields = [
     {
-      name: 'verifyCode',
+      name: 'VrifyCode',
       label: 'کد دو مرحله ای',
       placeholder: 'کد تایید خود را وارد کنید',
     },
@@ -24,10 +24,13 @@ const LoginStep2Form = ({ setCurrentStep, userEnterNumber }) => {
   };
   const onSubmit = async (values) => {
     setIsLoading(true);
-    const res = await UserRegisterAcceptVerifyMessage({
-      ...values,
+    const param = {
+      VrifyCode: values.VrifyCode,
       phoneNumber: userEnterNumber,
-    });
+      password: password,
+    };
+    console.log(param);
+    const res = await UserLoginTowStep(param);
     if (res?.success) {
       toast.success('کد تایید شما با موفقیت ثبت شد');
       setIsLoading(false);
@@ -41,7 +44,7 @@ const LoginStep2Form = ({ setCurrentStep, userEnterNumber }) => {
     <CustomForm
       title="تایید کد دو مرحله‌ای!"
       description="کد دومرحله‌ای به شماره همراه شما ارسال شد لطفا کد را وارد کنید"
-      initialValues={{ verifyCode: '' }}
+      initialValues={{ VrifyCode: '' }}
       fields={fields}
       onSubmit={onSubmit}
       isLoading={isLoading}

@@ -1,15 +1,51 @@
-// components/EmptyState.jsx
-const EmptyState = ({ icon = 'clock', title, description, additionalText }) => {
+import { useDispatch } from 'react-redux';
+import lefticon from '../../assets/icons/icons8-left-arrow-24.png';
+import { setPanelState } from '../../redux/userPanelSlice';
+import IconSet from '../shared/IconSet';
+import clsx from 'clsx';
+
+const EmptyState = ({
+  icon = 'clock',
+  title,
+  description,
+  additionalText,
+  shortShowTitle = '',
+  shortShowStateValue = '',
+  height = 246,
+}) => {
   const icons = {
     clock: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
     search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
     folder:
       'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z',
   };
+  const dispatch = useDispatch();
 
   return (
-    <div className="mx-4 my-8 flex h-64 items-center justify-center rounded-lg bg-gray-50">
-      <div className="text-center">
+    <div
+      className={clsx(
+        'mx-[16px] my-[8px] flex flex-col items-center justify-center overflow-hidden rounded-[24px] bg-[#F6F6F6]',
+      )}
+      style={{ height: `${height}px` }}
+    >
+      <div className="flex h-[10%] w-full justify-between bg-[#F6F6F6] px-4">
+        <span className="font-[600]">{shortShowTitle}</span>
+        <span
+          className="text-primary flex cursor-pointer flex-row items-center gap-1 text-[14px] font-[600]"
+          onClick={() => {
+            dispatch(setPanelState(shortShowStateValue));
+          }}
+        >
+          مشاهده بیشتر
+          <IconSet
+            firstSize={20}
+            secondSize={20}
+            className="mt-1"
+            imageAddress={lefticon}
+          />
+        </span>
+      </div>
+      <div className="h-[90%] text-center">
         <svg
           className="mx-auto h-12 w-12 text-gray-400"
           fill="none"

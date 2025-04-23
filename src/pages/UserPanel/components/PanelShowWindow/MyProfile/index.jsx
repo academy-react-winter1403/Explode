@@ -2,7 +2,7 @@ import { useState } from 'react';
 import UserPanelTitle from '../../../../../components/UserPanelTitle';
 import MyProfileMenu from './MyProfileMenu';
 import AccountInfoForm from './AccountInfoForm';
-import Photos from './Photos';
+import Photos from './ImageProfile';
 import Links from './Links';
 import Location from './Location';
 

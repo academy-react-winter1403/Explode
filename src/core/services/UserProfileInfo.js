@@ -18,3 +18,16 @@ export const editUserProfileInfo = async (Obj) => {
     throw error;
   }
 };
+
+export const addUserProfileImage = async (formData) => {
+  try {
+    const response = await instance.post(
+      '/SharePanel/AddProfileImage',
+      formData,
+    );
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};

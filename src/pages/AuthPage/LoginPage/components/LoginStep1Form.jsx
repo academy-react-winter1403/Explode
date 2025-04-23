@@ -5,7 +5,11 @@ import toast from 'react-hot-toast';
 import { emailOrPhoneSchema } from '../../../../core/validation';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../../../redux/authSlice';
-const LoginStep1Form = ({ setCurrentStep, setUserEnterNumber }) => {
+const LoginStep1Form = ({
+  setCurrentStep,
+  setUserEnterNumber,
+  setPassword,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const fields = [
@@ -28,6 +32,7 @@ const LoginStep1Form = ({ setCurrentStep, setUserEnterNumber }) => {
       toast.success('شما با موفقیت وارد شدید');
       setIsLoading(false);
       setUserEnterNumber(res.phoneNumber);
+      setPassword(values.password);
       dispatch(
         setCredentials({
           token: res.token,

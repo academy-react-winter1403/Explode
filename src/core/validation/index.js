@@ -85,3 +85,18 @@ export const LinksShema = Yup.object().shape({
     .required('لینک لینکدین ضروری است')
     .min(3, ' لینک لینکدین باید حداقل 3 کاراکتر باشد'),
 });
+
+export const fileSchema = Yup.object().shape({
+  file: Yup.mixed()
+    .required('لطفاً یک فایل انتخاب کنید')
+    .test(
+      'fileType',
+      'فقط فایل‌های تصویری مجاز هستند',
+      (value) => value && value.type.match('image.*'),
+    )
+    .test(
+      'fileSize',
+      'حجم فایل نباید بیشتر از ۵ مگابایت باشد',
+      (value) => value && value.size <= 5 * 1024 * 1024,
+    ),
+});

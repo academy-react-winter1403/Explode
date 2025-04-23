@@ -8,7 +8,7 @@ const Footer = () => {
   const { pathname } = useLocation();
   const [hidden, setHidden] = useState(pathname === '/dashboard');
   useEffect(() => {
-    if (pathname == '/dashboard') {
+    if (pathname == '/dashboard' || pathname.includes('/auth')) {
       setHidden(true);
     } else {
       setHidden(false);

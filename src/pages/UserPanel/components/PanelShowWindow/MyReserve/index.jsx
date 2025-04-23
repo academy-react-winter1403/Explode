@@ -9,10 +9,14 @@ import usePaginationFetch from '../../../../../Hooks/usePaginationFetch';
 
 const RowsOfPage = 10;
 
-const MyReserve = () => {
+const MyReserve = ({
+  shortShow = false,
+  shortShowTitle,
+  shortShowStateValue,
+  height,
+}) => {
   const {
     data,
-
     query,
     filters,
     pagination,
@@ -29,19 +33,22 @@ const MyReserve = () => {
     setPage((prev) => ({ ...prev, currentPage: 1 }));
   };
   return (
-    <div>
-      <UserPanelTitle title="رزرو من" />
-      <div className="flex flex-col">
-        <UserPanelFilterNav
-          SearchHandler={handleSearch}
-          handleStartDate={handleStartDate}
-          handleEndtDate={handleEndDate}
-          haveSortingButtons={true}
-          sorting={sorting}
-          handleSortingChange={handleSortingChangeFunc}
-          sortingType={sortingType}
-          SortingOptionsButtonData={SortingMyReserveOptionsButtonData}
-        />
+    <div className="h-full">
+      {!shortShow && <UserPanelTitle title="رزرو من" />}
+
+      <div className="flex h-full flex-col">
+        {!shortShow && (
+          <UserPanelFilterNav
+            SearchHandler={handleSearch}
+            handleStartDate={handleStartDate}
+            handleEndtDate={handleEndDate}
+            haveSortingButtons={true}
+            sorting={sorting}
+            handleSortingChange={handleSortingChangeFunc}
+            sortingType={sortingType}
+            SortingOptionsButtonData={SortingMyReserveOptionsButtonData}
+          />
+        )}
 
         {data?.length > 0 ? (
           <TableComponent
@@ -54,6 +61,9 @@ const MyReserve = () => {
           <EmptyState
             icon="search"
             title="رزروی یافت نشد"
+            shortShowStateValue={shortShowStateValue}
+            shortShowTitle={shortShowTitle}
+            height={height}
             description={
               query || filters.startDate || filters.endDate
                 ? 'با معیارهای جستجوی شما هیچ رزروی مطابقت ندارد'

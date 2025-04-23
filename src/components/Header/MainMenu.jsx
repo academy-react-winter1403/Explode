@@ -11,7 +11,10 @@ const MainMenu = ({ menuStatus, setMenuStatus }) => {
         <Menu customStyle="flex gap-[32px] max-[805px]:hidden" />
 
         {/* Login/Register page link */}
-        <Link to="/login" className="bg-primary rounded-[56px] p-[8px_16px]">
+        <Link
+          to="/auth/login"
+          className="bg-primary rounded-[56px] p-[8px_16px]"
+        >
           ثبت نام یا ورود
         </Link>
 
