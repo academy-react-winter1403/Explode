@@ -24,7 +24,7 @@ const EmptyState = ({
   return (
     <div
       className={clsx(
-        'mx-[16px] my-[8px] flex flex-col items-center justify-center overflow-hidden rounded-[24px] bg-[#F6F6F6]',
+        'mx-[16px] flex flex-col items-center justify-center overflow-hidden rounded-[24px] bg-[#F6F6F6]',
       )}
       style={{ height: `${height}px` }}
     >

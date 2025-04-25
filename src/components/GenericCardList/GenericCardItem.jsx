@@ -13,7 +13,7 @@ const GenericCard = ({
 }) => {
   return (
     <div
-      className={`flex ${
+      className={`flex grow gap-2 ${
         layout === 'row' ? 'flex-row items-center' : 'flex-col justify-between'
       } rounded-[24px] border-[2px] bg-[#FCFCFC] p-[20px] ${
         item.isActiveBorder ? borderActiveClass : borderInactiveClass

@@ -35,12 +35,12 @@ const PanelShowWindow = () => {
   return (
     <div
       className={clsx(
-        'border-primary bg-primary/10 shadow-primary/20 hover:shadow-primary/30 m-4 h-[800px] w-full transform overflow-hidden rounded-[24px] border-2 p-4 opacity-[0.7] shadow-lg transition-all duration-500 ease-in-out',
+        'border-primary bg-primary/10 shadow-primary/20 hover:shadow-primary/30 m-4 h-[800px] w-full transform overflow-hidden rounded-[24px] border-2 fill-neutral-400 p-4 opacity-[0.7] shadow-lg transition-all duration-500 ease-in-out',
         {
-          'bg-gradient-to-br from-white to-gray-50 shadow-2xl': true, // پس‌زمینه گرادینت
+          'to-thirdly bg-gradient-to-br from-white shadow-2xl': true, // پس‌زمینه گرادینت
           'hover:border-primary/30 border border-gray-200': true, // حاشیه تعاملی
           'hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)]': true, // سایه هنگام هاور
-          'transform hover:-translate-y-1': true, // اثر شناور شدن
+          'transform hover:-translate-y-1': false, // اثر شناور شدن
           'backdrop-blur-sm': true, // میتوانید برای افکت شیشهای فعال کنید
         },
       )}

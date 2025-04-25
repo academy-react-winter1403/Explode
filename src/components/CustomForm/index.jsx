@@ -50,13 +50,13 @@ const CustomForm = ({
     >
       {({ isValid }) => (
         <Form>
-          <div className="flex h-[100%] flex-col gap-8">
+          <div className="mx-[16px] flex h-full flex-col gap-6 md:gap-8">
             <FormHeader
               title={title}
               description={description}
               phoneNumberString={phoneNumberString}
             />
-            <div className="flex w-[398px] flex-col gap-[12px]">
+            <div className="flex w-full flex-col gap-1 sm:gap-4 md:w-[398px]">
               {fields.map((field, index) => (
                 <CustomInputField
                   key={index}
@@ -74,7 +74,7 @@ const CustomForm = ({
                 handleResendCode={handleResendCode}
               />
               <Button
-                className={'mt-3 w-[397px]'}
+                className={'mt-2 w-full sm:mt-3 sm:w-[397px]'}
                 type="submit"
                 disabled={!isValid}
                 isLoading={isLoading}

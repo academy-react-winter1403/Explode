@@ -11,7 +11,11 @@ export const step2Schema = Yup.object({
     .required('کد تایید الزامی است')
     .min(3, 'کد تایید کوتاه است'),
 });
-
+export const step2loginSchema = Yup.object({
+  VrifyCode: Yup.string()
+    .required('کد تایید الزامی است')
+    .min(3, 'کد تایید کوتاه است'),
+});
 export const step3Schema = Yup.object({
   gmail: Yup.string().email('ایمیل معتبر نیست').required('ایمیل الزامی است'),
   password: Yup.string()

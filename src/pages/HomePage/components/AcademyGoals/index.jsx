@@ -6,7 +6,7 @@ import { AcademyGoalsCardData } from './AcademyGoalsCardData';
 const AcademyGoals = () => {
   return (
     <section className="m-[80px_0]" id="academy-goal">
-      <PageTitle title="اهداف ما در آکادمی" size={32} />
+      <PageTitle title="اهداف ما در آکادمی" size={32} className="mb-[25px]" />
       <div className="m-[0_auto] max-w-[1461px] bg-[url(/src/assets/img/goals-bg.svg)] bg-contain bg-center bg-no-repeat max-[1460px]:bg-[url('')]">
         <div className="m-[0_auto] flex max-w-[1361px] flex-wrap items-center justify-between max-[1460px]:gap-[10px] max-[1460px]:p-[0_16px] max-[1360px]:justify-center max-[700px]:justify-center">
           <GenericCardList

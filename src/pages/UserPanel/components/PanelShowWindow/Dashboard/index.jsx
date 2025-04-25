@@ -25,8 +25,8 @@ const Dashboard = () => {
     getUserInfo();
   }, [panelState == 'dashboard']);
   return (
-    <div className="h-full">
-      <div className="flex w-full p-2">
+    <div className="flex h-full flex-col gap-4">
+      <div className="flex w-full px-2 pt-2">
         <div className="flex w-[55%] flex-col">
           <div className="flex items-center gap-2">
             {' '}

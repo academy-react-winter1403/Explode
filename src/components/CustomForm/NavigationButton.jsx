@@ -10,7 +10,7 @@ const NavigationButton = ({ hideNavigation, goHomeLink, setCurrentStep }) => {
     setCurrentStep((prev) => prev - 1);
   };
   return (
-    <div className="mx-auto mt-4">
+    <div className="mx-auto">
       {goHomeLink ? (
         <Link to="/" className="nav-button">
           <IconSet imageAddress={homeIcon} size={24} />

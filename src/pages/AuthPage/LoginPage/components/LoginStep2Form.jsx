@@ -5,7 +5,7 @@ import {
   UserRegisterSendVerifyMessage,
 } from '../../../../core/services/auth';
 import toast from 'react-hot-toast';
-import { step2Schema } from '../../../../core/validation';
+import { step2loginSchema } from '../../../../core/validation';
 
 const LoginStep2Form = ({ setCurrentStep, userEnterNumber, password }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ const LoginStep2Form = ({ setCurrentStep, userEnterNumber, password }) => {
       phoneNumber: userEnterNumber,
       password: password,
     };
-    console.log(param);
+
     const res = await UserLoginTowStep(param);
     if (res?.success) {
       toast.success('کد تایید شما با موفقیت ثبت شد');
@@ -52,7 +52,7 @@ const LoginStep2Form = ({ setCurrentStep, userEnterNumber, password }) => {
       goHomeLink={false}
       hideLoginOrRegisterLink={true}
       showLoginLink={false}
-      validationSchema={step2Schema}
+      validationSchema={step2loginSchema}
       resetVerifyCode={true}
       reSetVerifyCodeFunction={reSetVerifyCodeFunction}
       buttonTitle="ورود به حساب"

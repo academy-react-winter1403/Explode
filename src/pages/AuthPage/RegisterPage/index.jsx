@@ -47,9 +47,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="mx-auto mt-8 flex h-[700px] w-[1440px] flex-row-reverse gap-8">
+    <div className="mx-auto mt-8 flex max-h-[700px] max-w-[1360px] flex-row-reverse gap-8">
       <FormImageBanner />
-      <div className="flex h-[100%] flex-col gap-16 pt-4">
+      <div className="mx-auto flex h-[100%] flex-col gap-16 px-4 pt-4">
         <FormStepNavigation
           steps={steps}
           currentStep={currentStep}

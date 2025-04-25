@@ -19,13 +19,14 @@ const Header = () => {
   const [userName, setUserName] = useState('');
   const [checkLoggedIn, setCheckLoggedIn] = useState(false);
   const [hidden, setHidden] = useState(pathname.includes('/auth'));
+
   const getUserInfo = async () => {
     const res = await getUserProfileInfo();
     setUserImage(res.currentPictureAddress);
     setUserName(res.fName);
   };
   useEffect(() => {
-    getUserInfo();
+    isAuthenticated && getUserInfo();
   }, [panelState]);
   useEffect(() => {
     if (isAuthenticated) {
@@ -39,7 +40,7 @@ const Header = () => {
     } else {
       setHidden(false);
     }
-    getUserInfo();
+
     if (pathname == '/dashboard') {
       setIsDashboard(true);
     } else {
