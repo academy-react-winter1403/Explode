@@ -9,7 +9,7 @@ import SingleInfo from './SingleInfo';
 import SingleDescription from './SingleDescription';
 import SingleComments from './SingleComments';
 import RelatedSection from './RelatedSection';
-import { fetchBlogDetail } from '../../redux/blogSlice';
+import { fetchBlogComments, fetchBlogDetail } from '../../redux/blogSlice';
 
 const SinglePage = () => {
   const { pathname: location } = useLocation();
@@ -21,6 +21,7 @@ const SinglePage = () => {
   const courseComments = useSelector((state) => state.courses.courseComments);
   const blogComments = useSelector((state) => state.blogs.blogComments);
   const blogDetail = useSelector((state) => state.blogs.blogDetail);
+  
   useEffect(() => {
     window.scroll(0, 0);
     if (courseSingle && id) {
@@ -28,6 +29,7 @@ const SinglePage = () => {
       dispatch(fetchCourseComments(id));
     } else {
       dispatch(fetchBlogDetail(id));
+      dispatch(fetchBlogComments(id))
     }
   }, [courseSingle, id]);
 
@@ -45,7 +47,13 @@ const SinglePage = () => {
         courseSingle={courseSingle}
         blogSingle={blogSingle}
       />
-      <SingleComments comments={comments} courseSingle={courseSingle} />
+      <SingleComments
+        singleId={id}
+        title={detail?.title}
+        comments={comments}
+        courseSingle={courseSingle}
+        userId={blogSingle && detail?.userId}
+      />
       <RelatedSection
         teacherId={detail?.teacherId}
         courseSingle={courseSingle}

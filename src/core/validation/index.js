@@ -75,7 +75,7 @@ export const ProfileSchema = Yup.object().shape({
     .length(10, 'کد ملی باید دقیقاً ۱۰ رقم باشد')
     .matches(/^\d+$/, 'کد ملی باید فقط عدد باشد'),
   BirthDay: Yup.string().required('تاریخ تولد الزامی است'),
-  Gender: Yup.string().required('جنسیت خود را وارد کنید'),
+  gender: Yup.string().required('جنسیت خود را وارد کنید'),
   email: Yup.string().email('ایمیل معتبر نیست').required('ایمیل الزامی است'),
   HomeAdderess: Yup.string()
     .required('آدرس الزامی است')
@@ -103,4 +103,8 @@ export const fileSchema = Yup.object().shape({
       'حجم فایل نباید بیشتر از ۵ مگابایت باشد',
       (value) => value && value.size <= 5 * 1024 * 1024,
     ),
+});
+export const commentValidation = Yup.object({
+  Title: Yup.string().required('عنوان نظر الزامی است'),
+  Describe: Yup.string().required('متن نظر الزامی است'),
 });

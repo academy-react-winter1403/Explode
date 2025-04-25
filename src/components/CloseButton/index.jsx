@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import IconSet from '../shared/IconSet';
 
-const CloseButton = ({ onClick, className }) => (
+const CloseButton = ({ onClick, className, display = 'hidden' }) => (
   <div
     onClick={onClick}
     className={clsx(
-      'hidden items-center gap-4 rounded-[34px] border-2 border-[#FF5353] px-4 py-2 text-lg font-medium text-[#FF5353] cursor-pointer',
+      `${display} items-center gap-4 rounded-[34px] border-2 border-[#FF5353] px-4 py-2 text-lg font-medium text-[#FF5353] cursor-pointer`,
       className,
     )}
   >

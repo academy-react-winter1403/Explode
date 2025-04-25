@@ -15,7 +15,7 @@ const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
 
             {/* Single Page Info*/}
             <div className='w-[710px] max-[1150px]:w-[100%]'>
-                <h2 title={detail?.title} className='font-[700] text-[32px] mb-[15px]  truncate whitespace-pre-wrap text-wrap'>{detail?.title}</h2>
+                <h2 title={detail?.title} className='font-[700] text-[32px] mb-[15px]  break-words '>{detail?.title}</h2>
                 <SingleInfoTable
                     detail={detail}
                     courseSingle={courseSingle}
@@ -30,6 +30,10 @@ const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
                 <SingleInfoFooter
                     courseSingle={courseSingle}
                     courseCost={courseSingle && detail.cost}
+                    id={courseSingle ? detail?.courseId : detail?.id}
+                    isFavorite={courseSingle ? detail?.isUserFavorite : detail.isCurrentUserFavorite}
+                    blogSingle={blogSingle}
+                    detail={detail}
                 />
             </div>
 

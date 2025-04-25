@@ -59,6 +59,7 @@ const RelatedSection = ({ courseSingle, teacherId, title, categoryId }) => {
                     linkAddress={`/courses/single/${item.courseId}`}
                     image={item.tumbImageAddress}
                     width={321}
+                    className={'max-[600px]:w-[100%]'}
                   />
                 ))
             ) : (
@@ -79,9 +80,10 @@ const RelatedSection = ({ courseSingle, teacherId, title, categoryId }) => {
                     key={item.id}
                     isBlog={true}
                     title={item.title}
-                    views={item.currentView}
+                    view={item.currentView}
                     linkAddress={`/blogs/single/${item.id}`}
                     image={item.currentImageAddressTumb}
+                    date={item.insertDate}
                   />
                 ))
             ) : (

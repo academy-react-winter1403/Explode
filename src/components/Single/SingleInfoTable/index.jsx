@@ -2,6 +2,7 @@ import React from 'react'
 import { formatDate } from './../../../utils/DateFormatter';
 
 const SingleInfoTable = ({ detail, blogSingle, courseSingle }) => {
+    console.log(detail)
     return (
         <div >
             <div className='flex m-h-[80px] rounded-[16px] mb-[20px] max-[750px]:flex-col max-[750px]:gap-[20px]'>
