@@ -10,7 +10,7 @@ const AuthToggleLink = ({ showLoginLink, hideLoginOrRegisterLink }) => {
       </span>
       <Link
         className="text-primary cursor-pointer font-semibold underline"
-        to={showLoginLink ? '/login' : '/register'}
+        to={showLoginLink ? '/auth/login' : '/auth/register'}
       >
         {showLoginLink ? 'ورود به حساب کاربری' : 'ایجاد حساب کاربری'}
       </Link>

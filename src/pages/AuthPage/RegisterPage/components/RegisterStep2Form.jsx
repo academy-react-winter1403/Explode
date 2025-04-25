@@ -52,7 +52,7 @@ const RegisterStep2 = ({ setCurrentStep, userEnterNumber }) => {
       resetVerifyCode={true}
       reSetVerifyCodeFunction={reSetVerifyCodeFunction}
       buttonTitle="تایید"
-      backTo="/register"
+      backTo="/auth/register"
       hideLoginOrRegisterLink={true}
       setCurrentStep={setCurrentStep}
     />

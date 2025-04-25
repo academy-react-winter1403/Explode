@@ -8,6 +8,7 @@ const CustomInputField = ({
   type = 'text',
   haveLabel = true,
   className,
+  disable = false,
 }) => {
   return (
     <div className={clsx('flex flex-col gap-2 sm:gap-2.5', className)}>
@@ -20,12 +21,14 @@ const CustomInputField = ({
       <Field
         type={type}
         name={name}
+        disabled={disable}
         placeholder={placeholder}
         className={clsx(
           'h-12 rounded-3xl border border-[#DCDCDC] bg-[#FCFCFC] px-3 text-sm font-medium outline-none',
           'focus:border-primary focus:ring-primary focus:ring-1',
           'sm:h-[52px] sm:px-4 sm:text-base',
           'md:h-14 md:rounded-[28px]',
+          { 'cursor-not-allowed bg-gray-400 text-gray-500': disable == true },
         )}
       />
       <ErrorMessage

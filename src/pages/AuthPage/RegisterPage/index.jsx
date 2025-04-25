@@ -35,12 +35,7 @@ const RegisterPage = () => {
           />
         );
       case 2:
-        return (
-          <RegisterStep3
-            setCurrentStep={setCurrentStep}
-            userEnterNumber={userEnterNumber}
-          />
-        );
+        return <RegisterStep3 userEnterNumber={userEnterNumber} />;
       default:
         return navigate('/');
     }

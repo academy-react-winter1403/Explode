@@ -11,7 +11,7 @@ const MyProfileMenu = ({ activeTab, setActiveTab }) => {
         {MyProfileSideBarMenuData.map((item) => (
           <li
             className={clsx(
-              'ml-auto px-[16px] py-[11px] pl-12 text-[18px] font-[600] whitespace-nowrap text-[#707070]',
+              'ml-auto px-[16px] py-[11px] pl-12 text-[18px] font-[600] whitespace-nowrap text-black',
               {
                 'text-primary rounded-[48px] bg-[#F1F1F1]':
                   activeTab === item.value,

@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 import { setPanelState } from '../../../../../redux/userPanelSlice';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-
+import { deprateDate } from '/src/utils/DateFormatter';
 const AccountInfoForm = () => {
   const dispatch = useDispatch();
   const [initialFormValues, setInitialFormValues] = useState({
@@ -20,7 +20,7 @@ const AccountInfoForm = () => {
     UserAbout: '',
     NationalCode: '',
     BirthDay: '',
-    Gender: '',
+    gender: '',
     HomeAdderess: '',
     phoneNumber: '',
     email: '',
@@ -35,8 +35,11 @@ const AccountInfoForm = () => {
           LName: res.lName || '',
           UserAbout: res.userAbout || '',
           NationalCode: res.nationalCode || '',
-          BirthDay: res.birthDay || '',
-          Gender: res.gender || '',
+          BirthDay:
+            res.birthDay != '0001-01-01T00:00:00'
+              ? deprateDate(res.birthDay)
+              : '',
+          gender: res.gender,
           HomeAdderess: res.homeAdderess || '',
           phoneNumber: res.phoneNumber || '',
           email: res.email || '',
@@ -45,6 +48,7 @@ const AccountInfoForm = () => {
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
+    console.log(initialFormValues);
   };
 
   useEffect(() => {
@@ -100,6 +104,7 @@ const AccountInfoForm = () => {
 
               <div className="flex w-full gap-12">
                 <CustomInputField
+                  disable={true}
                   name="phoneNumber"
                   label="شماره همراه"
                   type="text"
@@ -124,13 +129,14 @@ const AccountInfoForm = () => {
                   className="flex w-[50%]"
                 />
                 <GenderField
-                  name="Gender"
+                  name="gender"
                   label="جنسیت"
                   className="my-custom-class"
                 />
               </div>
 
               <CustomInputField
+                disable={true}
                 name="email"
                 label="ایمیل"
                 type="email"

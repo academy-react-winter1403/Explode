@@ -43,7 +43,7 @@ const BlogsList = () => {
               view={item.currentView}
               width={431}
               image={item.currentImageAddressTumb}
-              linkAddress={`/blogs/${item.id}`}
+              linkAddress={`/blogs/single/${item.id}`}
             />
           ))}
     </Fragment>

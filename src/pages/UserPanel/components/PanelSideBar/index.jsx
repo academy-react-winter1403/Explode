@@ -1,9 +1,9 @@
 import SideBarMenuList from './SideBarMenuList';
 import IconSet from '../../../../components/shared/IconSet';
 import logoutIcon from '/src/assets/icons/logout-03-stroke-rounded 1.png';
-import { logout } from '/src/redux/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { logout } from '../../../../redux/authSlice';
 const PanelSideBar = () => {
   const navigator = useNavigate();
   const dipatch = useDispatch();

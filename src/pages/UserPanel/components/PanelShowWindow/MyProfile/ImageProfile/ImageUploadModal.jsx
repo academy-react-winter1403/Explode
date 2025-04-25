@@ -63,7 +63,7 @@ const ImageUploadModal = ({ isOpen, onClose, onImageSelect }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
       <div className="relative w-full max-w-md rounded-2xl bg-white/30 shadow-2xl backdrop-blur-md transition-all duration-300">
         {/* Header */}
-        <div className="flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-blue-500 to-purple-500 p-4 shadow-md">
+        <div className="bg-primary flex items-center justify-between rounded-t-2xl p-4 shadow-md">
           <h2 className="text-xl font-bold text-white">آپلود تصویر پروفایل</h2>
           <button
             onClick={onClose}

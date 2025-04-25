@@ -4,8 +4,10 @@ import CustomForm from '../../../../components/CustomForm';
 import { UserRegisterLogin } from '../../../../core/services/auth';
 import toast from 'react-hot-toast';
 import { step3Schema } from '../../../../core/validation';
+import { useNavigate } from 'react-router';
 
-const RegisterStep3 = ({ setCurrentStep, userEnterNumber }) => {
+const RegisterStep3 = ({ userEnterNumber }) => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const fields = [
     { name: 'gmail', label: 'ایمیل', placeholder: 'ایمیل خود را وارد کنید' },
@@ -25,7 +27,7 @@ const RegisterStep3 = ({ setCurrentStep, userEnterNumber }) => {
     if (res?.success) {
       toast.success('شما با موفقیت وارد شدید');
       setIsLoading(false);
-      setCurrentStep((prevStep) => prevStep + 1);
+      navigate('/auth/login');
     } else {
       setIsLoading(false);
     }
