@@ -21,7 +21,7 @@ const SinglePage = () => {
   const courseComments = useSelector((state) => state.courses.courseComments);
   const blogComments = useSelector((state) => state.blogs.blogComments);
   const blogDetail = useSelector((state) => state.blogs.blogDetail);
-  
+
   useEffect(() => {
     window.scroll(0, 0);
     if (courseSingle && id) {
@@ -35,8 +35,9 @@ const SinglePage = () => {
 
   const detail = courseSingle ? courseDetail : blogDetail;
   const comments = courseSingle ? courseComments : blogComments;
+  const { darkMode } = useSelector((state) => state.darkMode)
   return (
-    <section className="m-[80px_auto] max-w-[1360px] max-[1460px]:p-[0_16px]">
+    <section className={` m-[80px_auto] max-w-[1360px] max-[1460px]:p-[0_16px]`}>
       <SingleInfo
         detail={detail}
         courseSingle={courseSingle}

@@ -1,6 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
 const ShortLink = () => {
+  const { darkMode } = useSelector((state) => state.darkMode)
   const menuLinks = [
     { address: '/', title: 'خانه' },
     { address: '/courses', title: 'دوره ها' },
@@ -17,7 +19,7 @@ const ShortLink = () => {
           <li key={index}>
             <Link
               to={link.address}
-              className="block w-full border-b-[1px] border-[#FFFFFF]"
+              className={`block w-full  ${darkMode && 'text-[#fff]'} `}
             >
               {link.title}
             </Link>

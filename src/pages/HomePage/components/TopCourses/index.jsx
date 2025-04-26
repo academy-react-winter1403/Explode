@@ -1,8 +1,10 @@
 import { Link } from 'react-router';
 import CoursesList from './CoursesList';
 import PageTitle from '../../../../components/PageTitle';
+import { useSelector } from 'react-redux';
 
 const TopCourses = () => {
+  const { darkMode } = useSelector((state) => state.darkMode)
   return (
     <section className="mb-[80px]">
       {/* Section Title */}
@@ -17,7 +19,7 @@ const TopCourses = () => {
       <div className="mt-[40px] flex justify-center">
         <Link
           to={'/courses'}
-          className="bg-thirdly rounded-[40px] p-[8px_16px] text-[16px] font-[500] text-[#FCFCFC]"
+          className={`${darkMode ? 'bg-primary' : 'bg-thirdly'} rounded-[40px] p-[8px_16px] text-[16px] font-[500] text-[#FCFCFC]`}
         >
           مشاهده بیشتر
         </Link>

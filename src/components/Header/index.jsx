@@ -50,7 +50,7 @@ const Header = () => {
   return (
     <header
       className={clsx('flex items-center py-6', {
-        'm-[24px_auto_0_auto] h-[49px] max-w-[1360px] justify-between max-[1460px]:p-[0_16px]':
+        'm-[0_auto] h-[49px] max-w-[1360px] justify-between pt-[40px]  max-[1460px]:p-[40px_16px]':
           !isDashboard,
         'bg-thirdly h-[80px] w-full justify-center': isDashboard,
         hidden: hidden,

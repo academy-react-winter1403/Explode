@@ -1,7 +1,8 @@
 import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
-const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0, courseCost=0, courseSingle }) => {
+const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0, courseCost = 0, courseSingle }) => {
     const stars = [];
     for (let index = 1; index <= maxRange; index++) {
         stars.push(
@@ -15,6 +16,8 @@ const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0, cou
         );
     }
 
+    const { darkMode } = useSelector((state) => state.darkMode)
+
     return (
         <div className="flex items-center justify-between mb-[10px]">
             <div className='flex items-center gap-[10px]'>
@@ -22,7 +25,7 @@ const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0, cou
                 <div className='flex flex-row-reverse'>
                     {stars}
                 </div>
-                <span className='flex gap-[5px] text-[16px] font-[500] text-thirdly'>
+                <span className={`${darkMode ? 'text-[#fff]' : 'text-thirdly'} flex gap-[5px] text-[16px] font-[500] `}>
                     +
                     <span>
                         ({commentCount}) نظرات
@@ -30,7 +33,7 @@ const SingleInfoOverviewBar = ({ rating = 0, maxRange = 5, commentCount = 0, cou
                 </span>
             </div>
             {
-                courseSingle && <span className=' max-[710px]:hidden text-[16px] font-[500] text-thirdly'><span className='text-[24px] font-[700]'>{courseCost}</span> تومان</span>
+                courseSingle && <span className={`${darkMode ? 'text-[#fff]' : 'text-thirdly'} max-[710px]:hidden text-[16px] font-[500] `}><span className='text-[24px] font-[700]'>{courseCost}</span> تومان</span>
             }
         </div>
     );

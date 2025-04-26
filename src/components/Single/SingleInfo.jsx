@@ -3,9 +3,11 @@ import { ValidURL } from './../../utils/ValidUrl';
 import SingleInfoTable from './SingleInfoTable';
 import SingleInfoOverviewBar from './SingleInfoOverviewBar';
 import SingleInfoFooter from './SingleInfoFooter';
+import { useSelector } from 'react-redux';
 
 const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
     const imageAddress = courseSingle && ValidURL(detail.imageAddress) ? detail.imageAddress : blogSingle && ValidURL(detail.currentImageAddressTumb) ? detail.currentImageAddressTumb : false
+    const { darkMode } = useSelector((state) => state.darkMode)
     return (
         <div className='flex gap-[20px] justify-between items-center max-[1150px]:flex-col'>
             {/* Single Page Image */}
@@ -15,7 +17,7 @@ const SingleInfo = ({ detail, blogSingle, courseSingle }) => {
 
             {/* Single Page Info*/}
             <div className='w-[710px] max-[1150px]:w-[100%]'>
-                <h2 title={detail?.title} className='font-[700] text-[32px] mb-[15px]  break-words '>{detail?.title}</h2>
+                <h2 title={detail?.title} className={` ${darkMode && 'text-[#fff]'} font-[700] text-[32px] mb-[15px]  break-words `}>{detail?.title}</h2>
                 <SingleInfoTable
                     detail={detail}
                     courseSingle={courseSingle}

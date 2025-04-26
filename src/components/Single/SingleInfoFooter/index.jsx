@@ -7,6 +7,7 @@ import {
   addCourseToFavoriteList,
   addDisLikeForCourse,
   addLikeForCourse,
+  addToReserve,
 } from '../../../core/services/courses';
 import { FaSpinner } from 'react-icons/fa';
 import { updateCourseLike, updateFavorite } from '../../../redux/courseSlice';
@@ -37,7 +38,7 @@ const SingleInfoFooter = ({
   const [reservedModal, setReservedModal] = useState(false);
   const [likeLoading, setLikeLoading] = useState(false);
   const [disLikeLoading, setDisLikeLoading] = useState(false);
-
+  const [reserveLoading, setReserveLoading] = useState(false)
   const handleCopyLink = async () => {
     const linkToCopy = window.location.origin + location.pathname;
     CopyLink(linkToCopy, setCopying);
@@ -58,8 +59,10 @@ const SingleInfoFooter = ({
     }
   };
 
-  const courseReserve = async () => {
+  const courseReserve = async (id) => {
+    console.log(id)
     if (isAuthenticated) {
+      await addToReserve(id, setReserveLoading)
       setReservedModal(!reservedModal);
     } else {
       toast.error('ابتدا وارد اکانت کاربری شوید');
@@ -120,6 +123,12 @@ const SingleInfoFooter = ({
       navigate('/auth/login');
     }
   };
+  const { darkMode } = useSelector((state) => state.darkMode)
+  const gotReservList = () => {
+    navigate('/dashboard')
+  }
+
+
 
   return (
     <div
@@ -129,16 +138,16 @@ const SingleInfoFooter = ({
       <div>
         {courseSingle ? (
           <span
-            onClick={() => courseReserve()}
+            onClick={() => courseReserve(id)}
             className="bg-primary flex cursor-pointer items-center gap-[10px] rounded-[48px] p-[13.5px_44px] text-[15px] font-[700] text-[#fff] max-[710px]:hidden"
           >
-            <IconSet imageAddress={'/src/assets/icons/book.svg'} />
+            {reserveLoading ? <FaSpinner className='animate-spin' /> : <IconSet imageAddress={'/src/assets/icons/book.svg'} />}
             رزرو دوره
           </span>
         ) : (
           <span
             onClick={handleCopyLink}
-            className="text-thirdly border-primary flex cursor-pointer items-center gap-[10px] rounded-[48px] border-[1px] p-[13.5px_44px] text-[15px] font-[500] max-[746px]:hidden"
+            className={` ${darkMode ? 'text-[#fff]' : 'text-thirdly'}  border-primary flex cursor-pointer items-center gap-[10px] rounded-[48px] border-[1px] p-[13.5px_44px] text-[15px] font-[500] max-[746px]:hidden`}
           >
             <IconSet imageAddress={'/src/assets/icons/copy-link.svg'} />{' '}
             {copying ? 'درحال کپی' : 'کپی کردن لینک صفحه'}
@@ -149,7 +158,7 @@ const SingleInfoFooter = ({
       {/* Add To Favorite */}
       <div
         onClick={() => addToFavorite(id)}
-        className={`flex cursor-pointer items-center gap-[10px] p-[13.5px_44px] ${courseFavorite || blogFavorite ? 'bg-[#04bf3f]' : 'bg-thirdly'} cursor-pointer rounded-[48px] text-[15px] font-[500] text-[#fff]`}
+        className={`${darkMode && 'border-[1px] border-[#fff] '} flex cursor-pointer items-center gap-[10px] p-[13.5px_44px] ${courseFavorite || blogFavorite ? 'bg-[#04bf3f]' : 'bg-thirdly'} cursor-pointer rounded-[48px] text-[15px] font-[500] text-[#fff]`}
       >
         {favoriteLoading ? (
           <FaSpinner className="animate-spin" />
@@ -173,7 +182,7 @@ const SingleInfoFooter = ({
             <FaSpinner className="animate-spin" />
           ) : (
             <IconSet
-              imageAddress={`${(detail?.currentUserLike == '1' && isAuthenticated) || (detail?.currentUserIsLike && isAuthenticated) ? '/src/assets/icons/light-like.svg' : '/src/assets/icons/like.svg'}`}
+              imageAddress={`${(detail?.currentUserLike == '1' && isAuthenticated) || (detail?.currentUserIsLike && isAuthenticated || darkMode) ? `/src/assets/icons/light-like.svg` : '/src/assets/icons/like.svg'}`}
             />
           )}
         </span>
@@ -185,7 +194,7 @@ const SingleInfoFooter = ({
             <FaSpinner className="animate-spin" />
           ) : (
             <IconSet
-              imageAddress={`${(detail?.currentUserDissLike == '1' && isAuthenticated) || (detail?.currentUserIsDissLike && isAuthenticated) ? '/src/assets/icons/light-disslike.png' : '/src/assets/icons/dislike.svg'}`}
+              imageAddress={`${(detail?.currentUserDissLike == '1' && isAuthenticated) || (detail?.currentUserIsDissLike && isAuthenticated || darkMode) ? '/src/assets/icons/light-disslike.png' : '/src/assets/icons/dislike.svg'}`}
             />
           )}
         </span>
@@ -195,10 +204,10 @@ const SingleInfoFooter = ({
       {courseSingle && (
         <div className="fixed right-0 bottom-0 z-800 flex hidden h-[70px] w-[100%] items-center justify-between bg-[#fff] p-[10px_10px] shadow-[0_-3px_20px_#e2e2e2] max-[710px]:flex">
           <span
-            onClick={() => courseReserve()}
+            onClick={() => courseReserve(id)}
             className="bg-primary flex cursor-pointer items-center gap-[10px] rounded-[48px] p-[13.5px_44px] text-[15px] font-[700] text-[#fff]"
           >
-            <IconSet imageAddress={'/src/assets/icons/book.svg'} />
+            {reserveLoading ? <FaSpinner className='animate-spin' /> : <IconSet imageAddress={'/src/assets/icons/book.svg'} />}
             رزرو دوره
           </span>
           <span className="text-thirdly hidden text-[16px] font-[500] max-[710px]:block">
@@ -216,10 +225,12 @@ const SingleInfoFooter = ({
             دوره به لیست رزروی های شما اضافه شد!
           </h2>
 
-          <div className="h-[100%]"></div>
+          <div className="h-[100%] text-center flex items-center text-[green] text-[16px] font-[500]">
+            بعد از تایید ادمین ، دوره مورد نظر به لیست دوره من شما اضافه خواهد شد
+          </div>
 
           <div className="flex w-[100%] items-center justify-between">
-            <div className="bg-primary cursor-pointer rounded-[40px] p-[9px_75px] text-[20px] font-[700] text-[#fff]">
+            <div onClick={gotReservList} className="bg-primary cursor-pointer rounded-[40px] p-[9px_75px] text-[20px] font-[700] text-[#fff]">
               رزرو من
             </div>
             <div
@@ -231,7 +242,7 @@ const SingleInfoFooter = ({
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

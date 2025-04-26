@@ -33,11 +33,11 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
         }
 
     }
-
+    const { darkMode } = useSelector((state) => state.darkMode)
     return (
         <Fragment>
             <div className='mt-[40px]'>
-                <h2 className='text-[#707070] text-[20px] font-[700] mb-[25px]'>نظرات دانشجویان و اساتید</h2>
+                <h2 className={`${darkMode ? 'text-[#fff]' : 'text-[#707070]'}  text-[20px] font-[700] mb-[25px]`}>نظرات دانشجویان و اساتید</h2>
                 <div className='flex max-[700px]:flex-col max-[700px]:items-center gap-[15px] items-start justify-between'>
 
                     <div onClick={handleOnClick} className='flex flex-col max-[700px]:w-[100%] items-center justify-center w-[324px] h-[282px] bg-primary text-[#fff] rounded-[24px] gap-[20px] cursor-pointer'>
@@ -64,7 +64,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
                         }
                         {
                             treeData?.length > step ? <div className='flex w-[100%] justify-center mt-[20px]'>
-                                <span onClick={() => setStep((prev) => prev + 3)} className='cursor-pointer p-[8px_16px] bg-thirdly rounded-[40px] text-[16px] font-[500] text-[#fff]'>مشاهده بیشتر</span>
+                                <span onClick={() => setStep((prev) => prev + 3)} className={`${darkMode ? 'bg-primary' : 'bg-thirdly'} cursor-pointer p-[8px_16px]  rounded-[40px] text-[16px] font-[500] text-[#fff]`}>مشاهده بیشتر</span>
                             </div> : ''
                         }
                     </div>
@@ -80,7 +80,7 @@ const SingleComments = ({ courseSingle, comments = [], title, singleId, userId }
                         <CloseButton onClick={() => setShowCommentModal(!showCommentModal)} display='flex' />
                     </div>
                     <div className='flex mb-[10px] p-[0px_20px]'>
-                        <span onClick={() => setReplyStatus(!replyStatus)} className={` ${replyStatus?'bg-[#FF6C6C]':'bg-primary'}  cursor-pointer text-[#fff] text-[16px] font-[500] flex items-center gap-[5px] p-[8px_12px] rounded-[40px]`}><IconSet imageAddress={'/src/assets/icons/add-comment.svg'} />{replyStatus?'بستن':'نظر شما'}</span>
+                        <span onClick={() => setReplyStatus(!replyStatus)} className={` ${replyStatus ? 'bg-[#FF6C6C]' : 'bg-primary'}  cursor-pointer text-[#fff] text-[16px] font-[500] flex items-center gap-[5px] p-[8px_12px] rounded-[40px]`}><IconSet imageAddress={'/src/assets/icons/add-comment.svg'} />{replyStatus ? 'بستن' : 'نظر شما'}</span>
                     </div>
                     <div className={`h-[80%] overflow-auto p-[20px_20px_60px_20px] ${replyStatus ? 'hidden' : 'flex'} flex-col gap-[20px]`}>
 

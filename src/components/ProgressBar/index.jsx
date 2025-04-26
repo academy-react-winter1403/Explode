@@ -10,11 +10,17 @@ const ProgressBar = ({ targetPercentage }) => {
     const duration = 3;
     const incrementSpeed = (duration * 1000) / targetPercentage;
 
+<<<<<<< HEAD
     const interval =
       targetPercentage &&
       setInterval(() => {
         setPercentage((prev) => {
           const newValue = prev + 1;
+=======
+    const interval = targetPercentage && setInterval(() => {
+      setPercentage((prev) => {
+        const newValue = prev + 1;
+>>>>>>> origin/SemiFinal
 
           if (newValue < 30) {
             setColor('#FF0000');
