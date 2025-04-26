@@ -28,10 +28,10 @@ const RelatedSection = ({ courseSingle, teacherId, title, categoryId }) => {
       dispatch(fetchRelatedBlogs(categoryId));
     }
   }, [categoryId]);
-
+  const { darkMode } = useSelector((state) => state.darkMode)
   return (
     <div className="mt-[30px]">
-      <h2 className="mb-[20px] text-[20px] font-[700] text-[#707070]">
+      <h2 className={` ${darkMode ? 'text-[#fff]' : 'text-[#707070]'} mb-[20px] text-[20px] font-[700]`}>
         {courseSingle ? 'دوره های مرتبط' : 'بلاگ های مرتبط'}
       </h2>
       <div className="flex flex-wrap items-center justify-between max-[680px]:justify-center">

@@ -54,16 +54,17 @@ const Sorting = () => {
     }
   };
 
+  const { darkMode } = useSelector((state) => state.darkMode)
   return (
     <div className="mb-[20px] flex h-[40px] items-center gap-[20px]">
       {/* Mobile Sorting */}
       <div className="flex items-center max-[600px]:w-[100%] max-[600px]:justify-between">
-        <span className="text-thirdly text-[20px] font-[700] max-[600px]:hidden">
+        <span className={` text-thirdly text-[20px] font-[700] max-[600px]:hidden`}>
           ترتیب
         </span>
         <span
           onClick={() => dispatch(setResponsiveFilter(!responsiveFilter))}
-          className="bg-thirdly hidden cursor-pointer gap-[10px] rounded-[40px] p-[12px_16px] text-[16px] font-[500] text-[#fff] max-[600px]:flex"
+          className={` ${darkMode ? 'bg-primary' : 'bg-thirdly'} hidden cursor-pointer gap-[10px] rounded-[40px] p-[12px_16px] text-[16px] font-[500] text-[#fff] max-[600px]:flex`}
         >
           <IconSet
             imageAddress={'/src/assets/icons/filter.svg'}
@@ -74,7 +75,7 @@ const Sorting = () => {
         </span>
         <span
           onClick={() => dispatch(setResponsiveSorting(!responsiveSorting))}
-          className="bg-thirdly hidden cursor-pointer gap-[10px] rounded-[40px] p-[12px_16px] text-[16px] font-[500] text-[#fff] max-[600px]:flex"
+          className={` ${darkMode ? 'bg-primary' : 'bg-thirdly'}  hidden cursor-pointer gap-[10px] rounded-[40px] p-[12px_16px] text-[16px] font-[500] text-[#fff] max-[600px]:flex`}
         >
           <IconSet
             imageAddress={'/src/assets/icons/sorting.svg'}
@@ -87,10 +88,10 @@ const Sorting = () => {
 
       {/* Sorting List */}
       <nav
-        className={`${responsiveSorting ? 'z-1000 max-[600px]:fixed max-[600px]:top-0 max-[600px]:left-0 max-[600px]:flex max-[600px]:w-[100%] max-[600px]:flex-col max-[600px]:bg-[#fff]' : 'max-[600px]:hidden'}`}
+        className={`${responsiveSorting ? `z-1000 shadow-[0_2px_10px_#000] max-[600px]:fixed max-[600px]:top-0 max-[600px]:left-0 max-[600px]:flex max-[600px]:w-[100%] max-[600px]:flex-col ` : 'max-[600px]:hidden'} ${darkMode ? 'bg-thirdly ' : 'bg-[#fff]'}`}
       >
         <div className="hidden max-[600px]:flex max-[600px]:justify-between max-[600px]:p-[10px]">
-          <span className="text-thirdly text-[20px] font-[700] max-[600px]:flex">
+          <span className={` text-thirdly text-[20px] font-[700] max-[600px]:flex`}>
             ترتیب
           </span>
           <CloseButton
@@ -103,7 +104,7 @@ const Sorting = () => {
             <li
               key={item.id}
               onClick={() => handleClick([item.sorting, item.sortingType])}
-              className={`border-[1px] p-[7px_16px] ${sorting == item.sorting && sortingType == item.sortingType ? 'border-[1px] border-[#FF5353] text-[#FF5353]' : 'border-thirdly text-thirdly'} cursor-pointer rounded-[34px] text-[18px] font-[500]`}
+              className={`border-[1px] p-[7px_16px]  ${sorting == item.sorting && sortingType == item.sortingType ? 'border-[1px] border-[#FF5353] text-[#FF5353]' : `${darkMode ? 'border-[#fff] text-[#fff]' : 'border-thirdly text-thirdly'}`} cursor-pointer rounded-[34px] text-[18px] font-[500] `}
             >
               {item.label}
             </li>

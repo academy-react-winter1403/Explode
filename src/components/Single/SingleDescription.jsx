@@ -31,20 +31,20 @@ const SingleDescription = ({ detail, courseSingle, blogSingle }) => {
       }
     } else {
       toast.error('برای ثبت امتیاز باید لاگین کرده باشید');
-      navigate('auth/login');
+      navigate('/auth/login');
     }
   };
   const handleCopyLink = async () => {
     const linkToCopy = window.location.origin + location.pathname;
     CopyLink(linkToCopy, setCopying);
   };
-
+  const { darkMode } = useSelector((state) => state.darkMode)
   return (
     <div className="mt-[20px]">
-      <h2 className="mb-[30px] text-[20px] font-[700] text-[#707070]">
+      <h2 className={` ${darkMode ? 'text-[#fff]' : 'text-[#707070]'} mb-[30px] text-[20px] font-[700] `}>
         توضیحات دوره
       </h2>
-      <div className="text-thirdly mb-[30px] text-justify text-[16px] font-[500] break-words">
+      <div className={` ${darkMode ? 'text-[#fff]' : 'text-thirdly'}   mb-[30px] text-justify text-[16px] font-[500] break-words`}>
         {detail?.describe ? (
           parseToHtml(detail.describe)
         ) : (
@@ -58,44 +58,43 @@ const SingleDescription = ({ detail, courseSingle, blogSingle }) => {
           </span>
           {starLoading
             ? Array(5)
-                .fill()
-                .map((_, index) => {
-                  return (
-                    <FaStar
-                      key={index}
-                      size={28}
-                      className={`animate-spin cursor-pointer text-gray-300 transition-colors`}
-                    />
-                  );
-                })
+              .fill()
+              .map((_, index) => {
+                return (
+                  <FaStar
+                    key={index}
+                    size={28}
+                    className={`animate-spin cursor-pointer text-gray-300 transition-colors`}
+                  />
+                );
+              })
             : Array(5)
-                .fill()
-                .map((_, index) => {
-                  const starValue = index + 1;
-                  return (
-                    <FaStar
-                      key={index}
-                      size={28}
-                      onClick={() =>
-                        handleStarClick(
-                          courseSingle ? detail.courseId : detail.id,
-                          starValue,
-                        )
-                      }
-                      onMouseEnter={() => setHover(starValue)}
-                      onMouseLeave={() => setHover(0)}
-                      className={`cursor-pointer transition-colors ${
-                        starValue <= (hover || detail.currentUserRateNumber)
-                          ? 'text-yellow-400'
-                          : 'text-gray-300'
+              .fill()
+              .map((_, index) => {
+                const starValue = index + 1;
+                return (
+                  <FaStar
+                    key={index}
+                    size={28}
+                    onClick={() =>
+                      handleStarClick(
+                        courseSingle ? detail.courseId : detail.id,
+                        starValue,
+                      )
+                    }
+                    onMouseEnter={() => setHover(starValue)}
+                    onMouseLeave={() => setHover(0)}
+                    className={`cursor-pointer transition-colors ${starValue <= (hover || detail.currentUserRateNumber)
+                      ? 'text-yellow-400'
+                      : 'text-gray-300'
                       }`}
-                    />
-                  );
-                })}
+                  />
+                );
+              })}
         </div>
         <span
           onClick={handleCopyLink}
-          className={`${blogSingle ? 'hidden max-[746px]:flex' : 'flex'} text-thirdly border-primary cursor-pointer items-center gap-[10px] rounded-[48px] border-[1px] p-[13.5px_44px] text-[15px] font-[500]`}
+          className={`${blogSingle ? 'hidden max-[746px]:flex' : 'flex'} ${darkMode ? 'text-[#fff]' : 'text-[#707070]'} border-primary cursor-pointer items-center gap-[10px] rounded-[48px] border-[1px] p-[13.5px_44px] text-[15px] font-[500]`}
         >
           <IconSet imageAddress={'/src/assets/icons/copy-link.svg'} />{' '}
           {copying ? 'درحال کپی' : 'کپی کردن لینک صفحه'}

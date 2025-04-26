@@ -13,9 +13,10 @@ const CourseFilter = () => {
     (state) => state.courses.responsiveFilter,
   );
   const dispatch = useDispatch();
+  const { darkMode } = useSelector((state) => state.darkMode)
   return (
     <div
-      className={`mt-[60px] w-[298px] rounded-[32px] border-[2px] border-[#DCDCDC] p-[15px] max-[1050px]:w-[100%] ${responsiveFilter ? 'max-[600px]:fixed' : 'max-[600px]:hidden'} max-[600px]:top-0 max-[600px]:right-0 max-[600px]:z-1000 max-[600px]:mt-0 max-[600px]:w-[100%] max-[600px]:bg-[#fff]`}
+      className={`mt-[60px] w-[298px] rounded-[32px] border-[2px] border-[#DCDCDC] p-[15px] max-[1050px]:w-[100%] ${darkMode ? 'max-[600px]:bg-thirdly':'max-[600px]:bg-[#fff]'} ${responsiveFilter ? 'max-[600px]:fixed' : 'max-[600px]:hidden'} max-[600px]:top-0 max-[600px]:right-0 max-[600px]:z-1000 max-[600px]:mt-0 max-[600px]:w-[100%] `}
     >
       <div className="mb-[25px] flex items-center justify-between">
         <h2 className="text-thirdly text-[24px] font-[700]">فیلتر</h2>

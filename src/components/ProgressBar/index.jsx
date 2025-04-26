@@ -10,7 +10,7 @@ const ProgressBar = ({ targetPercentage }) => {
     const duration = 3;
     const incrementSpeed = (duration * 1000) / targetPercentage;
 
-    const interval = setInterval(() => {
+    const interval = targetPercentage && setInterval(() => {
       setPercentage((prev) => {
         const newValue = prev + 1;
 

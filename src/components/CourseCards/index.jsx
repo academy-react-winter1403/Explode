@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import IconSet from '../shared/IconSet';
 import { formatDate } from './../../utils/DateFormatter';
 import { ValidURL } from './../../utils/ValidUrl';
+import { useSelector } from 'react-redux';
 
 const CourseCards = ({
   title = '',
@@ -19,6 +20,7 @@ const CourseCards = ({
   isBlog = false,
   linkAddress,
 }) => {
+  const { darkMode } = useSelector((state) => state.darkMode)
   //card for products and blogs
   const editedTitle = title.length > 27 ? title.slice(0, 26) + '...' : title;
   const dateFormat = formatDate(date);
@@ -55,11 +57,11 @@ const CourseCards = ({
         )) ||
           null}
       </Link>
-      <h2 className="mb-[10px] text-[24px] font-[700]">
+      <h2 className={`mb-[10px] text-[24px] font-[700] ${darkMode && 'text-[#fff]'}`}>
         <Link to={linkAddress}>{editedTitle || null}</Link>
       </h2>
       <div className="flex items-center justify-between">
-        <span className="text-[14px] font-[500] text-[#707070]">
+        <span className={`text-[14px] font-[500] text-[#707070]  ${darkMode&& 'text-[#fff]'}`}>
           {author || null}
         </span>
         {(isCourse && (
@@ -72,8 +74,8 @@ const CourseCards = ({
         )) ||
           null}
         {(isBlog && (
-          <div className="flex gap-[10px]">
-            <span className="flex items-center gap-[5px] text-[14px] font-[500] text-[#707070]">
+          <div className={`flex gap-[10px]`}>
+            <span className={`flex items-center gap-[5px] text-[14px] font-[500] text-[#707070]  ${darkMode && 'text-[#fff]'}`}>
               {dateFormat}
               <IconSet
                 imageAddress={'/src/assets/icons/calender.svg'}
@@ -81,7 +83,7 @@ const CourseCards = ({
                 secondSize={20}
               />
             </span>
-            <span className="flex items-center gap-[5px] text-[14px] font-[500] text-[#707070]">
+            <span className={`flex items-center gap-[5px] text-[14px] font-[500] text-[#707070]  ${darkMode && 'text-[#fff]'}`}>
               {view}
               <IconSet
                 imageAddress={'/src/assets/icons/view.svg'}

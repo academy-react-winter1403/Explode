@@ -6,7 +6,7 @@ const Courses = () => {
   const courses = useSelector((state) => state.courses.courses);
   const loading = useSelector((state) => state.courses.loading);
   return (
-    <div className="flex flex-wrap justify-between gap-[20px] max-[1050px]:justify-center max-[1050px]:gap-[40px]">
+    <div className="flex flex-wrap justify-between gap-[20px] max-[1345px]:justify-evenly max-[1050px]:gap-[40px]">
       {loading ? (
         Array(12)
           .fill(0)

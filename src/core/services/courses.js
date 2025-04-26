@@ -193,3 +193,17 @@ export const addDisLikeForCourse = async (id, setLoading) => {
     throw error;
   }
 }
+
+export const addToReserve = async (id, setLoading) => {
+  try {
+    setLoading(true)
+
+    const response = await instance.post(`/CourseReserve/ReserveAdd`, { courseId: id })
+    toast.success(response.message)
+    setLoading(false)
+    return response;
+  } catch (error) {
+    setLoading(false)
+    throw error;
+  }
+}
