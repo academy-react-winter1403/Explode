@@ -34,10 +34,13 @@ const usePaginationFetch = (fetchFunction, initialParams = {}) => {
       });
 
       if (!isMounted.current) return;
-
       const dataArray =
-        result.listOfMyCourses || result.myFavoriteNews || result.data || [];
-      const totalPages = result.totalPages || 1;
+        result.myFavoriteNews ||
+        result.listOfMyCourses ||
+        result.favoriteCourseDto ||
+        result ||
+        [];
+      const totalPages = result.totalCount || result.totalPages || 1;
 
       setState((prev) => ({
         ...prev,

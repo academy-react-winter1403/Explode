@@ -41,9 +41,9 @@ const UserPanelFilterNav = ({
       {haveSortingButtons && (
         <>
           {' '}
-          <span className="text-thirdly my-auto text-xl font-bold max-[600px]:hidden">
+          {/* <span className="text-thirdly my-auto text-xl font-bold max-[600px]:hidden">
             ترتیب
-          </span>
+          </span> */}
           {/* <SortingList
             currentSorting={sorting}
             currentSortingType={sortingType}

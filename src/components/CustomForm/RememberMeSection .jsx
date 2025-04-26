@@ -22,7 +22,7 @@ const RememberMeSection = ({ rememberMe }) => {
         </label>
       </div>
       <Link
-        to="/forgot-password"
+        to="/auth/forgot-password"
         className="text-sm font-medium text-blue-600 transition-colors hover:text-blue-800"
       >
         رمز عبور را فراموش کرده‌اید؟

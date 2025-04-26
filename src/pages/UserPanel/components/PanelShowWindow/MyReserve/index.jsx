@@ -32,8 +32,9 @@ const MyReserve = ({
     setSortingType(sortingType);
     setPage((prev) => ({ ...prev, currentPage: 1 }));
   };
+
   return (
-    <div className="h-full">
+    <div className="h-[900px] overflow-hidden">
       {!shortShow && <UserPanelTitle title="رزرو من" />}
 
       <div className="flex h-full flex-col">
@@ -52,6 +53,7 @@ const MyReserve = ({
 
         {data?.length > 0 ? (
           <TableComponent
+            short={shortShow}
             data={data}
             pagination={pagination}
             setPagination={setPage}

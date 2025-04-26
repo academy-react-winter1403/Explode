@@ -14,7 +14,7 @@ export const getMyCoursesWithPagination = async (urlParams) => {
 
 export const getMyFavoriteCourses = async (urlParams) => {
   try {
-    const response = await instance.get('/SharePanel/GetMyCourses', {
+    const response = await instance.get('/SharePanel/GetMyFavoriteCourses', {
       params: urlParams,
     });
     return response;

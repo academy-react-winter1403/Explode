@@ -1,19 +1,54 @@
+import { deprateTime } from '../../utils/DateFormatter';
 import Pagination from '../Pagination';
-
-const TableComponent = ({ data, pagination, setPagination, query }) => {
+import viewIcon from '../../assets/icons/view.png';
+import IconSet from '../shared/IconSet';
+import { Link } from 'react-router';
+const TableComponent = ({
+  data,
+  pagination,
+  setPagination,
+  query,
+  short = false,
+}) => {
+  console.log(data);
   // عنوان‌های ستون‌ها
   const columns = [
-    { title: '#', accessor: 'id' },
-    { title: 'نام', accessor: 'name' },
-    { title: 'مدرس', accessor: 'category' },
-    { title: 'تاریخ برگزاری', accessor: 'price' },
-    { title: 'تاریخ اتمام', accessor: 'stock' },
-    { title: 'سطح', accessor: 'status' },
-    { title: '', accessor: 'status' },
+    { title: '#', accessor: 'tumbImageAddress', accessor2: 'tumbImageAddress' },
+    { title: 'نام', accessor: 'courseTitle', accessor2: 'studentName' },
+    { title: 'مدرس', accessor: 'teacheName', accessor2: 'courseName' },
+    {
+      title: 'تاریخ برگزاری',
+      accessor: 'lastUpdate',
+      accessor2: 'reserverDate',
+    },
+    { title: 'تاریخ اتمام', accessor: 'lastUpdate', accessor2: 'reserverDate' },
+    { title: 'سطح', accessor: 'levelName', accessor2: 'studentId' },
+    { title: 'icon', accessor: 'status' },
   ];
 
   // حالت‌های صفحه‌بندی
-
+  const getValue = (row, accessor, accessor2) => {
+    // اگر accessor وجود داشت و مقدار داشت، آن را برگردان
+    if (
+      row[accessor] !== undefined &&
+      row[accessor] !== null &&
+      row[accessor] !== ''
+    ) {
+      return row[accessor];
+    }
+    // اگر accessor2 وجود داشت و مقدار داشت، آن را برگردان
+    if (
+      accessor2 &&
+      row[accessor2] !== undefined &&
+      row[accessor2] !== null &&
+      row[accessor2] !== ''
+    ) {
+      return row[accessor2];
+    }
+    // در غیر این صورت رشته خالی برگردان
+    return '';
+  };
+  console.log('data', data);
   // تابع تغییر صفحه
   const handlePageClick = (event) => {
     setPagination({ ...pagination, currentPage: event.selected + 1 });
@@ -21,16 +56,21 @@ const TableComponent = ({ data, pagination, setPagination, query }) => {
   };
   console.log(pagination);
   return (
-    <div className="mx-[4px] h-full overflow-hidden rounded-[24px] bg-[#F6F6F6] pb-[28px] shadow-sm">
-      <div className="overflow-x-auto">
+    <div
+      style={{
+        height: short ? '300px' : '600px',
+      }}
+      className="mx-[4px] h-[600px] overflow-hidden rounded-[24px] bg-[#F6F6F6] pb-[28px] shadow-sm"
+    >
+      <div className="overflow-x-hidden">
         <div className="min-w-full bg-[#F6F6F6]">
           {/* هدر جدول */}
           <div>
-            <div className="m-[16px] flex rounded-[16px] bg-[#F1F1F1]">
+            <div className="m-[16px] flex rounded-[16px] bg-[#F1F1F1] pr-6">
               {columns.map((column, index) => (
                 <div
                   key={index}
-                  className="flex-1 px-4 py-3 text-[14px] font-[600] tracking-wider text-[#707070]"
+                  className="flex-1 px-4 py-3 text-[14px] font-[600] text-[#707070]"
                   style={{ minWidth: '110px' }}
                 >
                   {column.title}
@@ -40,17 +80,71 @@ const TableComponent = ({ data, pagination, setPagination, query }) => {
           </div>
 
           {/* بدنه جدول */}
-          <div className="mx-[16px] h-[420px]">
+          <div className="mx-[16px] h-[500px]">
             {data?.length > 0 ? (
               data.map((row, rowIndex) => (
                 <div key={rowIndex} className="mb-[8px] flex rounded-[8px]">
                   {columns.map((column, colIndex) => (
                     <div
                       key={colIndex}
-                      className="flex-1 px-4 py-4 text-right text-sm font-[700] whitespace-nowrap text-[#2F2F2F]"
-                      style={{ minWidth: '110px' }}
+                      className="flex flex-1 items-center justify-center overflow-hidden px-4 py-4 text-center text-sm font-[700] whitespace-nowrap text-[#2F2F2F]"
+                      style={{
+                        lineHeight: '4',
+                        minWidth: '100px',
+                        maxWidth: '150px',
+                        display: '-webkit-box',
+
+                        WebkitBoxOrient: 'vertical',
+                        WebkitLineClamp: 1,
+                      }}
                     >
-                      {row[column.accessor]}
+                      {(() => {
+                        const value = getValue(
+                          row,
+                          column.accessor,
+                          column.accessor2,
+                        );
+
+                        // اگر مقدار شامل لینک تصویر بود
+                        if (typeof value === 'string' && column.title == '#') {
+                          return (
+                            <img
+                              src={
+                                value != ''
+                                  ? value
+                                  : '/src/assets/img/figma.jpg'
+                              }
+                              className="Center flex h-[100%] w-[100%] object-cover"
+                              alt={value ? 'تصویر دوره' : 'تصویر پیش‌فرض'}
+                            />
+                          );
+                        }
+                        if (column.title == 'icon') {
+                          return (
+                            <Link
+                              to={
+                                row.courseId
+                                  ? `/courses/single/${row.courseId}`
+                                  : `/blogs/single/${row.reserveId}`
+                              }
+                              className="h-[24px] w-[24px]"
+                            >
+                              <IconSet
+                                className="mt-4 cursor-pointer"
+                                imageAddress={viewIcon}
+                              />
+                            </Link>
+                          );
+                        }
+
+                        // اگر مقدار شامل T بود (تاریخ ISO)
+                        if (typeof value === 'string' && value.includes('T')) {
+                          return deprateTime(value); // فرض بر این است که dateFormatter وجود دارد
+                        }
+
+                        // در غیر این صورت مقدار اصلی را برگردان
+                        return value;
+                      })()}
                     </div>
                   ))}
                 </div>

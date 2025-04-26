@@ -3,57 +3,13 @@ import CustomInputField from '../../../../../components/shared/CustomInputField'
 import GenderField from './GenderField';
 import Button from '../../../../../components/shared/Button';
 import { Form, Formik } from 'formik';
-import {
-  editUserProfileInfo,
-  getUserProfileInfo,
-} from '../../../../../core/services/UserProfileInfo';
+import { editUserProfileInfo } from '../../../../../core/services/UserProfileInfo';
 import toast from 'react-hot-toast';
 import { setPanelState } from '../../../../../redux/userPanelSlice';
 import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { deprateDate } from '/src/utils/DateFormatter';
-const AccountInfoForm = () => {
+
+const AccountInfoForm = ({ initialFormValues }) => {
   const dispatch = useDispatch();
-  const [initialFormValues, setInitialFormValues] = useState({
-    FName: '',
-    LName: '',
-    UserAbout: '',
-    NationalCode: '',
-    BirthDay: '',
-    gender: '',
-    HomeAdderess: '',
-    phoneNumber: '',
-    email: '',
-  });
-
-  const fetchUserData = async () => {
-    try {
-      const res = await getUserProfileInfo();
-      if (res) {
-        setInitialFormValues({
-          FName: res.fName || '',
-          LName: res.lName || '',
-          UserAbout: res.userAbout || '',
-          NationalCode: res.nationalCode || '',
-          BirthDay:
-            res.birthDay != '0001-01-01T00:00:00'
-              ? deprateDate(res.birthDay)
-              : '',
-          gender: res.gender,
-          HomeAdderess: res.homeAdderess || '',
-          phoneNumber: res.phoneNumber || '',
-          email: res.email || '',
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-    console.log(initialFormValues);
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
 
   const onSubmit = async (values) => {
     const formData = new FormData();

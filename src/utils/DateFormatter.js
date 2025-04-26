@@ -10,5 +10,9 @@ export const deprateDate = (dateString) => {
   const res = dateString.split('T')[0];
   return res;
 };
+export const deprateTime = (dateString) => {
+  const res = dateString.split('T')[1];
+  return res;
+};
 //   how use?
 //   formatDate(dateString)

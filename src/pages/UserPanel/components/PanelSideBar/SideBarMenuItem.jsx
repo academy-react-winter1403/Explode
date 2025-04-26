@@ -8,7 +8,7 @@ const SideBarMenuItem = ({ item, handlerFunction }) => {
     <div
       onClick={handlerFunction}
       className={clsx(
-        'flex items-center gap-2 px-1 py-3 text-[18px] font-[500] transition-all duration-300',
+        'flex items-center gap-2 px-1 py-3 text-[18px] font-[500] text-white transition-all duration-300',
         {
           'border-primary text-primary bg-primary/10 shadow-primary/20 hover:shadow-primary/30 transform rounded-[16px] border-2 shadow-lg hover:scale-[1.02]':
             item.value === panelState,

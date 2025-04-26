@@ -17,7 +17,7 @@ const MyFavBlogs = () => {
     handleStartDate,
     handleEndDate,
     setPage,
-  } = usePaginationFetch(getMyFavoriteBlogs);
+  } = usePaginationFetch(getMyFavoriteBlogs, { name: 'myFavoriteNews' });
   return (
     <div>
       <UserPanelTitle title="بلاگ های موردعلاقه" />

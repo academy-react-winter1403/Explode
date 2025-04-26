@@ -25,7 +25,7 @@ const MyCourse = ({
   } = usePaginationFetch(getMyCoursesWithPagination, {
     name: 'listOfMyCourses',
   });
-
+  console.log(data);
   return (
     <div className="w-full">
       {!shortList && <UserPanelTitle title="دوره من" />}

@@ -90,7 +90,7 @@ const Dashboard = () => {
             shortShowStateValue={'myReserve'}
           />
         </div>
-        <div className="h-[332px] w-[40%]">sss</div>
+        <div className="h-[332px] w-[40%]"></div>
       </div>
     </div>
   );

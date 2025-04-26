@@ -44,16 +44,23 @@ const LocationSelector = ({ setSelectedPosition }) => {
   });
   return null;
 };
-const clickHandler = async (selectedPosition) => {
+const clickHandler = async (selectedPosition, initialFormValues) => {
   const position = {
     latitude: selectedPosition.lat,
     longitude: selectedPosition.lng,
   };
-  console.log(position);
-  const res = await editUserProfileInfo(position);
+  const requestData = {
+    ...initialFormValues,
+    ...position,
+  };
+
+  const res = await editUserProfileInfo(requestData);
   console.log(res);
 };
-const LocationMap = ({ initialPosition = { lat: 35.6892, lng: 51.389 } }) => {
+const LocationMap = ({
+  initialPosition = { lat: 35.6892, lng: 51.389 },
+  initialFormValues,
+}) => {
   const [selectedPosition, setSelectedPosition] = useState(initialPosition);
   const [address, setAddress] = useState('در حال دریافت آدرس...');
 
@@ -100,7 +107,7 @@ const LocationMap = ({ initialPosition = { lat: 35.6892, lng: 51.389 } }) => {
       <Button
         className={'mt-3 w-fit'}
         isLoading={false}
-        onClick={() => clickHandler(selectedPosition)}
+        onClick={() => clickHandler(selectedPosition, initialFormValues)}
       >
         اعمال تغییرات
       </Button>
