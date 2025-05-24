@@ -6,7 +6,7 @@ import {
   setTeacherId,
 } from '../../../../redux/courseSlice';
 
-const Teacher = () => {
+const Teacher = ({darkMode}) => {
   const teachers = useSelector((state) => state.courses.teachers);
   const dispatch = useDispatch();
   const handleTeachers = (data) => {
@@ -17,7 +17,7 @@ const Teacher = () => {
 
   return (
     <DropDownList
-      imageSrc={'/src/assets/icons/teachers.svg'}
+      imageSrc={`${darkMode ? '/src/assets/icons/teachers-light.png' : '/src/assets/icons/teachers.svg'}`}
       titleText={'اساتید'}
       handleFunction={handleTeachers}
       defaultOptionText={'استاد مورد نظر را انتخاب کنید'}

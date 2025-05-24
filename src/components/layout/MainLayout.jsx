@@ -2,18 +2,18 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 const MainLayout = () => {
   const { darkMode } = useSelector((state) => state.darkMode)
-  console.log(darkMode)
+  useEffect(() => {
+    document.body.classList = darkMode ? 'bg-thirdly' : ''
+  }, [darkMode])
+
   return (
     <>
-      <div className={`${darkMode && 'bg-thirdly'} `}>
-        <Header />
-        <Outlet />
-        <Footer />
-      </div>
-
-
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   );
 };

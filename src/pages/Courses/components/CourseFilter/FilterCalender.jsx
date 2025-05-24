@@ -9,7 +9,7 @@ import {
 } from '../../../../redux/courseSlice';
 import Calender from '../../../../components/Calender';
 
-const FilterCalender = () => {
+const FilterCalender = ({darkMode}) => {
   const dispatch = useDispatch();
   const handleStartDate = (date) => {
     dispatch(setStartDate(date));
@@ -22,7 +22,7 @@ const FilterCalender = () => {
   return (
     <div className="mb-[20px]">
       <InputFilterTitle
-        imageSrc={'/src/assets/icons/calender.svg'}
+        imageSrc={`${darkMode ? '/src/assets/icons/calender-light.png' : '/src/assets/icons/calender.svg'}`}
         titleText={'تاریخ برگزاری - اتمام'}
       />
       <Calender

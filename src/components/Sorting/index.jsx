@@ -59,7 +59,7 @@ const Sorting = () => {
     <div className="mb-[20px] flex h-[40px] items-center gap-[20px]">
       {/* Mobile Sorting */}
       <div className="flex items-center max-[600px]:w-[100%] max-[600px]:justify-between">
-        <span className={` text-thirdly text-[20px] font-[700] max-[600px]:hidden`}>
+        <span className={` ${darkMode ? 'text-[#fff]':'text-thirdly'}  text-[20px] font-[700] max-[600px]:hidden`}>
           ترتیب
         </span>
         <span
@@ -91,7 +91,7 @@ const Sorting = () => {
         className={`${responsiveSorting ? `z-1000 shadow-[0_2px_10px_#000] max-[600px]:fixed max-[600px]:top-0 max-[600px]:left-0 max-[600px]:flex max-[600px]:w-[100%] max-[600px]:flex-col ` : 'max-[600px]:hidden'} ${darkMode ? 'bg-thirdly ' : 'bg-[#fff]'}`}
       >
         <div className="hidden max-[600px]:flex max-[600px]:justify-between max-[600px]:p-[10px]">
-          <span className={` text-thirdly text-[20px] font-[700] max-[600px]:flex`}>
+          <span className={` ${darkMode ? 'text-[#fff]':'text-thirdly'} text-[20px] font-[700] max-[600px]:flex`}>
             ترتیب
           </span>
           <CloseButton

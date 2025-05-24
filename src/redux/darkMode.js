@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItem } from "../core/common/storage.services";
 
 const darkSlice = createSlice({
     name: 'darkMode',
     initialState: {
-        darkMode: false
+        darkMode: getItem('theme') 
     },
     reducers: {
         setDarkMode: (state, action) => {

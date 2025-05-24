@@ -40,6 +40,7 @@ export const UserLogin = async (obj) => {
     console.error('Error:', error);
   }
 };
+
 export const UserLoginTowStep = async (obj) => {
   try {
     const response = await instance.post(
@@ -55,6 +56,7 @@ export const UserLoginTowStep = async (obj) => {
     throw error;
   }
 };
+
 export const UserReSendVerifyCode = async (obj) => {
   try {
     const response = await instance.post('/Sign/Login', obj);

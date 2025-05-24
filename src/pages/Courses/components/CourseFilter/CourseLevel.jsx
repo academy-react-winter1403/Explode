@@ -7,7 +7,7 @@ import {
   setLevelId,
 } from '../../../../redux/courseSlice';
 
-const CourseLevel = () => {
+const CourseLevel = ({darkMode}) => {
   const dispatch = useDispatch();
   const courseLevels = useSelector((state) => state.courses.courseLevels);
   const handleLevels = (data) => {
@@ -17,7 +17,7 @@ const CourseLevel = () => {
   };
   return (
     <DropDownList
-      imageSrc={'/src/assets/icons/course-level.svg'}
+      imageSrc={`${darkMode ? '/src/assets/icons/course-level-light.png' : '/src/assets/icons/course-level.svg'}`}
       titleText={'سطح آموزشی'}
       handleFunction={handleLevels}
       defaultOptionText={'سطح مورد نظر را انتخاب کنید'}

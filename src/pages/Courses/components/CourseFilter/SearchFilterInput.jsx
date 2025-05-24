@@ -7,7 +7,7 @@ import {
   setQuery,
 } from '../../../../redux/courseSlice';
 
-const SearchFilterInput = () => {
+const SearchFilterInput = ({darkMode}) => {
   const dispatch = useDispatch();
 
   let filterTimeOut;
@@ -24,7 +24,7 @@ const SearchFilterInput = () => {
   return (
     <div className="mb-[20px]">
       <InputFilterTitle
-        imageSrc={'/src/assets/icons/search.svg'}
+        imageSrc={`${darkMode ? '/src/assets/icons/search-light.png' : '/src/assets/icons/search.svg'}`}
         titleText={'جستجو'}
       />
 

@@ -7,7 +7,7 @@ import {
   setQuery,
 } from '../../../../redux/blogSlice';
 
-const SearchInput = () => {
+const SearchInput = ({darkMode}) => {
   const dispatch = useDispatch();
   const filterTimeOutRef = useRef(null);
 
@@ -25,7 +25,7 @@ const SearchInput = () => {
   };
   return (
     <div className="mb-[20px]">
-      <Title imageSrc={'/src/assets/icons/search.svg'} titleText={'جستجو'} />
+      <Title imageSrc={`${darkMode ? '/src/assets/icons/search-light.png' : '/src/assets/icons/search.svg'}`} titleText={'جستجو'} />
 
       <div className="relative">
         <input

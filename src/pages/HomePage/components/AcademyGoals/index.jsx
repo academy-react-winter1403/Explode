@@ -12,9 +12,9 @@ const AcademyGoals = () => {
           <GenericCardList
             data={AcademyGoalsCardData}
             cardType="goal"
-            cardClasses="h-[443px] max-w-[321px] max-[700px]:max-w-[100%]"
-            titleClasses="max-[700px]:w-[100%] max-[700px]:text-right"
-            descriptionClasses="max-[700px]:w-[100%] max-[700px]:text-right"
+            cardClasses="h-[443px] max-w-[321px] max-[700px]:max-w-[100%] "
+            titleClasses="max-[700px]:w-[100%] max-[700px]:text-center "
+            descriptionClasses="max-[700px]:w-[100%] max-[700px]:text-center "
           />
         </div>
       </div>

@@ -8,7 +8,6 @@ const PrivateRoute = () => {
   if (!isAuthenticated) {
     return <Navigate to="/auth/login" replace />;
   }
-
   return <Outlet />;
 };
 const privateRoutes = [

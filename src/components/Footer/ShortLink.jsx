@@ -7,10 +7,7 @@ const ShortLink = () => {
     { address: '/', title: 'خانه' },
     { address: '/courses', title: 'دوره ها' },
     { address: '/blogs', title: 'بلاگ ها' },
-    { address: '/teachers', title: 'اساتید' },
-    { address: '/about-us', title: 'درباره ما' },
-    { address: '/contact-us', title: 'ارتباط ما' },
-    { address: '/our-services', title: 'خدمات ما' },
+
   ];
   return (
     <nav className="max-[1210px]:mb-[50px] max-[1210px]:w-[100%]">
