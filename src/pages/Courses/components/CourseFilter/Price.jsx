@@ -10,7 +10,7 @@ import {
   setCurrentPage,
 } from '../../../../redux/courseSlice';
 
-const Price = () => {
+const Price = ({darkMode}) => {
   const dispatch = useDispatch();
   const [values, setValues] = useState([0, 2000000000]);
   let filterTimeoutRef = useRef(null);
@@ -32,7 +32,7 @@ const Price = () => {
   return (
     <div className="mb-[20px] w-[100%]">
       <InputFilterTitle
-        imageSrc={'/src/assets/icons/price.svg'}
+        imageSrc={`${darkMode ? '/src/assets/icons/price-light.png' : '/src/assets/icons/price.svg'}`}
         titleText={'قیمت'}
       />
       <div className="mb-[10px] flex flex-row-reverse gap-[40px]">

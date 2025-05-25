@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import IconSet from './../../shared/IconSet/index';
-import { useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { CopyLink } from '../../../utils/CopyLink';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -18,6 +18,7 @@ import {
 } from '../../../core/services/blogs';
 import { updateBlogFavorite, updateBlogLike } from '../../../redux/blogSlice';
 import toast from 'react-hot-toast';
+import { getUserAllCourses } from '../../../core/services/UserProfileInfo';
 
 const SingleInfoFooter = ({
   courseSingle,
@@ -39,6 +40,10 @@ const SingleInfoFooter = ({
   const [likeLoading, setLikeLoading] = useState(false);
   const [disLikeLoading, setDisLikeLoading] = useState(false);
   const [reserveLoading, setReserveLoading] = useState(false)
+  const [step, setStep] = useState(1)
+  const [courseLoading, setCourseLoading] = useState(false)
+  const [myCourses, setMyCourses] = useState([])
+  const { darkMode } = useSelector((state) => state.darkMode)
   const handleCopyLink = async () => {
     const linkToCopy = window.location.origin + location.pathname;
     CopyLink(linkToCopy, setCopying);
@@ -123,12 +128,18 @@ const SingleInfoFooter = ({
       navigate('/auth/login');
     }
   };
-  const { darkMode } = useSelector((state) => state.darkMode)
+
   const gotReservList = () => {
     navigate('/dashboard')
   }
 
 
+  const getMycourses = async () => {
+    setCourseLoading(true)
+    const { listOfMyCourses } = await getUserAllCourses({ RowsOfPage: 5 })
+    setMyCourses(listOfMyCourses)
+    setCourseLoading(false)
+  }
 
   return (
     <div
@@ -221,13 +232,52 @@ const SingleInfoFooter = ({
         className={`${reservedModal ? 'fixed' : 'hidden'} top-0 left-0 z-1000 flex h-[100%] w-[100%] items-center justify-center bg-[rgb(0,0,0)]/50`}
       >
         <div className="flex h-[70%] w-[600px] flex-col items-center rounded-[30px] bg-[#fff] p-[10px] max-[700px]:w-[95%]">
-          <h2 className="text-primary text-[20px] font-[700]">
+          <h2 className="text-primary text-[25px] font-[700]">
             دوره به لیست رزروی های شما اضافه شد!
           </h2>
 
-          <div className="h-[100%] text-center flex items-center text-[green] text-[16px] font-[500]">
-            بعد از تایید ادمین ، دوره مورد نظر به لیست دوره من شما اضافه خواهد شد
+
+
+          <div className="h-[100%]  w-[100%] text-center flex items-center text-[16px] font-[500]">
+            {/* Modal Time Line */}
+            <div className='w-[40px] h-[90%]'>
+              <div className='bg-primary w-[4px] h-[50%] m-[0_auto] rounded-[5px] relative flex justify-center'>
+                <div onClick={() => setStep(1)} className=' z-1000 w-[24px] h-[24px] bg-[#fff] border-primary border-[5px] rounded-full absolute bottom-0 cursor-pointer'></div>
+                <div className='absolute min-w-[100px] bottom-0 right-0 text-[18px] font-[700] text-thirdly'>رزرو من</div>
+              </div>
+
+              <div className={`${step == 2 ? 'bg-primary' : 'bg-[#DCDCDC]'}  w-[4px] h-[50%] m-[0_auto] rounded-[5px] relative flex justify-center`}>
+                <div onClick={() => (setStep(2), getMycourses())} className={`z-1000 w-[24px] h-[24px] bg-[#fff] ${step == 2 ? 'border-primary' : 'border-[#DCDCDC]'}   border-[5px] rounded-full absolute bottom-0 cursor-pointer`}></div>
+                <div className='absolute min-w-[100px] bottom-0 right-0 text-[18px] font-[700] text-thirdly'>دوره من</div>
+              </div>
+            </div>
+
+            {/* Modal Contents */}
+            <div className='w-[100%] h-[90%]  flex items-center justify-center pr-[90px]'>
+              {
+                step == 1 ?
+                  (<div className='text-[#707070] text-[16px] font-[500]'> بعد از تایید ادمین ، دوره مورد نظر  به <br />لیست <span onClick={() => (setStep(2), getMycourses())} className=' cursor-pointer text-[20px] font-bold text-thirdly'>  دوره من</span> شما اضافه خواهد شد</div>)
+                  :
+                  (
+                    <div className='w-[100%] h-[90%] '>
+                      <ul className='h-[100%] overflow-y-auto text-right flex flex-col gap-[20px]  justify-center'>
+                        {
+                          courseLoading ? <FaSpinner className='animate-spin text-[30px]' /> : (
+                            myCourses?.length > 0 ? (
+                              myCourses.map((item, index) => (
+                                <li><span>{index + 1}</span>.<Link to={`/courses/single/${item.courseId}`}>{item.courseTitle}</Link> </li>
+                              ))
+                            ) : <div>دوره ای یافت نشد</div>
+                          )
+                        }
+                      </ul>
+                    </div>
+                  )
+              }
+            </div>
           </div>
+
+
 
           <div className="flex w-[100%] items-center justify-between">
             <div onClick={gotReservList} className="bg-primary cursor-pointer rounded-[40px] p-[9px_75px] text-[20px] font-[700] text-[#fff]">
@@ -240,6 +290,7 @@ const SingleInfoFooter = ({
               باشه
             </div>
           </div>
+
         </div>
       </div>
     </div >

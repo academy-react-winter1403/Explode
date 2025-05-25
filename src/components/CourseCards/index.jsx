@@ -25,9 +25,10 @@ const CourseCards = ({
   const editedTitle = title.length > 27 ? title.slice(0, 26) + '...' : title;
   const dateFormat = formatDate(date);
   const isValidURL = ValidURL(image);
+
   return (
     <div
-      className={className || null}
+      className={`${className || null} `}
       style={{ width: `${width || null}px`, height: `${height || null}px` }}
     >
       <Link
@@ -61,7 +62,7 @@ const CourseCards = ({
         <Link to={linkAddress}>{editedTitle || null}</Link>
       </h2>
       <div className="flex items-center justify-between">
-        <span className={`text-[14px] font-[500] text-[#707070]  ${darkMode&& 'text-[#fff]'}`}>
+        <span className={`text-[14px] font-[500] text-[#707070]  ${darkMode && 'text-[#fff]'}`}>
           {author || null}
         </span>
         {(isCourse && (
@@ -78,7 +79,7 @@ const CourseCards = ({
             <span className={`flex items-center gap-[5px] text-[14px] font-[500] text-[#707070]  ${darkMode && 'text-[#fff]'}`}>
               {dateFormat}
               <IconSet
-                imageAddress={'/src/assets/icons/calender.svg'}
+                imageAddress={`${darkMode ? '/src/assets/icons/calender-light.png' : '/src/assets/icons/calender.svg'}`}
                 firstSize={20}
                 secondSize={20}
               />
@@ -86,7 +87,7 @@ const CourseCards = ({
             <span className={`flex items-center gap-[5px] text-[14px] font-[500] text-[#707070]  ${darkMode && 'text-[#fff]'}`}>
               {view}
               <IconSet
-                imageAddress={'/src/assets/icons/view.svg'}
+                imageAddress={`${darkMode ? '/src/assets/icons/view-light.png' : '/src/assets/icons/view.svg'}`}
                 firstSize={20}
                 secondSize={20}
               />

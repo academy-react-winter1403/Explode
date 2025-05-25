@@ -1,16 +1,13 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import IconSet from "../../shared/IconSet"
-import { setDarkMode } from "../../../redux/darkMode"
+import useToggleDarkMode from "../../../Hooks/useToggleDarkMode"
 const DarkMode = () => {
-    const dispatch = useDispatch()
     const { darkMode } = useSelector((state) => state.darkMode)
-    const handleDarkMode = () => {
-        dispatch(setDarkMode(!darkMode))
-    }
+    const toggleDarkMode = useToggleDarkMode()
     return (
-        <div onClick={handleDarkMode} className={` ${darkMode && 'border-[#fff] border-[1px]'} bg-thirdly flex items-center justify-center w-[48px] h-[48px] rounded-[50%] cursor-pointer`}>
+        <div onClick={() => toggleDarkMode(darkMode)} className={` ${darkMode && 'border-[#fff] border-[1px]'} bg-thirdly flex items-center justify-center w-[48px] h-[48px] rounded-[50%] cursor-pointer`}>
             <IconSet imageAddress={'/src/assets/icons/dark.svg'} />
         </div>
     )
 }
-export default DarkMode
+export default DarkMode 
