@@ -4,7 +4,7 @@ import bookicon from '../../../../assets/icons/bok.png';
 import favbookicon from '../../../../assets/icons/favbook.png';
 import favblogsicon from '../../../../assets/icons/library.png';
 import profileicon from '../../../../assets/icons/user-square.png';
-import payicon from '../../../../assets/icons/money-send-02-stroke-rounded 1.png';
+import payicon from '../../../../assets/icons/course-level-light.png';
 
 export const SideBarMenuItemData = [
   { id: 1, label: 'داشبرد', iconAddress: dashicon, value: 'dashboard' },
@@ -23,5 +23,10 @@ export const SideBarMenuItemData = [
     value: 'myFavBlogs',
   },
   { id: 6, label: 'پروفایل', iconAddress: profileicon, value: 'myprofile' },
-  { id: 7, label: 'پرداخت ها', iconAddress: payicon, value: 'payments' },
+  {
+    id: 7,
+    label: 'مصاحبه هوش مصنوعی',
+    iconAddress: payicon,
+    value: 'interviewAi',
+  },
 ];

@@ -40,6 +40,7 @@ const usePaginationFetch = (fetchFunction, initialParams = {}) => {
         result.favoriteCourseDto ||
         result ||
         [];
+      console.log('redusx', dataArray);
       const totalPages = result.totalCount || result.totalPages || 1;
 
       setState((prev) => ({

@@ -1,4 +1,4 @@
-import TableComponent from '../../../../../components/TabelComponent';
+import MyFavBlogTable from '../../../../../components/MyFavBlogTable';
 import UserPanelFilterNav from '../../../../../components/UserPanelFilterNav';
 import UserPanelTitle from '../../../../../components/UserPanelTitle';
 import { getMyFavoriteBlogs } from '../../../../../core/services/blogs';
@@ -18,6 +18,7 @@ const MyFavBlogs = () => {
     handleEndDate,
     setPage,
   } = usePaginationFetch(getMyFavoriteBlogs, { name: 'myFavoriteNews' });
+  console.log('ressv', data);
   return (
     <div>
       <UserPanelTitle title="بلاگ های موردعلاقه" />
@@ -33,7 +34,7 @@ const MyFavBlogs = () => {
             <div className="h-12 w-12 animate-spin rounded-full border-t-2 border-b-2 border-blue-500"></div>
           </div>
         ) : data?.length > 0 ? (
-          <TableComponent
+          <MyFavBlogTable
             data={data}
             pagination={pagination}
             setPagination={setPage}

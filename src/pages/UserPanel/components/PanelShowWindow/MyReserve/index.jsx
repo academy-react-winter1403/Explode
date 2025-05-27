@@ -2,7 +2,7 @@ import { useState } from 'react';
 import UserPanelFilterNav from '../../../../../components/UserPanelFilterNav';
 import { SortingMyReserveOptionsButtonData } from './SortingMyReserveOptionsButtonData';
 import UserPanelTitle from '../../../../../components/UserPanelTitle';
-import TableComponent from '../../../../../components/TabelComponent';
+import TableComponentBlogs from '../../../../../components/TableComponentBlogs';
 import { getMyReservesWithPagination } from '../../../../../core/services/myreserve';
 import EmptyState from '../../../../../components/EmtyState';
 import usePaginationFetch from '../../../../../Hooks/usePaginationFetch';
@@ -52,7 +52,7 @@ const MyReserve = ({
         )}
 
         {data?.length > 0 ? (
-          <TableComponent
+          <TableComponentBlogs
             short={shortShow}
             data={data}
             pagination={pagination}

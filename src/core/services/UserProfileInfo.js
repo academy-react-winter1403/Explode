@@ -34,13 +34,37 @@ export const addUserProfileImage = async (formData) => {
 
 export const getUserAllCourses = async (urlParams) => {
   try {
-    const response = await instance.get(
-      '/SharePanel/GetMyCourses',
-      { params: urlParams },
-    );
+    const response = await instance.get('/SharePanel/GetMyCourses', {
+      params: urlParams,
+    });
     return response;
   } catch (error) {
     console.error('Error:', error);
     throw error;
   }
-}
+};
+
+export const deleteUserProfileInfo = async (formData) => {
+  console.log('imageId', formData);
+  try {
+    const response = await instance.delete('/SharePanel/DeleteProfileImage', {
+      data: formData,
+    });
+    return response;
+  } catch (error) {
+    console.error('Error deleting profile image:', error);
+    throw new Error('حذف تصویر با خطا مواجه شد');
+  }
+};
+export const postUserCurrentIImage = async (imageId) => {
+  try {
+    const response = await instance.post(
+      '/SharePanel/SelectProfileImage',
+      imageId,
+    );
+    return response;
+  } catch (error) {
+    console.error('Error deleting profile image:', error);
+    throw new Error('حذف تصویر با خطا مواجه شد');
+  }
+};

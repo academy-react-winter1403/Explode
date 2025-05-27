@@ -7,6 +7,7 @@ import { editUserProfileInfo } from '../../../../../core/services/UserProfileInf
 import toast from 'react-hot-toast';
 import { setPanelState } from '../../../../../redux/userPanelSlice';
 import { useDispatch } from 'react-redux';
+import { updateUserProfile } from '../../../../../redux/userProfileSlice';
 
 const AccountInfoForm = ({ initialFormValues }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const AccountInfoForm = ({ initialFormValues }) => {
     const res = await editUserProfileInfo(formData);
     if (res.success) {
       toast.success('اطلاعات کاربری شما با موفقیت ثبت شد');
+      dispatch(updateUserProfile(formData));
       dispatch(setPanelState('dashboard'));
     }
   };

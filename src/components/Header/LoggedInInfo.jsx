@@ -1,7 +1,11 @@
+import { useSelector } from 'react-redux';
 import IconSet from '../shared/IconSet';
 import LoggedOut from './Menu/Profile/LoggedOut';
+import clsx from 'clsx';
 
 const LoggedInInfo = ({ isDashboard = false, userName = 'ناشناس' }) => {
+  const { darkMode } = useSelector((state) => state.darkMode);
+
   if (!isDashboard) return null;
 
   return (
@@ -10,10 +14,22 @@ const LoggedInInfo = ({ isDashboard = false, userName = 'ناشناس' }) => {
         <LoggedOut arrowShow={false} />
       </span>
       <div className="flex flex-col items-center">
-        <span className="text-[16px] font-semibold text-white">
+        <span
+          className={clsx('text-[16px] font-semibold', {
+            'text-white': darkMode,
+            'text-gray-800': !darkMode,
+          })}
+        >
           {userName || 'ناشناس'}
         </span>
-        <span className="text-[14px] font-medium text-white">دانشجو</span>
+        <span
+          className={clsx('text-[14px] font-medium', {
+            'text-white': darkMode,
+            'text-gray-700': !darkMode,
+          })}
+        >
+          دانشجو
+        </span>
       </div>
     </div>
   );

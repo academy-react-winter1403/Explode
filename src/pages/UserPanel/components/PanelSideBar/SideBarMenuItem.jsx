@@ -4,14 +4,19 @@ import clsx from 'clsx';
 
 const SideBarMenuItem = ({ item, handlerFunction }) => {
   const { panelState } = useSelector((state) => state.userpanel);
+  const { darkMode } = useSelector((state) => state.darkMode);
+
   return (
     <div
       onClick={handlerFunction}
       className={clsx(
-        'flex items-center gap-2 px-1 py-3 text-[18px] font-[500] text-white transition-all duration-300',
+        'flex items-center gap-2 px-1 py-3 text-[16px] font-[500] transition-all duration-300',
         {
-          'border-primary text-primary bg-primary/10 shadow-primary/20 hover:shadow-primary/30 transform rounded-[16px] border-2 shadow-lg hover:scale-[1.02]':
+          'border-primary bg-primary/10 shadow-primary/20 hover:shadow-primary/30 transform rounded-[16px] border-2 shadow-lg hover:scale-[1.02]':
             item.value === panelState,
+          'text-white': darkMode && item.value !== panelState,
+          'text-gray-800': !darkMode && item.value !== panelState,
+          'text-primary': item.value === panelState,
         },
       )}
     >
@@ -19,14 +24,24 @@ const SideBarMenuItem = ({ item, handlerFunction }) => {
         firstSize={24}
         secondSize={24}
         imageAddress={item.iconAddress}
-        className={clsx('mt-1 filter', {
+        className={clsx('mt-1 transition-all duration-200', {
+          // حالت فعال (selected) - آیکون رنگی (همان تنظیمات شما)
           'brightness-0 hue-rotate-[200deg] invert-[.5] saturate-[5] sepia-[1]':
             item.value === panelState,
+
+          // حالت غیرفعال در لایت‌مود (آیکون خاکستری تیره)
+          'opacity-80 brightness-0 invert-0 saturate-0':
+            item.value !== panelState && !darkMode,
+
+          // حالت غیرفعال در دارک‌مود (آیکون سفید ملایم)
+          '': item.value !== panelState && darkMode,
         })}
         aria-hidden="true"
       />
+
       {item.label}
     </div>
   );
 };
+
 export default SideBarMenuItem;

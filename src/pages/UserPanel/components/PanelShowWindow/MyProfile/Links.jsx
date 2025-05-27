@@ -4,25 +4,37 @@ import toast from 'react-hot-toast';
 import { editUserProfileInfo } from '../../../../../core/services/UserProfileInfo';
 import { LinksShema } from '../../../../../core/validation';
 import Button from '../../../../../components/shared/Button';
+import { useSelector } from 'react-redux';
 const Links = () => {
+  const { userProfile } = useSelector((state) => state.userProfile);
   const onSubmit = async (values) => {
     const formData = new FormData();
+
+    // 1. اضافه کردن مقادیر جدید از values
     Object.keys(values).forEach((key) => {
       formData.append(key, values[key]);
     });
-    console.log(formData);
+
+    // 2. اضافه کردن تمام داده‌های userProfile
+    Object.keys(userProfile).forEach((key) => {
+      // از اضافه کردن مجدد فیلدهایی که در values وجود دارند جلوگیری می‌کنیم
+
+      formData.append(key, userProfile[key]);
+    });
+
     const res = await editUserProfileInfo(formData);
     if (res.success) {
       toast.success('اطلاعات کاربری شما با موفقیت ثبت شد');
     }
   };
+
   return (
     <>
       {' '}
       <Formik
         initialValues={{
-          TelegramLink: '',
-          LinkdinProfile: '',
+          TelegramLink: userProfile.telegramLink || '',
+          LinkdinProfile: userProfile.linkdinProfile || '',
         }}
         onSubmit={onSubmit}
         validationSchema={LinksShema}

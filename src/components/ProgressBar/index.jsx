@@ -1,26 +1,22 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const ProgressBar = ({ targetPercentage }) => {
   const [percentage, setPercentage] = useState(0);
   const [color, setColor] = useState('#FF0000');
+  const { darkMode } = useSelector((state) => state.darkMode);
 
   useEffect(() => {
     const duration = 3;
     const incrementSpeed = (duration * 1000) / targetPercentage;
 
-<<<<<<< HEAD
     const interval =
       targetPercentage &&
       setInterval(() => {
         setPercentage((prev) => {
           const newValue = prev + 1;
-=======
-    const interval = targetPercentage && setInterval(() => {
-      setPercentage((prev) => {
-        const newValue = prev + 1;
->>>>>>> origin/SemiFinal
 
           if (newValue < 30) {
             setColor('#FF0000');
@@ -53,12 +49,15 @@ const ProgressBar = ({ targetPercentage }) => {
             transition: 'stroke-dashoffset 0.1s ease-out, stroke 0.3s ease-out',
           },
           trail: {
-            stroke: '#e0e0e0',
+            stroke: darkMode ? '#555' : '#e0e0e0',
           },
           text: {
-            fill: '#333',
+            fill: darkMode ? '#fff' : '#333',
             fontSize: '20px',
             fontWeight: 'bold',
+          },
+          background: {
+            fill: darkMode ? '#1f1f1f' : '#fff',
           },
         }}
       />

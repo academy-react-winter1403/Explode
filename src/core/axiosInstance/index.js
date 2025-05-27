@@ -36,6 +36,9 @@ const onError = (error) => {
       case 401:
         toast.error('توکن احراز هویت باطل شده لطفا دوباره وارد شوید');
         localStorage.clear('token');
+        if (!error.config.url.includes('/login')) {
+          window.location.href = '/auth/login'; // هدایت به صفحه ورود
+        }
         console.error('Unauthorized:', data);
         break;
       case 404:

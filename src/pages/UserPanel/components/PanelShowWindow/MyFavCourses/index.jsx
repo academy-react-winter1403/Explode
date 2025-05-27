@@ -39,6 +39,7 @@ const MyFavCourses = () => {
             query={query}
             pagination={pagination}
             setPagination={setPage}
+            dataType={'favorites'}
           />
         ) : (
           <EmptyState

@@ -16,7 +16,7 @@ export const getMyFavoriteBlogs = async (urlParams) => {
     const response = await instance.get('/SharePanel/GetMyFavoriteNews', {
       params: urlParams,
     });
-    console.log('response', response);
+    return response;
   } catch (error) {
     console.error('Error:', error);
     throw error;

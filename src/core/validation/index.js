@@ -108,3 +108,18 @@ export const commentValidation = Yup.object({
   Title: Yup.string().required('عنوان نظر الزامی است'),
   Describe: Yup.string().required('متن نظر الزامی است'),
 });
+// Validation schema using Yup based on provided error messages
+
+export const paymentvalidationSchema = Yup.object({
+  paid: Yup.number()
+    .typeError('مبلغ پرداختی باید یک عدد باشد')
+    .required('مبلغ پرداختی الزامی است'),
+  courseId: Yup.string().required('شناسه دوره الزامی است'),
+  paymentDate: Yup.date()
+    .typeError('تاریخ پرداخت باید یک تاریخ معتبر باشد')
+    .required('تاریخ پرداخت الزامی است'),
+  paymentInvoiceNumber: Yup.number()
+    .typeError('شماره فاکتور باید یک عدد باشد')
+    .integer('شماره فاکتور باید یک عدد صحیح باشد')
+    .required('شماره فاکتور الزامی است'),
+});

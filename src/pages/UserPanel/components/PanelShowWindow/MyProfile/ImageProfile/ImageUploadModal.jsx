@@ -1,12 +1,14 @@
 import { useState, useRef } from 'react';
 import { addUserProfileImage } from '../../../../../../core/services/UserProfileInfo';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 const ImageUploadModal = ({ isOpen, onClose, onImageSelect }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
+  const { userProfile } = useSelector((state) => state.userProfile);
   const fileInputRef = useRef(null);
 
   const handleImageChange = (e) => {
@@ -48,12 +50,41 @@ const ImageUploadModal = ({ isOpen, onClose, onImageSelect }) => {
     setUploadError(null);
 
     const formData = new FormData();
+
+    // 1. اضافه کردن تصویر انتخاب شده
     formData.append('formFile', selectedImage);
-    const res = await addUserProfileImage(formData);
-    if (res.success) {
-      toast.success('عملیات آپلود عکس با موفقیت انجام شد');
+
+    // 2. اضافه کردن تمام فیلدهای userProfile
+    for (const key in userProfile) {
+      if (userProfile[key] !== null && userProfile[key] !== undefined) {
+        // برای فیلدهای فایل (اگر وجود دارد)
+        if (
+          userProfile[key] instanceof File ||
+          userProfile[key] instanceof Blob
+        ) {
+          formData.append(key, userProfile[key]);
+        } else {
+          // برای فیلدهای معمولی (تبدیل به رشته برای اطمینان)
+          formData.append(key, String(userProfile[key]));
+        }
+      }
+    }
+
+    try {
+      const res = await addUserProfileImage(formData);
+      if (res.success) {
+        toast.success('عملیات آپلود عکس با موفقیت انجام شد');
+        setIsUploading(false);
+        onClose();
+      } else {
+        throw new Error(res.message || 'خطا در آپلود تصویر');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      setUploadError(error.message);
+      toast.error('خطا در آپلود تصویر');
+    } finally {
       setIsUploading(false);
-      onClose();
     }
   };
 
