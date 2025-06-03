@@ -213,7 +213,7 @@ const SingleInfoFooter = ({
 
       {/* Reserve (Responsive) */}
       {courseSingle && (
-        <div className="fixed right-0 bottom-0 z-800 flex hidden h-[70px] w-[100%] items-center justify-between bg-[#fff] p-[10px_10px] shadow-[0_-3px_20px_#e2e2e2] max-[710px]:flex">
+        <div className={`fixed right-0 bottom-0 z-800 flex hidden h-[70px] w-[100%] items-center justify-between ${darkMode?'bg-thirdly shadow-[0_-3px_20px_#000]':'bg-[#fff] shadow-[0_-3px_20px_#e2e2e2]'} bg-[#fff] p-[10px_10px]  max-[710px]:flex`}>
           <span
             onClick={() => courseReserve(id)}
             className="bg-primary flex cursor-pointer items-center gap-[10px] rounded-[48px] p-[13.5px_44px] text-[15px] font-[700] text-[#fff]"
@@ -221,7 +221,7 @@ const SingleInfoFooter = ({
             {reserveLoading ? <FaSpinner className='animate-spin' /> : <IconSet imageAddress={'/src/assets/icons/book.svg'} />}
             رزرو دوره
           </span>
-          <span className="text-thirdly hidden text-[16px] font-[500] max-[710px]:block">
+          <span className={`${darkMode ? 'text-[#fff]':'text-thirdly'} hidden text-[16px] font-[500] max-[710px]:block`}>
             <span className="text-[24px] font-[700]">{courseCost}</span> تومان
           </span>
         </div>

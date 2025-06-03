@@ -21,7 +21,7 @@ const SingleInfoTable = ({ detail, blogSingle, courseSingle }) => {
 
                     <div className={`border-[#DCDCDC] border-[2px] border-r-[0px] p-[10px] w-[160px] max-[1150px]:w-[50%] max-[750px]:rounded-l-[16px]`}>
                         <h2 className='mb-[10px]  text-[14px] font-[500]'>{courseSingle ? 'دسته بندی' : 'مشترک کننده'}</h2>
-                        <span className={`${courseSingle ? 'bg-primary text-[#fff]' : 'bg-[transparent] text-thirdly'} rounded-[32px] p-[3px_8px] text-[16px] font-[500]`}>
+                        <span className={`${courseSingle ? 'bg-primary text-[#fff]' : darkMode ? 'bg-[transparent] text-[#fff]':'bg-[transparent] text-thirdly'} rounded-[32px] p-[3px_8px] text-[16px] font-[500]`}>
                             {
                                 courseSingle ? Array.isArray(detail?.techs) && detail.techs.length > 0 ? detail.techs[0] : '' : detail?.addUserFullName
                             }
@@ -32,7 +32,7 @@ const SingleInfoTable = ({ detail, blogSingle, courseSingle }) => {
                 <div className='flex max-[1150px]:w-[100%]'>
                     <div className='border-[#DCDCDC] border-[2px] border-r-[0px] p-[10px] w-[160px] max-[1150px]:w-[50%] max-[750px]:rounded-r-[16px] max-[750px]:border-r-[2px]'>
                         <h2 className='mb-[10px]  text-[14px] font-[500]'>{courseSingle ? 'سطح آموزش' : 'تاریخ انتشار '}</h2>
-                        <span className={`${courseSingle ? 'bg-[#FF37F5] text-[#fff]' : 'bg-[transparent] text-thirdly'} rounded-[32px] p-[3px_8px] text-[16px] font-[500]`}>
+                        <span className={`${courseSingle ? 'bg-[#FF37F5] text-[#fff]' : darkMode ? 'bg-[transparent] text-[#fff]':'bg-[transparent] text-thirdly'} rounded-[32px] p-[3px_8px] text-[16px] font-[500]`}>
                             {courseSingle ? detail?.courseLevelName : detail && formatDate(detail.insertDate)}
                         </span>
                     </div>

@@ -1,13 +1,14 @@
 
+import { useSelector } from "react-redux"
 import MainComments from "./SingleComment/MainComments"
 import ShowAllComments from "./SingleComment/ShowAllComments"
 
 const SingleComments = ({ courseSingle, title, singleId, userId }) => {
-
+    const { darkMode } = useSelector((state) => state.darkMode)
     return (
         <>
             {/* Part Title */}
-            <h2 className="font-[700] text-[20px] text-[#707070] mt-[60px]">
+            <h2 className={`${darkMode ? 'text-[#fff]':'text-[#707070]'} font-[700] text-[20px]  mt-[60px]`}>
                 نظر دانشجو ها و اساتید
             </h2>
 

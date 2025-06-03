@@ -24,6 +24,7 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
   const [sendLoading, setSendLoading] = useState(false);
   const [likeLoading, setLikeLoading] = useState(false);
   const [dissLikeLoading, setDissLikeLoading] = useState(false);
+
   const handleToggleReplies = () => {
     if (courseSingle) {
       if (!isRepliesOpen && comment.acceptReplysCount > 0 && comment.replies.length === 0) {
@@ -76,16 +77,19 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
     }
   };
 
-  const likeComment = async (commentId) => {
+  const likeComment = async (comment) => {
     if (isAuthenticated) {
       if (courseSingle) {
-        await addLikeForCourseComment(commentId, setLikeLoading);
-        dispatch(updateCommentReaction({ commentId: commentId, type: 'like' }))
+        await addLikeForCourseComment(comment.id, setLikeLoading);
+        dispatch(updateCommentReaction({ commentId: comment.id, type: 'like' }))
       }
       else {
         if (comment.currentUserIsLike) return;
         await addDissLikeForBlogComment(comment.id, true, setLikeLoading);
-        dispatch(updateBlogCommentReaction({ commentId: commentId, type: 'like' }))
+        dispatch(updateBlogCommentReaction({
+          commentId: comment.id,
+          type: 'like'
+        }))
       }
     }
     else {
@@ -93,16 +97,19 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
     }
   };
 
-  const dissLike = async (commentId) => {
+  const dissLike = async (comment) => {
     if (isAuthenticated) {
       if (courseSingle) {
         await addDissLikeForCourseComment(comment.id, setDissLikeLoading);
-        dispatch(updateCommentReaction({ commentId: commentId, type: 'dislike' }))
+        dispatch(updateCommentReaction({ commentId: comment.id, type: 'dislike' }))
       }
       else {
         if (comment.currentUserIsDissLike) return;
         await addDissLikeForBlogComment(comment.id, false, setDissLikeLoading);
-        dispatch(updateCommentReaction({ commentId: commentId, type: 'dislike' }))
+        dispatch(updateBlogCommentReaction({
+          commentId: comment.id,
+          type: 'dislike'
+        }))
       }
     }
     else {
@@ -152,7 +159,7 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
                 src={
                   ValidURL(comment?.pictureAddress) && comment?.pictureAddress !== null
                     ? comment?.pictureAddress
-                    : "/src/assets/images/default-avatar.png"
+                    : "/src/assets/img/default-avatar.png"
                 }
                 alt="author image"
               />
@@ -185,7 +192,7 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
                 <span className="flex items-center gap-[5px]">
                   <span
                     className={`${(comment?.currentUserEmotion == 'LIKED' && isAuthenticated) || (comment?.currentUserIsLike && isAuthenticated) ? 'bg-primary' : ''} rounded-full p-[5px]`}
-                    onClick={() => likeComment(comment.id)}
+                    onClick={() => likeComment(comment)}
                   >
                     {likeLoading ? (
                       <FaSpinner className="animate-spin" />
@@ -203,7 +210,7 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
                 <span className="flex items-center gap-[5px]">
                   <span
                     className={`${(comment?.currentUserEmotion == 'DISSLIKED' && isAuthenticated) || (comment?.currentUserIsDissLike && isAuthenticated) ? 'bg-[#FF6C6C]' : ''} rounded-full p-[5px]`}
-                    onClick={() => dissLike(comment.id)}
+                    onClick={() => dissLike(comment)}
                   >
                     {dissLikeLoading ? (
                       <FaSpinner className="animate-spin" />
@@ -217,7 +224,7 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
                   <span>
                     {courseSingle
                       ? comment?.disslikeCount
-                      : comment?.dissLikeCount || 0}
+                      : comment?.dissLikeCount }
 
                   </span>{' '}
                 </span>
@@ -253,7 +260,7 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
               <span className="flex items-center gap-[5px]">
                 <span
                   className={`${(comment?.currentUserEmotion == 'LIKED' && isAuthenticated) || (comment?.currentUserIsLike && isAuthenticated) ? 'bg-primary' : ''} rounded-full p-[5px]`}
-                  onClick={() => likeComment(comment.id)}
+                  onClick={() => likeComment(comment)}
                 >
                   {likeLoading ? (
                     <FaSpinner className="animate-spin" />
@@ -271,7 +278,7 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
               <span className="flex items-center gap-[5px]">
                 <span
                   className={`${(comment?.currentUserEmotion == 'DISSLIKED' && isAuthenticated) || (comment?.currentUserIsDissLike && isAuthenticated) ? 'bg-[#FF6C6C]' : ''} rounded-full p-[5px]`}
-                  onClick={() => dissLike(comment.id)}
+                  onClick={() => dissLike(comment)}
                 >
                   {dissLikeLoading ? (
                     <FaSpinner className="animate-spin" />
@@ -285,7 +292,7 @@ const Comment = ({ comment, isInModal = false, courseSingle, children, singleId,
                 <span>
                   {courseSingle
                     ? comment?.disslikeCount
-                    : comment?.dissLikeCount || 0}
+                    : comment?.dissLikeCount }
                 </span>{' '}
               </span>
 

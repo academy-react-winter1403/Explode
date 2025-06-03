@@ -11,7 +11,10 @@ const ResponsiveMenu = ({ menuStatus, setMenuStatus }) => {
         menuStatus={menuStatus}
         setMenuStatus={setMenuStatus}
       />
-      <HambergerMenu />
+      <HambergerMenu
+        setMenuStatus={setMenuStatus}
+        menuStatus={menuStatus}
+      />
       <HambergerMenuFooter />
     </section>
   );

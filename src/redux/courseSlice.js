@@ -211,14 +211,12 @@ const coursesSlice = createSlice({
             if (type === 'like') {
               updatedComment.likeCount = (comment.likeCount || 0) + 1;
               updatedComment.currentUserEmotion = 'LIKED';
-              updatedComment.currentUserIsLike = true;
               if (comment.disslikeCount > 0) {
                 updatedComment.disslikeCount = comment.disslikeCount - 1;
               }
             } else if (type === 'dislike') {
               updatedComment.disslikeCount = (comment.disslikeCount || 0) + 1;
               updatedComment.currentUserEmotion = 'DISSLIKED';
-              updatedComment.currentUserIsLike = false;
               if (comment.likeCount > 0) {
                 updatedComment.likeCount = comment.likeCount - 1;
               }

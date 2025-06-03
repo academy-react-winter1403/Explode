@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
-const HambergerMenu = () => {
+const HambergerMenu = ({ menuStatus, setMenuStatus }) => {
   const menuLinks = [
     { address: '/', title: 'خانه' },
     { address: '/courses', title: 'دوره ها' },
     { address: '/blogs', title: 'بلاگ ها' },
-    { address: '/about-us', title: 'درباره ما' },
-    { address: '/contact-us', title: 'ارتباط ما' },
   ];
 
   return (
@@ -17,6 +15,7 @@ const HambergerMenu = () => {
             <Link
               to={link.address}
               className="block w-full border-b-[1px] border-[#FFFFFF]"
+              onClick={()=>setMenuStatus(!menuStatus)}
             >
               {link.title}
             </Link>

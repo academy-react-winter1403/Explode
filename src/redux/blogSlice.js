@@ -150,22 +150,40 @@ const blogSlice = createSlice({
       const updateComment = (comments) => {
         return comments.map((comment) => {
           if (comment.id === commentId) {
+            console.log('Before update:', {
+              id: comment.id,
+              likeCount: comment.likeCount,
+              dissLikeCount: comment.dissLikeCount,
+              currentUserIsLike: comment.currentUserIsLike,
+              currentUserIsDissLike: comment.currentUserIsDissLike,
+            });
             let updatedComment = { ...comment };
-            if (type === 'like') {
+            if (type === 'like' && comment.currentUserIsDissLike && !comment.currentUserIsLike) {
               updatedComment.likeCount = (comment.likeCount || 0) + 1;
+              updatedComment.dissLikeCount = Math.max((comment.dissLikeCount || 0) - 1, 0);
               updatedComment.currentUserIsLike = true;
               updatedComment.currentUserIsDissLike = false;
-              if (comment.dissLikeCount > 0) {
-                updatedComment.dissLikeCount = (comment.dissLikeCount || 0) - 1;
-              }
-            } else if (type === 'dislike') {
+            } else if (type === 'dislike' && comment.currentUserIsLike && !comment.currentUserIsDissLike) {
+              updatedComment.likeCount = Math.max((comment.likeCount || 0) - 1, 0);
               updatedComment.dissLikeCount = (comment.dissLikeCount || 0) + 1;
               updatedComment.currentUserIsLike = false;
               updatedComment.currentUserIsDissLike = true;
-              if (comment.likeCount > 0) {
-                updatedComment.likeCount = (comment.likeCount || 0) - 1;
-              }
+            } else if (type === 'like' && !comment.currentUserIsDissLike && !comment.currentUserIsLike) {
+              updatedComment.likeCount = (comment.likeCount || 0) + 1;
+              updatedComment.currentUserIsLike = true;
+              updatedComment.currentUserIsDissLike = false;
+            } else if (type === 'dislike' && !comment.currentUserIsDissLike && !comment.currentUserIsLike) {
+              updatedComment.dissLikeCount = (comment.dissLikeCount || 0) + 1;
+              updatedComment.currentUserIsLike = false;
+              updatedComment.currentUserIsDissLike = true;
             }
+            console.log('After update:', {
+              id: updatedComment.id,
+              likeCount: updatedComment.likeCount,
+              dissLikeCount: updatedComment.dissLikeCount,
+              currentUserIsLike: updatedComment.currentUserIsLike,
+              currentUserIsDissLike: updatedComment.currentUserIsDissLike,
+            });
             return updatedComment;
           }
           if (comment.replies && comment.replies.length > 0) {
