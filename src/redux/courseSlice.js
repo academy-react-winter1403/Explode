@@ -3,6 +3,7 @@ import {
   getCategories,
   getCourseComments,
   getCourseDetail,
+  getCourseReplies,
   getCoursesWithPagination,
   getLevels,
 } from '../core/services/courses';
@@ -60,11 +61,25 @@ export const fetchCourseDetail = createAsyncThunk(
   },
 );
 
+
 export const fetchCourseComments = createAsyncThunk(
-  'course/fetchCourseComments',
-  async (params) => {
-    return await getCourseComments(params);
-  },
+  'comments/fetchCourseComments',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState().courses;
+    const response = await getCourseComments(state.courseId);
+    return response
+  }
+);
+
+
+export const fetchCourseReplies = createAsyncThunk(
+  'comments/fetchCourseReplies',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState().courses;
+    const response = await getCourseReplies(state.courseId, state.commentId);
+    const commentId = state.commentId
+    return { commentId, replies: response };
+  }
 );
 
 export const fetchRelatedCourses = createAsyncThunk(
@@ -102,8 +117,11 @@ const coursesSlice = createSlice({
     responsiveSorting: false,
     courseCategories: [],
     courseDetail: {},
-    courseComments: [],
     relatedCourses: [],
+    courseId: null,
+    commentId: null,
+    allComments: [],
+    mainComments: []
   },
   reducers: {
     setCurrentPage: (state, action) => {
@@ -111,6 +129,12 @@ const coursesSlice = createSlice({
     },
     setSorting: (state, action) => {
       state.sorting = action.payload;
+    },
+    setCourseId: (state, action) => {
+      state.courseId = action.payload;
+    },
+    setCommentId: (state, action) => {
+      state.commentId = action.payload;
     },
     setSortingType: (state, action) => {
       state.sortingType = action.payload;
@@ -145,29 +169,6 @@ const coursesSlice = createSlice({
     setResponsiveSorting: (state, action) => {
       state.responsiveSorting = action.payload;
     },
-    updateCourseCommentLikeCount: (state, action) => {
-      const { commentId, type, currentEmotion } = action.payload;
-      const comment = state.courseComments.find(c => c.id === commentId);
-      if (comment) {
-        if (type === 'like' && currentEmotion == "DISSLIKED") {
-          comment.likeCount += 1;
-          comment.disslikeCount -= 1;
-          comment.currentUserEmotion = 'LIKED'
-        } else if (type === 'dissLike' && currentEmotion == "LIKED") {
-          comment.disslikeCount += 1;
-          comment.likeCount -= 1;
-          comment.currentUserEmotion = 'DISSLIKED'
-        }
-        else if (type === 'like' && currentEmotion == "-") {
-          comment.likeCount += 1;
-          comment.currentUserEmotion = 'LIKED'
-        }
-        else if (type === 'dissLike' && currentEmotion == "-") {
-          comment.disslikeCount += 1;
-          comment.currentUserEmotion = 'DISSLIKED'
-        }
-      }
-    },
     updateCourseRate: (state, action) => {
       const { rateNumber } = action.payload
       state.courseDetail.currentUserRateNumber = rateNumber
@@ -198,7 +199,45 @@ const coursesSlice = createSlice({
         state.courseDetail.currentUserDissLike = "1"
         state.courseDetail.dissLikeCount += 1
       }
-    }
+    },
+
+    updateCommentReaction: (state, action) => {
+      const { commentId, type } = action.payload;
+
+      const updateComment = (comments) => {
+        return comments.map((comment) => {
+          if (comment.id === commentId) {
+            let updatedComment = { ...comment };
+            if (type === 'like') {
+              updatedComment.likeCount = (comment.likeCount || 0) + 1;
+              updatedComment.currentUserEmotion = 'LIKED';
+              updatedComment.currentUserIsLike = true;
+              if (comment.disslikeCount > 0) {
+                updatedComment.disslikeCount = comment.disslikeCount - 1;
+              }
+            } else if (type === 'dislike') {
+              updatedComment.disslikeCount = (comment.disslikeCount || 0) + 1;
+              updatedComment.currentUserEmotion = 'DISSLIKED';
+              updatedComment.currentUserIsLike = false;
+              if (comment.likeCount > 0) {
+                updatedComment.likeCount = comment.likeCount - 1;
+              }
+            }
+            return updatedComment;
+          }
+          if (comment.replies && comment.replies.length > 0) {
+            return {
+              ...comment,
+              replies: updateComment(comment.replies),
+            };
+          }
+          return comment;
+        });
+      };
+
+      state.mainComments = updateComment(state.mainComments);
+      state.allComments = updateComment(state.allComments);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -233,16 +272,6 @@ const coursesSlice = createSlice({
       .addCase(fetchCourseDetail.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(fetchCourseComments.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchCourseComments.fulfilled, (state, action) => {
-        state.courseComments = action.payload;
-        state.loading = false;
-      })
-      .addCase(fetchCourseComments.rejected, (state) => {
-        state.loading = false;
-      })
       .addCase(fetchRelatedCourses.pending, (state) => {
         state.relatedCourses = [];
         state.loading = true;
@@ -253,7 +282,43 @@ const coursesSlice = createSlice({
       })
       .addCase(fetchRelatedCourses.rejected, (state) => {
         state.loading = false;
-      });
+      })
+
+      .addCase(fetchCourseComments.fulfilled, (state, action) => {
+        state.mainComments = action.payload;
+        state.allComments = action.payload.map((comment) => ({
+          ...comment,
+          replies: [],
+        }));
+      })
+
+      .addCase(fetchCourseReplies.fulfilled, (state, action) => {
+        const { commentId, replies } = action.payload;
+
+        const updateReplies = (comments, commentId, newReplies) => {
+          return comments.map((comment) => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                replies: newReplies.map((reply) => ({
+                  ...reply,
+                  replies: [],
+                })),
+              };
+            }
+            if (comment.replies.length > 0) {
+              return {
+                ...comment,
+                replies: updateReplies(comment.replies, commentId, newReplies),
+              };
+            }
+            return comment;
+          });
+        };
+
+        state.allComments = updateReplies(state.allComments, commentId, replies);
+      })
+
   },
 });
 export const {
@@ -273,7 +338,10 @@ export const {
   updateCourseCommentLikeCount,
   updateCourseRate,
   updateFavorite,
-  updateCourseLike
+  updateCourseLike,
+  setCourseId,
+  setCommentId,
+  updateCommentReaction
 } = coursesSlice.actions;
 
 export default coursesSlice.reducer;

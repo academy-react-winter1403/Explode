@@ -67,9 +67,9 @@ const CourseCards = ({
         </span>
         {(isCourse && (
           <div>
-            <span className="text-thirdly text-[16px] font-[700]">
+            <span className={`${darkMode ?'text-[#fff]' :'text-thirdly'} text-[16px] font-[700]`}>
               {price}{' '}
-              <span className="text-thirdly text-[14px] font-[500]">تومان</span>
+              <span className={`${darkMode ?'text-[#fff]' :'text-thirdly'} text-[14px] font-[500]`}>تومان</span>
             </span>
           </div>
         )) ||

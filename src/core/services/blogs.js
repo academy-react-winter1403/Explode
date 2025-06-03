@@ -55,6 +55,18 @@ export const getBlogComments = async (params) => {
   }
 };
 
+export const getBlogCommentsReplies = async (params) => {
+  try {
+    const response = await instance.get(`/News/GetRepliesComments`, {
+      params: params,
+    });
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};
+
 export const AddCommentBlog = async (loading, obj) => {
   try {
     loading(true);

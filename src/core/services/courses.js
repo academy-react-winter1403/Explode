@@ -67,6 +67,16 @@ export const getCourseComments = async (courseId) => {
   }
 }
 
+export const getCourseReplies = async (courseId,commentId) => {
+  try {
+    const response = await instance.get(`/Course/GetCourseReplyCommnets/${courseId}/${commentId}`);
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
 export const AddCommentCourse = async (loading, obj) => {
   try {
     const formData = new FormData();

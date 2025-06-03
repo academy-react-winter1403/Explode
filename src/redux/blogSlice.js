@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   getBlogById,
   getBlogComments,
+  getBlogCommentsReplies,
   getBlogsCategories,
   getBlogsList,
 } from '../core/services/blogs';
@@ -38,13 +39,25 @@ export const fetchBlogDetail = createAsyncThunk(
   },
 );
 
+
 export const fetchBlogComments = createAsyncThunk(
-  'blog/fetchBlogComments',
-  async (params) => {
-    return await getBlogComments({
-      NewsId: params
-    });
-  },
+  'comments/fetchBlogComments',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState().blogs;
+    const response = await getBlogComments({ NewsId: state.blogId });
+    return response
+  }
+);
+
+
+export const fetchBlogCommentsReplies = createAsyncThunk(
+  'comments/fetchBlogCommentsReplies',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState().blogs;
+    const response = await getBlogCommentsReplies({ Id: state.commentId });
+    const commentId = state.commentId
+    return { commentId, replies: response };
+  }
 );
 
 
@@ -71,8 +84,11 @@ const blogSlice = createSlice({
     categories: [],
     categoryId: null,
     blogDetail: {},
-    blogComments: [],
     relatedBlogs: [],
+    blogMainComments: [],
+    blogAllComments: [],
+    blogId: null,
+    commentId: null
   },
   reducers: {
     setCurrentPage: (state, action) => {
@@ -80,6 +96,12 @@ const blogSlice = createSlice({
     },
     setSorting: (state, action) => {
       state.sorting = action.payload;
+    },
+    setBlogId: (state, action) => {
+      state.blogId = action.payload;
+    },
+    setBlogCommentId: (state, action) => {
+      state.commentId = action.payload;
     },
     setSortingType: (state, action) => {
       state.sortingType = action.payload;
@@ -90,33 +112,7 @@ const blogSlice = createSlice({
     setCategory: (state, action) => {
       state.categoryId = action.payload;
     },
-    updateBlogCommentLikeCount: (state, action) => {
-      const { commentId, type, currentUserIsDissLike, currentUserIsLike } = action.payload;
-      const comment = state.blogComments.find(c => c.id === commentId);
-      if (comment) {
-        if (type === 'like' && currentUserIsDissLike && currentUserIsLike == false) {
-          comment.likeCount += 1;
-          comment.dissLikeCount -= 1;
-          comment.currentUserIsLike = true
-          comment.currentUserIsDissLike = false
-        } else if (type === 'dissLike' && currentUserIsLike && currentUserIsDissLike == false) {
-          comment.dissLikeCount += 1;
-          comment.likeCount -= 1;
-          comment.currentUserIsDissLike = true
-          comment.currentUserIsLike = false
-        }
-        else if (type === 'like' && currentUserIsDissLike == false && currentUserIsLike == false) {
-          comment.likeCount += 1;
-          comment.currentUserIsLike = true
-          comment.currentUserIsDissLike = false
-        }
-        else if (type === 'dissLike' && currentUserIsDissLike == false && currentUserIsLike == false) {
-          comment.dissLikeCount += 1;
-          comment.currentUserIsLike = false
-          comment.currentUserIsDissLike = true
-        }
-      }
-    },
+
     updateBlogRate: (state, action) => {
       const { rateNumber } = action.payload
       state.blogDetail.currentUserRateNumber = rateNumber
@@ -147,7 +143,44 @@ const blogSlice = createSlice({
         state.blogDetail.currentUserIsDissLike = true
         state.blogDetail.currentDissLikeCount += 1
       }
-    }
+    },
+    updateBlogCommentReaction: (state, action) => {
+      const { commentId, type } = action.payload;
+
+      const updateComment = (comments) => {
+        return comments.map((comment) => {
+          if (comment.id === commentId) {
+            let updatedComment = { ...comment };
+            if (type === 'like') {
+              updatedComment.likeCount = (comment.likeCount || 0) + 1;
+              updatedComment.currentUserIsLike = true;
+              updatedComment.currentUserIsDissLike = false;
+              if (comment.dissLikeCount > 0) {
+                updatedComment.dissLikeCount = (comment.dissLikeCount || 0) - 1;
+              }
+            } else if (type === 'dislike') {
+              updatedComment.dissLikeCount = (comment.dissLikeCount || 0) + 1;
+              updatedComment.currentUserIsLike = false;
+              updatedComment.currentUserIsDissLike = true;
+              if (comment.likeCount > 0) {
+                updatedComment.likeCount = (comment.likeCount || 0) - 1;
+              }
+            }
+            return updatedComment;
+          }
+          if (comment.replies && comment.replies.length > 0) {
+            return {
+              ...comment,
+              replies: updateComment(comment.replies),
+            };
+          }
+          return comment;
+        });
+      };
+
+      state.blogMainComments = updateComment(state.blogMainComments);
+      state.blogAllComments = updateComment(state.blogAllComments);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -187,17 +220,42 @@ const blogSlice = createSlice({
       .addCase(fetchRelatedBlogs.rejected, (state) => {
         state.loading = false;
       })
-      .addCase(fetchBlogComments.pending, (state) => {
-        state.blogComments = [];
-        state.loading = true;
-      })
+
       .addCase(fetchBlogComments.fulfilled, (state, action) => {
-        state.blogComments = action.payload;
-        state.loading = false;
+        state.blogMainComments = action.payload;
+        state.blogAllComments = action.payload.map((comment) => ({
+          ...comment,
+          replies: [],
+        }));
       })
-      .addCase(fetchBlogComments.rejected, (state) => {
-        state.loading = false;
-      });
+
+      .addCase(fetchBlogCommentsReplies.fulfilled, (state, action) => {
+        const { commentId, replies } = action.payload;
+
+        const updateReplies = (comments, commentId, newReplies) => {
+          return comments.map((comment) => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                replies: newReplies.map((reply) => ({
+                  ...reply,
+                  replies: [],
+                })),
+              };
+            }
+            if (comment.replies.length > 0) {
+              return {
+                ...comment,
+                replies: updateReplies(comment.replies, commentId, newReplies),
+              };
+            }
+            return comment;
+          });
+        };
+
+        state.blogAllComments = updateReplies(state.blogAllComments, commentId, replies);
+      })
+
   },
 });
 export const {
@@ -206,9 +264,11 @@ export const {
   setSortingType,
   setQuery,
   setCategory,
-  updateBlogCommentLikeCount,
   updateBlogRate,
   updateBlogFavorite,
-  updateBlogLike
+  updateBlogLike,
+  setBlogId,
+  setBlogCommentId,
+  updateBlogCommentReaction
 } = blogSlice.actions;
 export default blogSlice.reducer;

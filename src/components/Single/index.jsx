@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchCourseComments,
   fetchCourseDetail,
+  setCourseId,
 } from './../../redux/courseSlice';
 import SingleInfo from './SingleInfo';
 import SingleDescription from './SingleDescription';
 import SingleComments from './SingleComments';
 import RelatedSection from './RelatedSection';
-import { fetchBlogComments, fetchBlogDetail } from '../../redux/blogSlice';
+import {  fetchBlogComments, fetchBlogDetail, setBlogId } from '../../redux/blogSlice';
 
 const SinglePage = () => {
   const { pathname: location } = useLocation();
@@ -26,10 +27,13 @@ const SinglePage = () => {
     window.scroll(0, 0);
     if (courseSingle && id) {
       dispatch(fetchCourseDetail(id));
-      dispatch(fetchCourseComments(id));
+      dispatch(setCourseId(id))
+      dispatch(fetchCourseComments())
     } else {
+      console.log('first')
       dispatch(fetchBlogDetail(id));
-      dispatch(fetchBlogComments(id))
+      dispatch(setBlogId(id))
+      dispatch(fetchBlogComments())
     }
   }, [courseSingle, id]);
 

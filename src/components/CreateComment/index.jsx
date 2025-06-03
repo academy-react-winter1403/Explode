@@ -5,7 +5,6 @@ import IconSet from '../shared/IconSet'
 import { commentValidation } from '../../core/validation'
 
 const CreateComment = ({ replyStatus, handleOnSubmit, sendLoading, commentId = '' }) => {
-
     return (
         <div className={`${replyStatus ? 'flex' : 'hidden'}  items-center justify-center w-[100%]`}>
             <div className='rounded-[24px] border-[1px] border-primary p-[10px] w-[60%]'>

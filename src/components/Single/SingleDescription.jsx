@@ -42,13 +42,17 @@ const SingleDescription = ({ detail, courseSingle, blogSingle }) => {
   return (
     <div className="mt-[20px]">
       <h2 className={` ${darkMode ? 'text-[#fff]' : 'text-[#707070]'} mb-[30px] text-[20px] font-[700] `}>
-        توضیحات دوره
+        {courseSingle ? 'توضیحات دوره' : 'توضیحات بلاگ'}
       </h2>
       <div className={` ${darkMode ? 'text-[#fff]' : 'text-thirdly'}   mb-[30px] text-justify text-[16px] font-[500] break-words`}>
         {detail?.describe ? (
           parseToHtml(detail.describe)
         ) : (
-          <p>توضیحی برای این دوره ثبت نشده است</p>
+          <>
+            {
+              courseSingle ? <p>توضیحی برای این دوره ثبت نشده است</p> : <p>توضیحی برای این بلاگ ثبت نشده است</p>
+            }
+          </>
         )}
       </div>
       <div className="flex items-center gap-[15px] max-[600px]:flex-col max-[600px]:items-start">
