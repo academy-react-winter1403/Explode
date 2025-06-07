@@ -5,9 +5,12 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 const MainLayout = () => {
   const { darkMode } = useSelector((state) => state.darkMode)
+
   useEffect(() => {
     document.body.classList = darkMode ? 'bg-thirdly' : ''
   }, [darkMode])
+
+  
 
   return (
     <>

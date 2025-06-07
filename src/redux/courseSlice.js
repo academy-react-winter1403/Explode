@@ -6,8 +6,10 @@ import {
   getCourseReplies,
   getCoursesWithPagination,
   getLevels,
+  getTopCourses,
 } from '../core/services/courses';
 import { getTeacherCountReports } from '../core/services/userStatisticsReport';
+import { getBlogsList } from '../core/services/blogs';
 
 const perPage = 12;
 const categoryCount = 1;
@@ -93,6 +95,27 @@ export const fetchRelatedCourses = createAsyncThunk(
   },
 );
 
+export const fetchTopCourses = createAsyncThunk(
+  'course/fetchTopCourses',
+  async () => {
+    const result = await getTopCourses({
+      Count: 4,
+    });
+    return result;
+  },
+);
+
+export const fetchTopBlogs = createAsyncThunk(
+  'course/fetchTopBlogs',
+  async () => {
+    const { news } = await getBlogsList({
+      RowsOfPage: 3,
+      SortingCol: 'currentView',
+    });
+    return { news };
+  },
+);
+
 const coursesSlice = createSlice({
   name: 'courses',
   initialState: {
@@ -121,9 +144,19 @@ const coursesSlice = createSlice({
     courseId: null,
     commentId: null,
     allComments: [],
-    mainComments: []
+    mainComments: [],
+    courseLoadingData: true,
+    topCourses: [],
+    teacherLoadingData: true,
+    realatedCourseLoading: true,
+    topBlogsLoading: [],
+    topBlogs: []
   },
   reducers: {
+    setCourseLoadingData: (state, action) => {
+      state.courseLoadingData = action.payload
+    },
+
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
@@ -250,14 +283,31 @@ const coursesSlice = createSlice({
       .addCase(fetchCourses.rejected, (state) => {
         state.loading = false;
       })
+      .addCase(fetchTopBlogs.pending, (state) => {
+        state.topBlogsLoading = true;
+      })
+      .addCase(fetchTopBlogs.fulfilled, (state, action) => {
+        state.topBlogs = action.payload.news;
+        state.topBlogsLoading = false;
+      })
+      .addCase(fetchTopBlogs.rejected, (state) => {
+        state.topBlogsLoading = false;
+      })
       .addCase(fetchCategories.fulfilled, (state, action) => {
         state.courseCategories = action.payload;
       })
       .addCase(fetchLevels.fulfilled, (state, action) => {
         state.courseLevels = action.payload;
       })
+      .addCase(fetchTeachers.pending, (state) => {
+        state.teacherLoadingData = true
+      })
       .addCase(fetchTeachers.fulfilled, (state, action) => {
         state.teachers = action.payload;
+        state.teacherLoadingData = false
+      })
+      .addCase(fetchTeachers.rejected, (state) => {
+        state.teacherLoadingData = false
       })
       .addCase(fetchCourseDetail.pending, (state) => {
         state.courseDetail = {};
@@ -317,6 +367,16 @@ const coursesSlice = createSlice({
         state.allComments = updateReplies(state.allComments, commentId, replies);
       })
 
+      .addCase(fetchTopCourses.pending, (state) => {
+        state.courseLoadingData = true;
+      })
+      .addCase(fetchTopCourses.fulfilled, (state, action) => {
+        state.topCourses = action.payload;
+        state.courseLoadingData = false;
+      })
+      .addCase(fetchTopCourses.rejected, (state) => {
+        state.courseLoadingData = false;
+      })
   },
 });
 export const {
@@ -339,7 +399,8 @@ export const {
   updateCourseLike,
   setCourseId,
   setCommentId,
-  updateCommentReaction
+  updateCommentReaction,
+  setCourseLoadingData
 } = coursesSlice.actions;
 
 export default coursesSlice.reducer;
